@@ -62,7 +62,7 @@ renderuje szablon `templates/pages/S01-moje-analizy.php` itd. Dane do Alpine.js 
 | POST | `/interviews/{id}/complete` | zakończenie; przy `upgrade_of_analysis_id` – zlecenie `refit` | – | wywiad (+ `{job_id}`) |
 | GET/PUT | `/preferences` | preferencje przypomnień i analityki | `{notify_email, reminders_enabled, analytics_opt_out}` | preferencje |
 | POST | `/sessions` | szkic sesji | `{interview_id}` | sesja |
-| PATCH | `/sessions/{id}` | opcje nagrania | `{side, grip, markers_mode, scale_marker_mm, cadence_target_rpm, recording_rpe, recording_power_w, video_retention, checklist}` | sesja |
+| PATCH | `/sessions/{id}` | opcje nagrania | `{side, grip, markers_mode, markers_skipped, scale_marker_mm, cadence_target_rpm, recording_rpe, recording_power_w, video_retention, checklist}` | sesja |
 | GET | `/sessions/{id}/upload-status` | stan przesyłania (S08 odpytuje przy przesyłaniu z telefonu) | – | `{status, received_pct, device}` |
 | POST | `/sessions/{id}/uploads` | otwarcie przesyłania | `{size_bytes, file_name, mime}` | `{upload_id, chunk_bytes, chunks_total}` |
 | PUT | `/uploads/{id}/chunks/{n}` | fragment (body binarne) | `Content-Range` | `{received}` |

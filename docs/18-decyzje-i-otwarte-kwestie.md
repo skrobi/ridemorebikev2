@@ -30,6 +30,7 @@
 | ADR-24 | Kolejność zaleceń z planu sekwencyjnego (macierz wpływu, „od podstawy w górę”, jedna zmiana na krok); zasada konsensusu ze strefą sporną; koperta literatury; ślad uzasadnienia; karta modelu i rada modelu | `docs/09` rozdz. 2, 5.3, 11–13 |
 | ADR-25 | Jedno aktywne zadanie typu na sesję (`active_key`), atomowy zapis wyniku, import w transakcji; Python ogranicza ścieżki do `--storage-root` | recenzja techniczna P6 i uwagi o kolejce; `docs/02` rozdz. 5.1, `docs/07` rozdz. 1 |
 | ADR-26 | Dane roweru opcjonalne (minimum: nazwa i typ); model podstawowy liczy zmiany z nagrania i wymiarów ciała; zalecenia i zapis zmian względne; skala: znacznik → wymiary ciała → brak (tylko kierunek) | decyzja właściciela; `docs/05`, `docs/10` rozdz. 3.1 i 7 |
+| ADR-27 | Nazwa dla użytkownika: „sesja fittingowa” (całość), „analiza” tylko dla przetwarzania nagrania; trasy `/fit/sesja/…`; kreatory krok po kroku dla pomiaru ciała (S03a) i markerów (S07–S07b) | decyzja właściciela |
 
 ## 2. Decyzje do podjęcia
 
@@ -52,6 +53,7 @@
 | D-15 | Zatwierdzenie listy i progów bezpieczeństwa (`stop`/`caution`) oraz progów sygnałów (`knee_flex_top`, `hip_closed`, `pelvis_rock`) | lekarz medycyny sportowej / fizjoterapeuta; robocze wartości w `docs/04` rozdz. 5.1 i `docs/09` rozdz. 6.3 | przed produkcją (można startować z roboczymi) |
 | D-16 | Kod QR i prowadzenie kadru | biblioteka QR po stronie serwera (licencja MIT/Apache do potwierdzenia, uzasadnienie zależności) albo sam krótki adres; podgląd kamery na żywo – po MVP, po teście iOS/Android | przed B2.5 / po MVP |
 | D-17 | Pomiar referencyjny i kryteria dokładności (`docs/16`, rozdz. 6.1) | partner: laboratorium z systemem 3D lub fitter z systemem markerów; zatwierdzenie kryteriów roboczych; uczestnicy i zgody | przed V1.1 (etap M1) |
+| D-18 | Zdjęcie kontrolne markerów przed nagraniem (nowy typ zadania, wykrywanie i kontrola rozmieszczenia) | po MVP – decyzja właściciela |
 
 ## 3. Pytania do właściciela platformy
 

@@ -7,8 +7,9 @@ dokument (uproszczenia: `docs/makiety/README.md`). Teksty i etykiety: `docs/21-k
 
 ## 1. Układ wspólny
 
-- Nagłówek 64 px: znak „ridemore.bike” + plakietka „fit”, nawigacja: **Moje analizy**, **Rowery**, **Profil**.
-- Przepływ nowej analizy (S02–S10) ma lewy pasek kroków: grupa „WYWIAD” (1–5) i „ANALIZA” (6 Markery, 7 Nagranie,
+- Nagłówek 64 px: znak „ridemore.bike” + plakietka „fit”, nawigacja: **Moje sesje**, **Rowery**, **Profil**; przycisk **Nowa sesja fittingowa**.
+- **Nazewnictwo (ADR-27):** dla użytkownika całość to **sesja fittingowa** (wywiad → przygotowanie i nagranie → wynik → zmiany); słowo „analiza” tylko dla przetwarzania nagrania („Analizujemy nagranie”, S09). Identyfikatory w kodzie bez zmian (`fit_session`, `fit_analysis`).
+- Przepływ nowej sesji (S02–S10) ma lewy pasek kroków: grupa „WYWIAD” (1–5) i „NAGRANIE I WYNIK” (6 Markery, 7 Nagranie,
   8 Sprawdź punkty, 9 Wynik). Stany kroku: `ok` (zielone kółko), `on` (bieżący), brak (szary). Krok jest
   klikalny tylko, jeśli był już ukończony. Przy każdym kroku szacowany czas (C-20): Cel 1 min · Ciało 1–2 min
   (0, gdy profil kompletny) · Mobilność 2 min (+2 dodatkowe) · Bezpieczeństwo i dolegliwości 1 min · Wnioski
@@ -22,16 +23,19 @@ dokument (uproszczenia: `docs/makiety/README.md`). Teksty i etykiety: `docs/21-k
 
 | Ekran | Trasa (GET) | Makieta |
 |---|---|---|
-| S01 Moje analizy | `/fit` | `01-main` |
-| S02 Wywiad – cel i profil | `/fit/analiza/nowa/cel` | `02-wywiad1` |
-| S02q Szybki start | `/fit/analiza/nowa/szybki` | `02q-szybki-start` |
-| S03 Wywiad – ciało | `/fit/analiza/{draft}/cialo` | `03-wywiad2` |
-| S04 Wywiad – mobilność | `/fit/analiza/{draft}/mobilnosc` | `04-wywiad3` |
-| S05 Wywiad – bezpieczeństwo i dolegliwości | `/fit/analiza/{draft}/dolegliwosci` | `05-wywiad4` |
-| S06 Wywiad – co z tego wynika | `/fit/analiza/{draft}/wnioski` | `06-wywiad5` |
-| S07 Markery | `/fit/analiza/{draft}/markery` | `07-markery` |
-| S08 Nagranie | `/fit/analiza/{draft}/nagranie` | `08-nagranie` |
-| M01 Przesłanie z telefonu | `/fit/analiza/{draft}/telefon` | `08m-telefon` |
+| S01 Moje sesje | `/fit` | `01-main` |
+| S02 Wywiad – cel i profil | `/fit/sesja/nowa/cel` | `02-wywiad1` |
+| S02q Szybki start | `/fit/sesja/nowa/szybki` | `02q-szybki-start` |
+| S03 Wywiad – ciało | `/fit/sesja/{draft}/cialo` | `03-wywiad2` |
+| S03a Pomiar ciała krok po kroku | `/fit/sesja/{draft}/cialo/pomiar/{n}` | `03a-pomiar-krok` |
+| S04 Wywiad – mobilność | `/fit/sesja/{draft}/mobilnosc` | `04-wywiad3` |
+| S05 Wywiad – bezpieczeństwo i dolegliwości | `/fit/sesja/{draft}/dolegliwosci` | `05-wywiad4` |
+| S06 Wywiad – co z tego wynika | `/fit/sesja/{draft}/wnioski` | `06-wywiad5` |
+| S07 Markery – przygotowanie | `/fit/sesja/{draft}/markery` | `07-markery` |
+| S07a Marker krok po kroku | `/fit/sesja/{draft}/markery/{n}` | `07a-marker-krok` |
+| S07b Markery – podsumowanie | `/fit/sesja/{draft}/markery/gotowe` | `07b-markery-gotowe` |
+| S08 Nagranie | `/fit/sesja/{draft}/nagranie` | `08-nagranie` |
+| M01 Przesłanie z telefonu | `/fit/sesja/{draft}/telefon` | `08m-telefon` |
 | S09 Analiza w toku | `/fit/sesje/{id}/postep` | `09-analiza` |
 | S10 Sprawdź punkty | `/fit/sesje/{id}/punkty` | `10-punkty` |
 | S11 Wynik | `/fit/sesje/{id}` (zakładki `?tab=szczegoly`) | `11-wynik`, tryb raportu `11r-raport` |
@@ -47,7 +51,7 @@ pod kątem właściciela.
 
 ---
 
-## 3. S01 · Moje analizy (start)
+## 3. S01 · Moje sesje (start)
 
 **Cel:** pokazać tylko analizy i ich efekty; jedno wezwanie do działania.
 
@@ -63,12 +67,12 @@ Elementy:
    (Dużo lepiej … Dużo gorzej), potem opcjonalnie suwak siły głównej dolegliwości 0–10 (C-12, C-13).
 5. **Historia Twoich zmian** (oś czasu): data, zmiana, werdykt oceny (S14) i trend komfortu (mała linia siły
    głównej dolegliwości z kolejnych ocen – bez kątów); pozycja „analizujemy nagranie” dla zadań w toku.
-6. Karta „Nowa analiza: ok. 5 minut pytań (następnym razem ok. 1 minuty)” → S02.
+6. Karta „Nowa sesja fittingowa: ok. 5 minut pytań (następnym razem ok. 1 minuty)” → S02.
 
 Dane: ostatnia bieżąca analiza aktywnego roweru (`fit_analysis.is_current=1`), `fit_recommendation`,
 `fit_change` + `fit_change_evaluation`, `fit_job` w toku.
 
-Stany: brak analiz → karta powitalna „Zrób pierwszą analizę” (opis 3 kroków) zamiast kart 2–4; brak roweru →
+Stany: brak sesji → karta powitalna „Zacznij pierwszą sesję fittingową” (opis 3 kroków) zamiast kart 2–4; brak roweru →
 „Dodaj rower” przed analizą.
 
 Kryteria akceptacji:
@@ -94,6 +98,10 @@ wzrost i długość nogi) → S07. Wynik oznaczony „Dopasowanie podstawowe” 
 - Karta „Siodło, kierownica i bloki (opcjonalnie)”: rozstaw kości kulszowych, szerokość barków, długość stopy,
   łuk stopy.
 - Karta „Czy jedna noga jest krótsza?”: nie / tak (strona, mm) / nie wiem.
+- Przy każdym wymiarze link „Zmierz krok po kroku”, na górze „Zmierz wszystko krok po kroku (ok. 3 min)” →
+  kreator S03a: jeden wymiar na ekranie („2 z 4 · Długość nogi”), rysunek, potrzebne rzeczy, ponumerowane kroki,
+  typowy błąd, pole wyniku z kontrolą wiarygodności, „Nie mam czym zmierzyć – pomiń”, pasek postępu; na końcu
+  powrót do S03 z wpisanymi wartościami. Treść kroków: `docs/04`, rozdz. 3.1.
 Akcje: „Wstecz”, „Zmierzę później” (pomija opcjonalne i brakujące, z ostrzeżeniem o niższej dokładności), „Dalej”.
 Walidacja: zakresy liczbowe z `docs/04`, rozdz. 3. Zapis do `fit_rider_profile` (wartości trwałe) –
 wywiad zapisuje kopię wartości użytych w danej analizie.
@@ -131,12 +139,18 @@ informacja o krótkim wywiadzie następnym razem. Przy `safety_level` ≠ `none`
 (nie blokuje przejścia dalej).
 Akcja główna: „Dalej: markery i nagranie”.
 
-## 9. S07 · Markery
+## 9. S07 · Markery – kreator krok po kroku
 
-Rysunek sylwetki na rowerze z ponumerowanymi markerami 1–8 i znacznikiem skali; lista 8 punktów z opisem, jak je
-znaleźć; ramka „Jak naklejać”; wybór: „Mam zestaw ridemore” / „Zrobię je sam” / „Nagrywam bez markerów”
-(zapisywany jako `fit_session.markers_mode`: `kit` / `diy` / `none`).
-Szczegóły punktów: `docs/06-nagranie-i-markery.md`, rozdz. 3.
+Kreator (`docs/06`, rozdz. 3.4), dostępny też na telefonie (M01, kod QR):
+- **S07 Przygotowanie:** co potrzebne (8 naklejek, znacznik skali, obcisły strój, pomocnik), czas ok. 5 min,
+  wybór „Mam zestaw ridemore” / „Zrobię je sam” (szablon do druku) / „Nagrywam bez markerów” (→ S08), **strona
+  ciała do kamery** (wstępnie strona głównej dolegliwości, jeśli jednostronna – C-22), mapa 8 punktów na sylwetce.
+  Zapis: `fit_session.markers_mode`, `side`.
+- **S07a Punkt „N z 8”:** zbliżenie miejsca na sylwetce, pozycja przy naklejaniu, jak znaleźć dotykiem, typowy
+  błąd z rysunkiem „tak / nie tak”, przyciski „Naklejone”, „Nie mogę znaleźć – pomiń”, „Wstecz”; pasek postępu
+  z 9 kropkami (8 punktów + znacznik skali).
+- **S07b Podsumowanie:** lista punktów (naklejone / pominięte → „punkt wyznaczy model, z niższą pewnością”),
+  strona ciała, „Wróć do punktu”, „Dalej: nagranie”. Po MVP: „Zrób zdjęcie kontrolne” (D-18).
 
 ## 10. S08 · Nagranie
 
@@ -144,7 +158,7 @@ Szczegóły punktów: `docs/06-nagranie-i-markery.md`, rozdz. 3.
   niezaznaczone pozycje są zapisywane jako `checklist` w sesji i pokazywane w jakości wyniku).
 - Pole przesyłania (przeciągnij lub wybierz; MP4/MOV, 30–120 s), postęp przesyłania fragmentów, możliwość
   wznowienia; karta **„Nagrywasz telefonem?”** z kodem QR i krótkim adresem do M01 (C-18).
-- Strona ciała do kamery: prawa / lewa (wstępnie strona głównej dolegliwości, jeśli jednostronna – C-22).
+- Strona ciała do kamery – wybrana w S07 (przypomnienie z „Zmień”).
 - „Jak ciężko się jechało podczas nagrania?” – skala 0–10 z opisami (Borg CR10), wymagane; opcjonalnie moc w W (C-10).
 - Polityka nagrania: **usuń po analizie** (domyślnie) / **zachowaj tylko kadry kluczowe** / **zachowaj nagranie** –
   każda z neutralnym opisem, co daje i co przechowujemy (C-16).

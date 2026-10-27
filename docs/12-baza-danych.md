@@ -141,7 +141,7 @@ ENUM('acl','meniscus','knee_replacement','hip_replacement','spine','shoulder','f
 
 **`fit_session`**: `id`, `user_id` (idx), `bike_id`, `setup_id`, `interview_id`, `status`
 ENUM('draft','uploaded','queued','processing','done','done_warnings','failed','cancelled'), `side`, `grip`,
-`markers_mode`, `scale_marker_mm`, `cadence_target_rpm`, `recording_rpe` TINYINT NULL, `recording_power_w`
+`markers_mode`, `markers_skipped_json` (kody punktów pominiętych w kreatorze), `scale_marker_mm`, `cadence_target_rpm`, `recording_rpe` TINYINT NULL, `recording_power_w`
 SMALLINT NULL, `upload_device` ENUM('desktop','phone') NULL,
 `video_retention` ENUM('delete_after','keyframes_only','keep') DEFAULT 'delete_after',
 `checklist_json`, `current_analysis_id` NULL, `points_confirmed_at` NULL, `created_at`, `updated_at`.

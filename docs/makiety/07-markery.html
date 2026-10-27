@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
 <style>
 body{margin:0}a{color:#1E4B38}a:hover{color:#15201A}
-.pg{width:1280px;height:1020px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
+.pg{width:1280px;height:940px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
 .hd{height:64px;box-sizing:border-box;padding:0 48px;display:flex;align-items:center;gap:32px;background:#fff;border-bottom:1px solid #E2E5DD;flex:none}
 .wm{font:900 24px 'Big Shoulders Display',sans-serif}.wm i{font-style:normal;color:#2C6B4F}
 .tag{font:600 11px 'IBM Plex Mono',monospace;background:#2C6B4F;color:#fff;padding:3px 9px;border-radius:999px;text-transform:uppercase;margin-left:6px}
@@ -31,7 +31,7 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
 <div class="pg">
   <header class="hd">
     <span class="wm">ridemore<i>.</i>bike<span class="tag">fit</span></span>
-    <nav class="nv"><a href="01-main.html" class="on">Moje analizy</a><a href="#">Rowery</a><a href="#">Profil</a></nav>
+    <nav class="nv"><a href="01-main.html" class="on">Moje sesje</a><a href="#">Rowery</a><a href="#">Profil</a></nav>
   </header>
   <div class="bd">
     <ol class="st">
@@ -41,15 +41,15 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
       <li class="ok"><span class="n">3</span>Mobilność<span class="t">2 min</span></li>
       <li class="ok"><span class="n">4</span>Bezpieczeństwo i dolegliwości<span class="t">1 min</span></li>
       <li class="ok"><span class="n">5</span>Co z tego wynika<span class="t">½ min</span></li>
-      <li class="g">ANALIZA</li>
+      <li class="g">NAGRANIE I WYNIK</li>
       <li class="on"><span class="n">6</span>Markery<span class="t">5 min</span></li>
       <li><span class="n">7</span>Nagranie<span class="t">3 min</span></li>
       <li><span class="n">8</span>Sprawdź punkty</li>
       <li><span class="n">9</span>Wynik</li>
     </ol>
     <main>
-      <h1>Naklej 8 markerów</h1>
-      <p class="lead">Markery wskazują te same punkty na kościach przy każdej analizie – wynik jest dokładniejszy i da się go porównać. Bez markerów też zmierzymy, ale z mniejszą pewnością.</p>
+      <h1>Markery – przygotowanie</h1>
+      <p class="lead">Markery wskazują te same punkty na kościach przy każdej sesji – wynik jest dokładniejszy i da się go porównać. Bez markerów też zmierzymy, ale z mniejszą pewnością.</p>
       <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px">
         <div class="card" style="padding: 0; overflow: hidden; align-self: start">
           <svg viewBox="-700 -1430 1640 1760" role="img" aria-label="Rowerzysta z boku z 8 ponumerowanymi markerami i znacznikiem skali na ramie" style="display: block; width: 100%; height: auto; background: #FBFCFA">
@@ -76,23 +76,16 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
           </svg>
         </div>
         <div style="display: flex; flex-direction: column; gap: 12px">
-          <div class="card" style="padding: 10px 18px">
-            <div class="mk"><span class="nm">1</span><span><b>Biodro – krętarz większy</b><span class="c">Twarda wypukłość na boku uda, ok. dłoni poniżej talii. Obróć stopę do środka – poczujesz, jak się przesuwa.</span></span></div>
-            <div class="mk"><span class="nm">2</span><span><b>Kolano – nadkłykieć boczny</b><span class="c">Wypukłość na zewnątrz kolana, tuż nad szczeliną stawu, w połowie jego głębokości.</span></span></div>
-            <div class="mk"><span class="nm">3</span><span><b>Kostka boczna</b><span class="c">Najbardziej wystający punkt kostki zewnętrznej.</span></span></div>
-            <div class="mk"><span class="nm">4</span><span><b>Pięta</b><span class="c">Na bucie, z tyłu, na wysokości podeszwy.</span></span></div>
-            <div class="mk"><span class="nm">5</span><span><b>Stopa – głowa V kości śródstopia</b><span class="c">Na bucie, w najszerszym miejscu stopy od strony małego palca.</span></span></div>
-            <div class="mk"><span class="nm">6</span><span><b>Bark – wyrostek barkowy</b><span class="c">Kostny „daszek” na szczycie barku.</span></span></div>
-            <div class="mk"><span class="nm">7</span><span><b>Łokieć – nadkłykieć boczny</b><span class="c">Wypukłość po zewnętrznej stronie łokcia.</span></span></div>
-            <div class="mk"><span class="nm">8</span><span><b>Nadgarstek – wyrostek rylcowaty</b><span class="c">Guzek na nadgarstku od strony małego palca.</span></span></div>
+          <div class="card"><h2>Jak nagrasz?</h2><div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px"><button type="button" class="chip">Mam zestaw ridemore</button><button type="button" class="chip on">Zrobię je sam (szablon do druku)</button><button type="button" class="chip">Nagrywam bez markerów</button></div></div>
+          <div class="card"><h2>Strona ciała do kamery</h2><div style="display: flex; gap: 8px; margin-top: 10px; align-items: center"><span class="chip on">prawa</span><span class="chip">lewa</span><span style="font-size: 13px; color: #5E6A62">prawa – tam dokucza kolano. Markery naklejasz po tej stronie.</span></div></div>
+          <div class="card"><h2>Przygotuj</h2><div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; font-size: 13px"><span style="padding: 5px 10px; border-radius: 999px; background: #EDF1EC">8 naklejek Ø 2–3 cm</span><span style="padding: 5px 10px; border-radius: 999px; background: #EDF1EC">znacznik skali 20 cm</span><span style="padding: 5px 10px; border-radius: 999px; background: #EDF1EC">obcisły strój</span><span style="padding: 5px 10px; border-radius: 999px; background: #EDF1EC">rower na trenażerze</span><span style="padding: 5px 10px; border-radius: 999px; background: #EDF1EC">pomocnik – przy biodrze i barku</span></div></div>
+          <div class="card" style="background: #EDF1EC; border: 0; font-size: 14px; line-height: 1.55">
+            <b>Jak to przebiega (ok. 5 min):</b> poprowadzimy Cię po kolei przez 8 punktów – przy każdym pokażemy, w jakiej pozycji usiąść, jak znaleźć miejsce dotykiem i czego unikać. Na końcu znacznik skali i podsumowanie. Punkt, którego nie znajdziesz, możesz pominąć.
           </div>
-          <div class="card" style="background: #EDF1EC; border: 0; font-size: 13.5px; line-height: 1.5">
-            <b>Jak naklejać:</b> okrągłe, matowe naklejki 2–3 cm, w kolorze kontrastowym do stroju. Na skórę albo obcisły strój – na luźnym materiale marker się przesuwa. Najłatwiej siedząc na rowerze, z pomocą drugiej osoby. Naklejasz na stronę zwróconą do kamery.
-          </div>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap"><button type="button" class="chip">Mam zestaw ridemore</button><button type="button" class="chip on">Zrobię je sam</button><button type="button" class="chip">Nagrywam bez markerów</button></div>
+          <div style="font-size: 13.5px; color: #5E6A62">Przy rowerze masz telefon? <a href="08m-telefon.html" style="font-weight: 600">Otwórz kreator na telefonie</a> (kod QR w kroku „Nagranie”).</div>
         </div>
       </div>
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px"><a href="06-wywiad5.html" class="btn sec">Wstecz</a><a href="08-nagranie.html" class="btn">Dalej: nagranie</a></div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px"><a href="06-wywiad5.html" class="btn sec">Wstecz</a><span style="display: flex; gap: 16px; align-items: center"><a href="08-nagranie.html" style="font-weight: 600; font-size: 15px">Nagrywam bez markerów</a><a href="07a-marker-krok.html" class="btn">Zacznij: punkt 1 z 8</a></span></div>
     </main>
   </div>
 </div>

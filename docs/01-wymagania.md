@@ -67,7 +67,8 @@ panel bike fittera (po MVP).
 ### Nagranie i analiza
 | ID | Wymaganie |
 |---|---|
-| FR-20 | Instrukcja markerów (8 punktów + znacznik skali) z opcją „nagrywam bez markerów”. |
+| FR-20 | Kreator markerów krok po kroku (przygotowanie i strona ciała, 8 punktów: pozycja, jak znaleźć, typowy błąd; znacznik skali; podsumowanie) z opcją „nagrywam bez markerów” i pominięcia punktu; także na telefonie. Po MVP: zdjęcie kontrolne rozmieszczenia markerów. |
+| FR-02a | Pomiar ciała krok po kroku: dla każdego wymiaru instrukcja (potrzebne rzeczy, kroki, typowy błąd) i kontrola wiarygodności wyniku. |
 | FR-21 | Instrukcja kamery i lista kontrolna; przesłanie MP4/MOV z walidacją po stronie przeglądarki i serwera. |
 | FR-22 | Wybór polityki nagrania: usuń po analizie (domyślnie) / zachowaj tylko kadry kluczowe / zachowaj nagranie; opisy neutralne. |
 | FR-26 | Przesłanie nagrania z telefonu: kod QR i krótki adres do strony M01 (wymaga zalogowania); komputer widzi stan przesyłania. |

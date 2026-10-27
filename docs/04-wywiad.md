@@ -55,6 +55,24 @@ jeśli brak go w profilu (pytanie wtedy, gdy jest potrzebne – C-11).
 | `body.leg_length_diff_side` | Która krótsza | – | `left` · `right` | – | jw. |
 | `body.leg_length_diff_mm` | O ile | mm | 1–30 | wg dokumentacji medycznej | jw.; **nie** zmienia zaleceń automatycznie |
 
+### 3.1 Pomiar ciała krok po kroku (S03a)
+
+Przy każdym wymiarze w S03 jest „Zmierz krok po kroku”, a na górze „Zmierz wszystko krok po kroku (ok. 3 min,
+opcjonalne +5 min)”. Kreator pokazuje jeden wymiar na ekranie (np. „2 z 4 · Długość nogi”): rysunek, potrzebne
+rzeczy, ponumerowane kroki, typowy błąd, pole wyniku, „Nie mam czym zmierzyć – pomiń”. Wynik od razu sprawdzany
+z innymi wymiarami (kontrola wiarygodności – ostrzeżenie, nie blokada). Teksty w i18n, rysunki w zadaniu Q4.3.
+
+| Wymiar | Potrzebne | Kroki | Typowy błąd | Kontrola |
+|---|---|---|---|---|
+| Wzrost | ściana, książka, ołówek, miarka | 1. Stań boso plecami do ściany: pięty, pośladki i łopatki dotykają ściany. 2. Połóż książkę płasko na głowie, dociśnij do ściany. 3. Zaznacz dolną krawędź książki. 4. Zmierz od podłogi do znaku. | w butach; książka przekrzywiona | 120–220 cm |
+| Długość wewnętrzna nogi | twarda książka, ściana, ołówek, miarka; pomocnik ułatwia | 1. Stań boso plecami do ściany, stopy ok. 15–20 cm od siebie (jak na pedałach). 2. Wsuń książkę grzbietem do góry między nogi i unieś **mocno**, jak siodło. 3. Zaznacz górę grzbietu na ścianie. 4. Zmierz od podłogi do znaku. 5. Powtórz i wpisz średnią. | książka za nisko (wynik zaniżony o 2–3 cm); miękka książka | 0,43–0,50 wzrostu |
+| Rozpiętość ramion | ściana, miarka; pomocnik | 1. Stań przodem lub tyłem do ściany, ramiona poziomo w bok, palce wyprostowane. 2. Pomocnik zaznacza końce środkowych palców. 3. Zmierz między znakami. | ramiona opuszczone; zgięte palce | 0,95–1,06 wzrostu |
+| Rozmiar buta | – | wybierz rozmiar butów rowerowych (EU) | rozmiar butów codziennych | 34–50 |
+| Kości kulszowe (opcjonalnie) | tektura falista lub folia aluminiowa na złożonym ręczniku, twardy stołek, ołówek, linijka | 1. Połóż tekturę na stołku. 2. Usiądź, unieś stopy i pochyl się lekko do przodu jak na rowerze – 10 s. 3. Wstań, zaznacz **środki** dwóch wgnieceń. 4. Zmierz odległość między środkami. | miękkie podłoże; mierzenie zewnętrznych krawędzi wgnieceń | 8–20 cm |
+| Szerokość barków (opcjonalnie) | pomocnik, linijka lub miarka | 1. Pomocnik stoi za Tobą. 2. Przesuwa palce wzdłuż obojczyka na zewnątrz aż do kostnego „daszka” na szczycie barku – po obu stronach. 3. Mierzy w linii prostej między najbardziej zewnętrznymi punktami. | mierzenie po łuku lub do mięśni | 28–55 cm, 0,20–0,27 wzrostu |
+| Długość stopy (opcjonalnie) | kartka, ściana, ołówek | 1. Połóż kartkę przy ścianie. 2. Stań piętą przy ścianie, ciężar na stopie. 3. Zaznacz najdłuższy palec. 4. Zmierz od ściany do znaku. | pomiar w siadzie (stopa krótsza) | 20–33 cm |
+| Łuk stopy (opcjonalnie) | ciemny papier lub tektura, woda | 1. Zwilż stopę. 2. Stań na papierze ciężarem ciała. 3. Porównaj ślad z 3 wzorami na ekranie (płaski / średni / wysoki). | ślad w siadzie | wybór z 3 |
+
 ## 4. Krok 3 – mobilność (S04)
 
 Każdy test ma odpowiedź opisową (wymagana, jeśli test nie pominięty) i opcjonalną wartość liczbową. Jeżeli podano

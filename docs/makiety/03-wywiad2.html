@@ -33,7 +33,7 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 18px Archivo,sans-serif
 <div class="pg">
   <header class="hd">
     <span class="wm">ridemore<i>.</i>bike<span class="tag">fit</span></span>
-    <nav class="nv"><a href="01-main.html" class="on">Moje analizy</a><a href="#">Rowery</a><a href="#">Profil</a></nav>
+    <nav class="nv"><a href="01-main.html" class="on">Moje sesje</a><a href="#">Rowery</a><a href="#">Profil</a></nav>
   </header>
   <div class="bd">
     <ol class="st">
@@ -43,7 +43,7 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 18px Archivo,sans-serif
       <li><span class="n">3</span>Mobilność<span class="t">2 min</span></li>
       <li><span class="n">4</span>Bezpieczeństwo i dolegliwości<span class="t">1 min</span></li>
       <li><span class="n">5</span>Co z tego wynika<span class="t">½ min</span></li>
-      <li class="g">ANALIZA</li>
+      <li class="g">NAGRANIE I WYNIK</li>
       <li><span class="n">6</span>Markery<span class="t">5 min</span></li>
       <li><span class="n">7</span>Nagranie<span class="t">3 min</span></li>
       <li><span class="n">8</span>Sprawdź punkty</li>
@@ -51,7 +51,7 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 18px Archivo,sans-serif
     </ol>
     <main>
       <h1>Brakuje nam kilku wymiarów</h1>
-      <p class="lead">Pytamy tylko o to, czego nie ma w Twoim profilu. Mierz boso, najlepiej z drugą osobą.</p>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px"><p class="lead">Pytamy tylko o to, czego nie ma w Twoim profilu. Mierz boso, najlepiej z drugą osobą.</p><a href="03a-pomiar-krok.html" class="btn" style="flex: none">Zmierz krok po kroku · ok. 3 min</a></div>
       <div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 24px">
         <div style="display: flex; flex-direction: column; gap: 16px">
           <div class="card" style="display: flex; gap: 32px; align-items: center; background: #FBFCFA">
@@ -60,16 +60,16 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 18px Archivo,sans-serif
             <a href="#" style="margin-left: auto; font-size: 14px; font-weight: 600">Popraw</a>
           </div>
           <div class="card" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px">
-            <div class="fl"><label for="a">Długość wewnętrzna nogi</label><p>Książka między nogami, mocno w górę. Od podłogi do grzbietu książki.</p><div class="in"><input id="a" type="text" placeholder="np. 86"><span>cm</span></div></div>
-            <div class="fl"><label for="b">Rozpiętość ramion</label><p>Ramiona w bok, od końca palców do końca palców.</p><div class="in"><input id="b" type="text" placeholder="np. 184"><span>cm</span></div></div>
+            <div class="fl"><label for="a">Długość wewnętrzna nogi</label><p>Książka między nogami, mocno w górę. Od podłogi do grzbietu książki.</p><div class="in"><input id="a" type="text" placeholder="np. 86"><span>cm</span></div><a href="03a-pomiar-krok.html" style="display: inline-block; margin-top: 6px; font-size: 13px; font-weight: 600">Zmierz krok po kroku ›</a></div>
+            <div class="fl"><label for="b">Rozpiętość ramion</label><p>Ramiona w bok, od końca palców do końca palców.</p><div class="in"><input id="b" type="text" placeholder="np. 184"><span>cm</span></div><a href="03a-pomiar-krok.html" style="display: inline-block; margin-top: 6px; font-size: 13px; font-weight: 600">Zmierz krok po kroku ›</a></div>
             <div class="fl"><label for="c">Rozmiar buta</label><p>Rozmiar butów rowerowych.</p><div class="in"><input id="c" type="text" placeholder="np. 44"><span>EU</span></div></div>
           </div>
           <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: baseline"><h2>Siodło, kierownica i bloki</h2><span style="font-size: 13px; color: #5E6A62">opcjonalnie · ok. 5 min</span></div>
             <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 14px">
-              <div class="fl"><label for="d">Rozstaw kości kulszowych</label><p>Usiądź na tekturze falistej na schodku, unieś stopy. Zmierz odległość między środkami 2 wgnieceń.</p><div class="in"><input id="d" type="text" placeholder="np. 12,5"><span>cm</span></div><p style="margin-top: 6px">→ szerokość siodła</p></div>
-              <div class="fl"><label for="e">Szerokość barków</label><p>Ktoś mierzy z tyłu odległość między kostnymi wypustkami na szczycie barków.</p><div class="in"><input id="e" type="text" placeholder="np. 40"><span>cm</span></div><p style="margin-top: 6px">→ szerokość kierownicy</p></div>
-              <div class="fl"><label for="f">Stopa</label><p>Stań na kartce, obrysuj stopę. Zmierz od pięty do najdłuższego palca.</p><div class="in"><input id="f" type="text" placeholder="np. 27,5"><span>cm</span></div>
+              <div class="fl"><label for="d">Rozstaw kości kulszowych</label><p>Usiądź na tekturze falistej na schodku, unieś stopy. Zmierz odległość między środkami 2 wgnieceń.</p><div class="in"><input id="d" type="text" placeholder="np. 12,5"><span>cm</span></div><a href="03a-pomiar-krok.html" style="display: inline-block; margin-top: 6px; font-size: 13px; font-weight: 600">Zmierz krok po kroku ›</a><p style="margin-top: 6px">→ szerokość siodła</p></div>
+              <div class="fl"><label for="e">Szerokość barków</label><p>Ktoś mierzy z tyłu odległość między kostnymi wypustkami na szczycie barków.</p><div class="in"><input id="e" type="text" placeholder="np. 40"><span>cm</span></div><a href="03a-pomiar-krok.html" style="display: inline-block; margin-top: 6px; font-size: 13px; font-weight: 600">Zmierz krok po kroku ›</a><p style="margin-top: 6px">→ szerokość kierownicy</p></div>
+              <div class="fl"><label for="f">Stopa</label><p>Stań na kartce, obrysuj stopę. Zmierz od pięty do najdłuższego palca.</p><div class="in"><input id="f" type="text" placeholder="np. 27,5"><span>cm</span></div><a href="03a-pomiar-krok.html" style="display: inline-block; margin-top: 6px; font-size: 13px; font-weight: 600">Zmierz krok po kroku ›</a>
                 <p style="margin: 10px 0 6px">Łuk stopy (mokry ślad na tekturze):</p>
                 <div style="display: flex; gap: 6px"><button type="button" class="chip">płaski</button><button type="button" class="chip on">średni</button><button type="button" class="chip">wysoki</button></div>
                 <p style="margin-top: 6px">→ ustawienie bloków i wkładki</p></div>

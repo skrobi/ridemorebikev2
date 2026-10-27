@@ -72,6 +72,36 @@ Tryb `none`: analiza tylko modelem pozy; wszystkie punkty mają źródło `model
   pewnością (`docs/07`, rozdz. 6).
 - Błędne naklejenie (np. na rzepce zamiast nadkłykcia) daje systematyczny błąd – S10 pozwala go poprawić ręcznie.
 
+### 3.4 Kreator naklejania krok po kroku (S07)
+
+Kreator działa na komputerze i na telefonie (M01, kod QR) – przy rowerze zwykle jest telefon. Postęp zapisuje się
+w szkicu sesji. Kolejność: przygotowanie → 8 punktów → znacznik skali → podsumowanie.
+
+**Przygotowanie (S07):** co potrzebne (8 naklejek, znacznik skali, obcisły strój, pomocnik – zalecany przy 1 i 6),
+wybór `kit` / `diy` / `none` (`none` → od razu nagranie), **strona ciała** (`side` – wybierana tutaj, nie w S08;
+naklejamy na stronie zwróconej do kamery), czas ok. 5 min.
+
+**Krok punktu (S07a, „N z 8”):** zbliżenie miejsca na rysunku sylwetki, pozycja, jak znaleźć, typowy błąd z
+rysunkiem „tak / nie tak”, przyciski „Naklejone” / „Nie mogę znaleźć – pomiń” (punkt wyznaczy model pozy,
+z niższą pewnością, zapis `markers_skipped`) / „Wstecz”.
+
+| Nr | Punkt | Pozycja przy naklejaniu | Jak znaleźć | Typowy błąd |
+|---|---|---|---|---|
+| 1 | Biodro – krętarz większy | siedząc na rowerze, korba na dole | dłoń na boku uda ok. szerokość dłoni poniżej talii; obracaj stopę do środka i na zewnątrz – pod palcami przesuwa się kostna wypukłość; naklej na jej środku | za wysoko na kości miednicy; na luźnych spodenkach |
+| 2 | Kolano – nadkłykieć boczny | korba poziomo z przodu (kolano zgięte ok. 90°) | z boku kolana znajdź miękkie zagłębienie szczeliny stawu; przesuń palec 1–2 cm w górę na kostną wypukłość uda, w połowie głębokości kolana | na rzepce (z przodu); na główce kości strzałkowej (niżej) |
+| 3 | Kostka boczna | korba na dole | najbardziej wystający punkt kostki zewnętrznej | na bucie powyżej kostki |
+| 4 | Pięta | stopa w bucie, korba na dole | na bucie z tyłu, na wysokości podeszwy, w środku pięty | za wysoko na zapiętku |
+| 5 | Stopa – głowa V kości śródstopia | stopa w bucie | na bucie od strony małego palca, w najszerszym miejscu stopy (zwykle nad osią pedału) | za blisko palców |
+| 6 | Bark – wyrostek barkowy | dłonie na kierownicy w zwykłym chwycie | przesuwaj palce wzdłuż obojczyka na zewnątrz aż do kostnego „daszka”; naklej na jego bocznej krawędzi | na mięśniu poniżej barku |
+| 7 | Łokieć – nadkłykieć boczny | jw., łokieć lekko zgięty | kostna wypukłość po zewnętrznej stronie łokcia | na mięśniu przedramienia |
+| 8 | Nadgarstek – wyrostek rylcowaty kości łokciowej | jw. | guzek na nadgarstku od strony małego palca | na luźnym mankiecie lub rękawiczce |
+| S | Znacznik skali | – | pasek płasko na rurze podsiodłowej, wzdłuż rury, kropki widoczne z boku | na zakrzywionej części ramy; przekrzywiony |
+
+**Podsumowanie (S07b):** lista punktów (naklejone / pominięte), przypomnienie o stronie, „Dalej: nagranie”.
+
+**Po MVP – zdjęcie kontrolne (D-18):** zdjęcie z boku przed nagraniem; serwer wykrywa markery i sprawdza kolejność
+i odległości (np. biodro–kolano względem długości nogi), wskazuje punkt do poprawy. Wymaga nowego typu zadania.
+
 ## 4. Kalibracja
 
 | Element | Metoda | Wynik |
@@ -115,7 +145,7 @@ Domyślna opcja `delete_after` – decyzja ADR-15 (`docs/18`, C-16).
 
 Nagranie zwykle powstaje telefonem, a przepływ odbywa się na komputerze. W S08 karta „Nagrywasz telefonem?”:
 
-1. Kod QR i krótki adres prowadzący do strony **M01** `/fit/analiza/{draft}/telefon` (prosta strona przesyłania
+1. Kod QR i krótki adres prowadzący do strony **M01** `/fit/sesja/{draft}/telefon` (prosta strona przesyłania
    na telefonie, część aplikacji webowej).
 2. Telefon wymaga normalnego zalogowania do ridemore.bike (ta sama sesja platformy, `docs/15`, rozdz. 2) – kod QR
    nie zawiera tokenu dostępu.

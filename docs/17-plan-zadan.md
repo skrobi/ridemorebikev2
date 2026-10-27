@@ -166,8 +166,8 @@ Wydanie 1 (ograniczona grupa użytkowników) = M0–M4. Wydanie 2 = M5. W M1–M
 - **Kryteria:** API z `docs/13`; wersjonowanie ustawień; IDOR → 404; ekrany Rowery i Profil.
 
 ## B2.4 · Wywiad
-- **Czytaj:** `docs/04`, `docs/03` rozdz. 4–8, `docs/21`, makiety 02–06 i 02q.
-- **Zakres:** szkic i autozapis, pełny/krótki/szybki start (S02q), testy podstawowe i dodatkowe z metadanymi
+- **Czytaj:** `docs/04` (w tym rozdz. 3.1), `docs/03` rozdz. 4–8, `docs/21`, makiety 02–06, 02q i 03a.
+- **Zakres:** szkic i autozapis, kreator pomiaru ciała krok po kroku (S03a) z kontrolą wiarygodności, pełny/krótki/szybki start (S02q), testy podstawowe i dodatkowe z metadanymi
   (próby, „sam / z pomocą”, ból), klasyfikacja mobilności i poziomu bezpieczeństwa (`MobilityClassifier`,
   `SafetyClassifier`) z `config/questionnaire-q-1.json`, pytania bezpieczeństwa, szczegóły dolegliwości i główna
   dolegliwość, historia operacji (`fit_surgery`), podgląd modyfikatorów i komunikatu bezpieczeństwa w S06 (z pliku
@@ -177,8 +177,8 @@ Wydanie 1 (ograniczona grupa użytkowników) = M0–M4. Wydanie 2 = M5. W M1–M
   `basic` + `caution`); testy klasyfikatorów z `docs/16` rozdz. 3; zgodność ekranów z makietami i `docs/03`.
 
 ## B2.5 · Markery, nagranie, przesyłanie
-- **Czytaj:** `docs/06` (w tym rozdz. 7), `docs/03` rozdz. 9–10.1, `docs/13` rozdz. 6, makiety 07–08.
-- **Zakres:** S07, S08 (RPE, moc, domyślna strona z dolegliwości, neutralny opis polityk nagrania, karta QR),
+- **Czytaj:** `docs/06` (w tym rozdz. 3.4 i 7), `docs/03` rozdz. 9–10.1, `docs/13` rozdz. 6, makiety 07, 07a, 07b, 08, 08m.
+- **Zakres:** kreator markerów S07–S07b (także na telefonie; wybór strony ciała, pominięcie punktu → `markers_skipped`), S08 (RPE, moc, domyślna strona z dolegliwości, neutralny opis polityk nagrania, karta QR),
   M01 (przesłanie z telefonu po zalogowaniu), `GET /sessions/{id}/upload-status`.
 - **Kryteria:** przesyłanie 500 MB fragmentami z wznowieniem; walidacja sygnatury; zgody; zapis opcji sesji;
   M01 działa na 390 px; adres w kodzie QR bez tokenu i z kontrolą właściciela.

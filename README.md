@@ -25,7 +25,7 @@ i zwalidowany pomiar, potem zalecenia (`docs/17`). Repozytorium zawiera wyłącz
 | `CLAUDE.md` | zasady pracy dla Claude Code (kolejność czytania, zakres, bezpieczeństwo, weryfikacja) |
 | `docs/01-wymagania.md` | cel, użytkownicy, zakres MVP, wymagania funkcjonalne (FR) i niefunkcjonalne (NFR), ograniczenia środowiska |
 | `docs/02-architektura.md` | warstwy A–E, struktura katalogów, przepływ danych, kolejka zadań, integracja z kontami ridemore.bike |
-| `docs/03-ekrany-i-przeplyw.md` | ekrany S01–S14, S02q i M01 z makiet: zawartość, dane, stany, akcje, kryteria akceptacji |
+| `docs/03-ekrany-i-przeplyw.md` | ekrany S01–S14, S02q, S03a, S07a, S07b i M01 z makiet: zawartość, dane, stany, akcje, kryteria akceptacji |
 | `docs/04-wywiad.md` | wszystkie pytania wywiadu: typy, opcje, jednostki, walidacja, sposób pomiaru, wpływ na analizę |
 | `docs/05-rower-i-ustawienia.md` | parametry roweru: geometria ramy, komponenty, punkty kontaktu, bloki, koła; definicje i jednostki |
 | `docs/06-nagranie-i-markery.md` | protokół nagrania, ustawienie kamery, markery na ciele, znacznik skali, limity plików |
@@ -44,12 +44,12 @@ i zwalidowany pomiar, potem zalecenia (`docs/17`). Repozytorium zawiera wyłącz
 | `docs/19-zrodla.md` | źródła naukowe i przegląd podobnych aplikacji |
 | `docs/20-panel-ekspertow.md` | przegląd dokumentacji przez panel ekspertów: stanowiska, debata, uzgodnione zmiany C-01…C-23 |
 | `docs/21-komunikacja.md` | zasady języka i prezentacji: statusy, poziom pewności, wysiłek zmiany, komunikaty bezpieczeństwa, paski zakresu |
-| `docs/makiety/` | makiety 17 widoków (S01–S14, S02q, M01, raport pomiarowy; HTML + PNG) – wzorzec wyglądu i przepływu |
+| `docs/makiety/` | makiety 20 widoków (S01–S14, S02q, S03a, S07a, S07b, M01, raport pomiarowy; HTML + PNG) – wzorzec wyglądu i przepływu |
 
 ## Główny przepływ użytkownika
 
 ```
-S01 Moje analizy
+S01 Moje sesje
   → S02–S06 Wywiad (cel i profil jazdy, ciało, mobilność, bezpieczeństwo i dolegliwości, wnioski)
      albo S02q Szybki start (ok. 1 min, wynik „dopasowanie podstawowe”)
   → S07 Markery → S08 Nagranie (lub M01 – przesłanie z telefonu) → S09 Analiza w toku
@@ -63,7 +63,7 @@ S01 Moje analizy
 
 | Pojęcie | Znaczenie |
 |---|---|
-| Sesja (analiza) | jedno nagranie + wywiad + wynik dla jednego roweru i jednego ustawienia |
+| Sesja fittingowa | wywiad + przygotowanie (pomiar ciała, markery) + nagranie + wynik dla jednego roweru i jednego ustawienia; „analiza” to tylko przetwarzanie nagrania |
 | Ustawienie roweru | zapisany stan punktów kontaktu (siodło, kierownica, korby, bloki) w danym czasie |
 | Regulacja | jedna z 4 ocenianych regulacji: wysokość siodła, siodło przód/tył, odległość do kierownicy, wysokość kierownicy |
 | Profil jazdy | Komfort, Neutralny, Endurance, Sportowy lub Własny – przesuwa zalecane zakresy |

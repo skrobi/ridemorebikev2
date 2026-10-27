@@ -17,6 +17,14 @@ wszystkie teksty interfejsu (`templates/i18n/pl.php`) i teksty modelu dopasowani
 | Forma bezosobowa | pytania bez form rodzajowych („Czy coś się zmieniło w rowerze?”, nie „Czy zmieniałeś…”) | płeć jest opcjonalna (`docs/04`, rozdz. 3) |
 | Jedno zdanie – jedna myśl | zdania do ok. 20 słów; słowa potoczne zamiast terminów (terminy w „Szczegółach” z ⓘ) | odbiorca laik |
 
+### 1.1 Nazewnictwo (ADR-27)
+
+| Pojęcie | Piszemy | Nie piszemy |
+|---|---|---|
+| całość procesu | „sesja fittingowa”, „Moje sesje”, „Nowa sesja fittingowa” | „analiza” |
+| przetwarzanie nagrania (S09) | „Analizujemy nagranie” | „sesja w toku” |
+| wynik | „Wynik sesji z 21 października” | „Analiza z …” |
+
 ## 2. Statusy i werdykty (etykiety w interfejsie)
 
 | Kod | Etykieta | Ikona | Kolor (token) |
