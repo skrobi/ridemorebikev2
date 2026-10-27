@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
 <style>
 body{margin:0}a{color:#1E4B38}a:hover{color:#15201A}
-.pg{width:1280px;height:940px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
+.pg{width:1280px;height:990px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
 .hd{height:64px;box-sizing:border-box;padding:0 48px;display:flex;align-items:center;gap:32px;background:#fff;border-bottom:1px solid #E2E5DD;flex:none}
 .wm{font:900 24px 'Big Shoulders Display',sans-serif}.wm i{font-style:normal;color:#2C6B4F}
 .tag{font:600 11px 'IBM Plex Mono',monospace;background:#2C6B4F;color:#fff;padding:3px 9px;border-radius:999px;text-transform:uppercase;margin-left:6px}
@@ -27,6 +27,7 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
 .src{font:600 11px 'IBM Plex Mono',monospace;padding:3px 8px;border-radius:999px;text-align:center}
 .s-m{background:#E3F0E7;color:#1F5537}.s-a{background:#E3EAFA;color:#1E3F94}.s-r{background:#EDE6F7;color:#4C2F86}
 .cf{font:600 12px 'IBM Plex Mono',monospace;text-align:right}
+.st .t{margin-left:auto;white-space:nowrap;padding-left:6px;font:600 11px "IBM Plex Mono",monospace;color:#8A948C;font-weight:600}
 </style>
 </head>
 <body>
@@ -37,15 +38,15 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
   </header>
   <div class="bd">
     <ol class="st">
-      <li class="g">WYWIAD · 4 MIN</li>
-      <li class="ok"><span class="n">1</span>Cel i profil jazdy</li>
-      <li class="ok"><span class="n">2</span>Ciało</li>
-      <li class="ok"><span class="n">3</span>Mobilność</li>
-      <li class="ok"><span class="n">4</span>Dolegliwości</li>
-      <li class="ok"><span class="n">5</span>Co z tego wynika</li>
+      <li class="g">WYWIAD · OK. 5 MIN</li>
+      <li class="ok"><span class="n">1</span>Cel i profil jazdy<span class="t">1 min</span></li>
+      <li class="ok"><span class="n">2</span>Ciało<span class="t">1–2 min</span></li>
+      <li class="ok"><span class="n">3</span>Mobilność<span class="t">2 min</span></li>
+      <li class="ok"><span class="n">4</span>Bezpieczeństwo i dolegliwości<span class="t">1 min</span></li>
+      <li class="ok"><span class="n">5</span>Co z tego wynika<span class="t">½ min</span></li>
       <li class="g">ANALIZA</li>
-      <li class="ok"><span class="n">6</span>Markery</li>
-      <li class="ok"><span class="n">7</span>Nagranie</li>
+      <li class="ok"><span class="n">6</span>Markery<span class="t">5 min</span></li>
+      <li class="ok"><span class="n">7</span>Nagranie<span class="t">3 min</span></li>
       <li class="on"><span class="n">8</span>Sprawdź punkty</li>
       <li><span class="n">9</span>Wynik</li>
     </ol>
@@ -76,7 +77,7 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
               <text x="190" y="-160" font-family="Instrument Sans" font-size="34" fill="#FFC93F">stopa: marker zasłonięty</text>
             </svg>
             <span style="position: absolute; left: 12px; top: 10px; font: 600 12px 'IBM Plex Mono', monospace; color: #fff; background: rgba(0,0,0,.5); padding: 4px 8px; border-radius: 6px">KADR · KORBA NA DOLE · 0:24,6</span>
-            <span style="position: absolute; right: 12px; top: 10px; font-size: 12px; color: #fff; background: rgba(0,0,0,.5); padding: 4px 8px; border-radius: 6px">przeciągnij punkt, aby poprawić</span>
+            <span style="position: absolute; right: 12px; bottom: 10px; font-size: 12px; color: #fff; background: rgba(0,0,0,.5); padding: 4px 8px; border-radius: 6px">przeciągnij punkt albo kliknij go, a potem nowe miejsce</span>
           </div>
           <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
             <div class="th"><span>korba w górze</span><i style="background: #E3F0E7; color: #1F5537">OK</i></div>
@@ -98,6 +99,7 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
             <div class="pt"><span>8 Nadgarstek</span><span class="src s-r">ręcznie</span><span class="cf">—</span></div>
           </div>
           <div class="card" style="background: #EDF1EC; border: 0; font-size: 13.5px; line-height: 1.5">
+            <div style="background: #fff; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px"><b>Poprawiasz: Nadgarstek</b><div style="display: flex; gap: 6px; margin-top: 8px"><span style="padding: 6px 12px; border-radius: 999px; border: 2px solid #2C6B4F; background: #E4EEE8; color: #1E4B38; font-weight: 600">we wszystkich klatkach</span><span style="padding: 6px 12px; border-radius: 999px; border: 1px solid #D3D8CE; font-weight: 600">tylko w tym kadrze</span></div><div style="font-size: 12.5px; color: #5E6A62; margin-top: 6px">Wszystkie klatki – gdy marker przyklejono obok punktu. Ten kadr – gdy punkt był chwilowo zasłonięty.</div></div>
             Po przesunięciu punktu kąty i zalecenia przeliczamy na serwerze – zwykle kilkanaście sekund. Pierwotny wynik zostaje zapisany obok poprawionego.
             <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px; font-weight: 600; color: #1E3F94"><span style="width: 10px; height: 10px; border-radius: 50%; background: #2B57C8"></span>Nadgarstek poprawiony · przeliczono 12:41</div>
           </div>

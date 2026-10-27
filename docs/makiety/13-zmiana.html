@@ -34,12 +34,13 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 18px Archivo,sans-serif
   <div style="flex: 1; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 22px; padding: 22px 48px 32px; min-height: 0">
     <div style="display: flex; flex-direction: column; gap: 16px">
       <div class="card">
-        <h2>Co zmieniłeś?</h2>
+        <h2>Co się zmieniło?</h2>
         <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-top: 14px">
           <div class="f"><label>Element</label><div class="in">Długość mostka</div></div>
-          <div class="f"><label>Było</label><div class="in">100 mm</div></div>
-          <div class="f"><label>Jest</label><div class="in" style="border: 2px solid #2C6B4F">80 mm</div></div>
+          <div class="f"><label>O ile zmieniono</label><div class="in" style="border: 2px solid #2C6B4F">krócej o 10 mm</div></div>
+          <div class="f"><label>Było → jest (jeśli znasz)</label><div class="in" style="color: #8A948C">— → —</div></div>
         </div>
+        <div style="margin-top: 10px; font-size: 13.5px; color: #5E6A62; line-height: 1.5">Wystarczy zmiana względna. Przy siodle: zaznacz sztycę taśmą przed zmianą i zmierz przesunięcie linijką. Ocena porówna kąty z nagrań przed i po – dokładne wymiary roweru nie są potrzebne.</div>
         <a href="#" style="display: inline-block; margin-top: 12px; font-size: 14px; font-weight: 600">+ Dodaj kolejną zmianę</a>
         <div style="margin-top: 14px; padding: 12px 14px; border-radius: 12px; background: #FDF3D6; font-size: 14px; line-height: 1.5; color: #4A3700">Zmieniaj jedną rzecz naraz. Przy kilku zmianach nie będziemy wiedzieć, która pomogła.</div>
       </div>
@@ -59,9 +60,17 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 18px Archivo,sans-serif
       <div class="card">
         <h2>Co dalej</h2>
         <div class="tl"><span class="d">1</span><div><b>Pojeździj 3–5 razy</b><div style="font-size: 14px; color: #5E6A62; margin-top: 2px">Ciało potrzebuje kilku jazd, żeby się przyzwyczaić.</div></div></div>
-        <div class="tl"><span class="d">2</span><div><b>Po każdej jeździe: krótka ocena</b><div style="font-size: 14px; color: #5E6A62; margin-top: 2px">Lepiej / bez różnicy / gorzej – jedno kliknięcie.</div></div></div>
+        <div class="tl"><span class="d">2</span><div><b>Po każdej jeździe: krótka ocena</b><div style="font-size: 14px; color: #5E6A62; margin-top: 2px">Od „dużo lepiej” do „dużo gorzej” – jedno dotknięcie na pulpicie.</div></div></div>
         <div class="tl"><span class="d">3</span><div><b>Nagraj kontrolnie</b><div style="font-size: 14px; color: #5E6A62; margin-top: 2px">Przypomnimy Ci: <b style="color: #15201A">ok. 11 listopada</b>. Krótki wywiad – tylko „czy coś się zmieniło”.</div></div></div>
         <div class="tl"><span class="d">4</span><div><b>Ocena zmiany</b><div style="font-size: 14px; color: #5E6A62; margin-top: 2px">Porównamy pomiar i Twoje odczucia.</div></div></div>
+      </div>
+      <div class="card">
+        <h2>Przypomnienia</h2>
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px; font-size: 14px">
+          <label style="display: flex; gap: 8px"><input type="checkbox" checked disabled> Na pulpicie (zawsze)</label>
+          <label style="display: flex; gap: 8px"><input type="checkbox"> Także e-mailem</label>
+          <span style="color: #5E6A62">Najwyżej 2 przypomnienia na zmianę. <a href="#" style="font-weight: 600">Nie przypominaj</a></span>
+        </div>
       </div>
       <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: auto"><a href="01-main.html" class="btn sec">Anuluj</a><a href="14-ocenazmiany.html" class="btn">Zapisz zmianę</a></div>
     </div>

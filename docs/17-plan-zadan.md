@@ -166,7 +166,7 @@ Wydanie 1 (ograniczona grupa użytkowników) = M0–M4. Wydanie 2 = M5. W M1–M
 - **Kryteria:** API z `docs/13`; wersjonowanie ustawień; IDOR → 404; ekrany Rowery i Profil.
 
 ## B2.4 · Wywiad
-- **Czytaj:** `docs/04`, `docs/03` rozdz. 4–8, `docs/21`, makiety 02–06 (z różnicami z `docs/makiety/README.md`).
+- **Czytaj:** `docs/04`, `docs/03` rozdz. 4–8, `docs/21`, makiety 02–06 i 02q.
 - **Zakres:** szkic i autozapis, pełny/krótki/szybki start (S02q), testy podstawowe i dodatkowe z metadanymi
   (próby, „sam / z pomocą”, ból), klasyfikacja mobilności i poziomu bezpieczeństwa (`MobilityClassifier`,
   `SafetyClassifier`) z `config/questionnaire-q-1.json`, pytania bezpieczeństwa, szczegóły dolegliwości i główna

@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
 <style>
 body{margin:0}a{color:#1E4B38}a:hover{color:#15201A}
-.pg{width:1280px;height:1000px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
+.pg{width:1280px;height:880px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
 .hd{height:64px;box-sizing:border-box;padding:0 48px;display:flex;align-items:center;gap:32px;background:#fff;border-bottom:1px solid #E2E5DD;flex:none}
 .wm{font:900 24px 'Big Shoulders Display',sans-serif}.wm i{font-style:normal;color:#2C6B4F}
 .tag{font:600 11px 'IBM Plex Mono',monospace;background:#2C6B4F;color:#fff;padding:3px 9px;border-radius:999px;text-transform:uppercase;margin-left:6px}
@@ -29,6 +29,11 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 16px Archivo,sans-serif
 .num .in{display:flex;border:1px solid #D3D8CE;border-radius:8px;overflow:hidden;height:34px;width:120px}.num input{width:60px;border:0;padding:0 8px;font:15px 'Instrument Sans',sans-serif}.num span.u{display:grid;place-items:center;padding:0 8px;background:#EDF1EC;font:600 12px 'IBM Plex Mono',monospace}
 .num.fill .in{border:2px solid #2C6B4F}
 .who{font:600 11px 'IBM Plex Mono',monospace;color:#1E4B38;background:#E4EEE8;padding:2px 7px;border-radius:999px}
+.st .t{margin-left:auto;white-space:nowrap;padding-left:6px;font:600 11px "IBM Plex Mono",monospace;color:#8A948C;font-weight:600}
+.meta input[type=text]{width:64px;height:28px;border:1px solid #D3D8CE;border-radius:8px;padding:0 6px;font:600 13px 'IBM Plex Mono',monospace}.meta .in{display:inline-flex;align-items:center;gap:4px}.meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid #E2E5DD;font-size:13px;color:#5E6A62}
+.seg{display:inline-flex;border:1px solid #D3D8CE;border-radius:999px;overflow:hidden}.seg b{padding:4px 10px;font-weight:600}.seg b.on{background:#E4EEE8;color:#1E4B38}
+.tm{font:600 11px 'IBM Plex Mono',monospace;color:#8A948C;margin-left:8px}
+.mini{background:#F4F5F1;border-radius:10px;padding:10px 12px;font-size:13px;display:flex;flex-direction:column;gap:2px}.mini span{color:#5E6A62}
 </style>
 </head>
 <body>
@@ -39,55 +44,48 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 16px Archivo,sans-serif
   </header>
   <div class="bd">
     <ol class="st">
-      <li class="g">WYWIAD · 4 MIN</li>
-      <li class="ok"><span class="n">1</span>Cel i profil jazdy</li>
-      <li class="ok"><span class="n">2</span>Ciało</li>
-      <li class="on"><span class="n">3</span>Mobilność</li>
-      <li><span class="n">4</span>Dolegliwości</li>
-      <li><span class="n">5</span>Co z tego wynika</li>
+      <li class="g">WYWIAD · OK. 5 MIN</li>
+      <li class="ok"><span class="n">1</span>Cel i profil jazdy<span class="t">1 min</span></li>
+      <li class="ok"><span class="n">2</span>Ciało<span class="t">1–2 min</span></li>
+      <li class="on"><span class="n">3</span>Mobilność<span class="t">2 min</span></li>
+      <li><span class="n">4</span>Bezpieczeństwo i dolegliwości<span class="t">1 min</span></li>
+      <li><span class="n">5</span>Co z tego wynika<span class="t">½ min</span></li>
       <li class="g">ANALIZA</li>
-      <li><span class="n">6</span>Markery</li>
-      <li><span class="n">7</span>Nagranie</li>
+      <li><span class="n">6</span>Markery<span class="t">5 min</span></li>
+      <li><span class="n">7</span>Nagranie<span class="t">3 min</span></li>
       <li><span class="n">8</span>Sprawdź punkty</li>
       <li><span class="n">9</span>Wynik</li>
     </ol>
     <main>
-      <h1>Jak giętkie są plecy, biodra i nogi?</h1>
-      <p class="lead">6 testów. Wystarczy wybrać odpowiedź – a jeśli masz miarkę lub telefon, wpisz dokładny wynik. Liczby pozwalają porównać Cię za pół roku.</p>
+      <h1>Ruchomość pleców, bioder i nóg</h1>
+      <p class="lead">3 testy podstawowe i 3 dodatkowe. Wystarczy wybrać odpowiedź; jeśli masz miarkę lub telefon, wpisz wynik – najlepiej z 2 prób. Wyniki domowe są orientacyjne: tylko przesuwają zakresy, nigdy nie blokują zaleceń.</p>
+      <h2 style="margin: 0 0 10px">Testy podstawowe <span class="tm">ok. 2 min</span></h2>
       <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
-        <div class="card tst">
-          <div class="top"><div class="pic"><svg width="50" height="46" viewBox="0 0 90 80" fill="none" stroke="#15201A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 74h78"/><path d="M40 74V44C40 30 52 22 64 32"/><circle cx="68" cy="38" r="5"/><path d="M62 30l-8 34"/></svg></div><div><h2>1. Skłon stojąc</h2><p>Proste nogi. Ile brakuje palcom do podłogi? <span class="who">plecy + tył ud</span></p></div></div>
-          <div class="ans"><button type="button">dotykam podłogi</button><button type="button">kostki</button><button type="button" class="on">piszczele</button></div>
-          <div class="num fill">Do podłogi brakuje <span class="in"><input type="text" value="14" aria-label="cm do podłogi"><span class="u">cm</span></span></div>
-        </div>
         <div class="card tst">
           <div class="top"><div class="pic"><svg width="50" height="46" viewBox="0 0 90 80" fill="none" stroke="#15201A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 70h78"/><path d="M14 66h54v-14"/><path d="M14 66C18 40 30 30 46 34l18 10"/><circle cx="20" cy="30" r="5"/></svg></div><div><h2>2. Skłon w siadzie</h2><p>Siad prosty, stopy o ścianę. Gdzie sięgają palce względem stóp? <span class="who">plecy + tył ud</span></p></div></div>
           <div class="ans"><button type="button">za stopy</button><button type="button">do stóp</button><button type="button" class="on">przed stopami</button></div>
           <div class="num fill">Wynik <span class="in"><input type="text" value="−9" aria-label="cm względem stóp"><span class="u">cm</span></span> minus = przed stopami</div>
+          <div class="meta"><span>2. próba <span class="in"><input type="text" value="−8" aria-label="druga próba"><span class="u">cm</span></span></span><span class="seg"><b>sam</b><b class="on">z pomocą</b></span><label><input type="checkbox"> test bolał</label></div>
         </div>
         <div class="card tst">
           <div class="top"><div class="pic"><svg width="50" height="46" viewBox="0 0 90 80" fill="none" stroke="#15201A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 70h78"/><circle cx="12" cy="64" r="5"/><path d="M17 65h54"/><path d="M40 65L66 18"/><path d="M40 65a20 20 0 0 1 8-17" stroke="#2C6B4F"/></svg></div><div><h2>3. Prosta noga w górę</h2><p>Leżąc, ktoś unosi Twoją prostą nogę. Telefon na piszczeli mierzy kąt. <span class="who">tył ud</span></p></div></div>
           <div class="ans"><button type="button">ponad 80°</button><button type="button" class="on">60–80°</button><button type="button">poniżej 60°</button></div>
           <div class="num fill">Prawa <span class="in"><input type="text" value="68" aria-label="stopnie prawa"><span class="u">°</span></span> lewa <span class="in"><input type="text" value="64" aria-label="stopnie lewa"><span class="u">°</span></span></div>
+          <div class="meta"><span>2. próba <span class="in"><input type="text" value="66/63" aria-label="druga próba"><span class="u">°</span></span></span><span class="seg"><b>sam</b><b class="on">z pomocą</b></span><label><input type="checkbox"> test bolał</label></div>
         </div>
         <div class="card tst">
           <div class="top"><div class="pic"><svg width="50" height="46" viewBox="0 0 90 80" fill="none" stroke="#15201A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M78 6v68M6 74h72"/><path d="M34 74l12-24 32-6"/><path d="M58 54v20" stroke="#2C6B4F" stroke-dasharray="4 4"/></svg></div><div><h2>4. Kolano do ściany</h2><p>Pięta na ziemi, kolano dotyka ściany. Odległość palców od ściany. <span class="who">kostka</span></p></div></div>
           <div class="ans"><button type="button" class="on">ponad 10 cm</button><button type="button">5–10 cm</button><button type="button">mniej</button></div>
           <div class="num fill">Prawa <span class="in"><input type="text" value="12" aria-label="cm prawa"><span class="u">cm</span></span> lewa <span class="in"><input type="text" value="11" aria-label="cm lewa"><span class="u">cm</span></span></div>
-        </div>
-        <div class="card tst">
-          <div class="top"><div class="pic"><svg width="50" height="46" viewBox="0 0 90 80" fill="none" stroke="#15201A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 60h40"/><circle cx="10" cy="54" r="5"/><path d="M15 55h30"/><path d="M45 56l18 18M45 56l-4-26 14 8" stroke="#2C6B4F"/></svg></div><div><h2>5. Kolano do klatki</h2><p>Leżąc na brzegu łóżka, przyciągnij kolano. Czy druga noga zostaje płasko? <span class="who">biodro</span></p></div></div>
-          <div class="ans"><button type="button" class="on">płasko</button><button type="button">lekko w górę</button><button type="button">wyraźnie</button></div>
-          <div class="num">Kąt uniesienia uda <span class="in"><input type="text" placeholder="—" aria-label="stopnie"><span class="u">°</span></span> opcjonalnie</div>
-        </div>
-        <div class="card tst">
-          <div class="top"><div class="pic"><svg width="50" height="46" viewBox="0 0 90 80" fill="none" stroke="#15201A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="45" cy="16" r="7"/><path d="M45 23v34M20 34h50" /><path d="M24 70h42" /><path d="M70 34a26 14 0 0 1-8 14" stroke="#2C6B4F"/></svg></div><div><h2>6. Skręt tułowia</h2><p>Siedząc na krześle, kij na barkach – obróć się w każdą stronę. <span class="who">odcinek piersiowy</span></p></div></div>
-          <div class="ans"><button type="button">swobodnie</button><button type="button" class="on">z oporem</button><button type="button">mocno ograniczony</button></div>
-          <div class="num">Kąt obrotu <span class="in"><input type="text" placeholder="—" aria-label="stopnie"><span class="u">°</span></span> opcjonalnie</div>
+          <div class="meta"><span>2. próba <span class="in"><input type="text" value="12/10" aria-label="druga próba"><span class="u">cm</span></span></span><span class="seg"><b>sam</b><b class="on">z pomocą</b></span><label><input type="checkbox"> test bolał</label></div>
         </div>
       </div>
-      <div style="margin-top: 12px; font-size: 13.5px; color: #5E6A62">Kąt zmierzysz telefonem w trybie poziomicy. Coś boli podczas testu? Przerwij i zaznacz to w następnym kroku. Wyniki zobaczy też Twój bike fitter.</div>
-      <div class="ft"><a href="03-wywiad2.html" class="btn sec">Wstecz</a><span style="display: flex; gap: 10px"><a href="05-wywiad4.html" class="btn sec">Pomiń</a><a href="05-wywiad4.html" class="btn">Dalej: dolegliwości</a></span></div>
+      <div class="card" style="margin-top: 14px; padding: 14px 20px">
+        <div style="display: flex; justify-content: space-between; align-items: center"><h2>Dodatkowe testy <span class="tm">ok. 2 min · opcjonalnie</span></h2><span style="font-weight: 600; font-size: 14px; color: #1E4B38">Zwiń ▲</span></div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px"><div class="mini"><b>1. Skłon stojąc</b><span>piszczele</span></div><div class="mini"><b>5. Kolano do klatki</b><span>płasko</span></div><div class="mini"><b>6. Skręt tułowia</b><span>z oporem</span></div></div>
+      </div>
+      <div style="margin-top: 12px; font-size: 13.5px; color: #5E6A62">Kąt zmierzysz telefonem w trybie poziomicy. Test boli? Przerwij, zaznacz „test bolał” – wynik nie będzie użyty, a obszar zaproponujemy w następnym kroku.</div>
+      <div class="ft"><a href="03-wywiad2.html" class="btn sec">Wstecz</a><span style="display: flex; gap: 10px"><a href="05-wywiad4.html" class="btn sec">Pomiń</a><a href="05-wywiad4.html" class="btn">Dalej: bezpieczeństwo i dolegliwości</a></span></div>
     </main>
   </div>
 </div>

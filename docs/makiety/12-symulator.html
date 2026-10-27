@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
 <style>
 body{margin:0}a{color:#1E4B38}a:hover{color:#15201A}
-.pg{width:1280px;height:1190px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
+.pg{width:1280px;height:1215px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
 .hd{height:64px;box-sizing:border-box;padding:0 48px;display:flex;align-items:center;gap:32px;background:#fff;border-bottom:1px solid #E2E5DD;flex:none}
 .wm{font:900 24px 'Big Shoulders Display',sans-serif}.wm i{font-style:normal;color:#2C6B4F}
 .tag{font:600 11px 'IBM Plex Mono',monospace;background:#2C6B4F;color:#fff;padding:3px 9px;border-radius:999px;text-transform:uppercase;margin-left:6px}
@@ -18,8 +18,8 @@ h1{font:800 30px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
 .sl{margin-top:10px}.sl .t{display:flex;justify-content:space-between;font-size:14px}.sl .t b{font-weight:600}.sl .v{font:600 13px 'IBM Plex Mono',monospace}.sl .v i{font-style:normal;color:#1E4B38}
 .tr{position:relative;height:6px;border-radius:3px;background:#E2E5DD;margin-top:8px}.tr span{position:absolute;top:-6px;width:18px;height:18px;border-radius:50%;background:#2C6B4F;border:3px solid #fff;box-shadow:0 0 0 1px #2C6B4F;transform:translateX(-50%)}.tr em{position:absolute;top:-3px;width:3px;height:12px;background:#8A948C}
 .m{padding:9px 0;border-bottom:1px solid #EDF1EC}.m:last-child{border-bottom:0}.m .t{display:flex;justify-content:space-between;font-size:14px}.m .t b{font-weight:600}.m .t span{font:600 13px 'IBM Plex Mono',monospace}
-.bar{position:relative;height:10px;border-radius:999px;background:#F3D9D5;margin-top:7px}.bar .y,.bar .g{position:absolute;top:0;bottom:0}.bar .y{background:#F6DE97;border-radius:999px}.bar .g{background:#8FC3A3}
-.bar .was{position:absolute;top:-4px;width:4px;height:18px;border-radius:2px;background:#8A948C;transform:translateX(-50%)}.bar .now{position:absolute;top:-6px;width:12px;height:22px;border-radius:4px;background:#15201A;border:2px solid #fff;box-sizing:border-box;transform:translateX(-50%)}
+.bar{position:relative;height:10px;border-radius:999px;background:#E6E7E1;margin-top:7px}.bar .y,.bar .g{position:absolute;top:0;bottom:0}.bar .y{background:#F4EBCF;border-radius:999px}.bar .g{background:#8FC3A3;box-shadow:inset 0 0 0 2px #1E4B38}
+.bar .was{position:absolute;top:-5px;width:10px;height:20px;border-radius:4px;background:#fff;border:2px solid #5E6A62;box-sizing:border-box;transform:translateX(-50%)}.bar .now{position:absolute;top:-6px;width:12px;height:22px;border-radius:4px;background:#15201A;border:2px solid #fff;box-sizing:border-box;transform:translateX(-50%)}
 .ld{font:600 12px 'IBM Plex Mono',monospace;padding:3px 9px;border-radius:999px}
 .grp{display:grid;grid-template-columns:minmax(0,1fr) auto 20px;gap:10px;align-items:center;padding:11px 4px;border-bottom:1px solid #EDF1EC;font-size:14px}.grp span{font-size:12.5px;color:#5E6A62;text-align:right}.grp i{font-style:normal;font:600 16px 'IBM Plex Mono',monospace;color:#5E6A62;text-align:center}
 .grp.open{border-bottom:0}.grp.open span{color:#1E4B38;font-weight:600}
@@ -70,7 +70,7 @@ h1{font:800 30px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
         </svg>
         <div style="position: absolute; left: 14px; top: 12px; display: flex; gap: 14px; font-size: 13px; background: rgba(255,255,255,0.92); padding: 6px 10px; border-radius: 10px">
           <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 22px; height: 4px; background: #FFC93F; border-radius: 2px"></span>teraz – sylwetka z Twojego nagrania</span>
-          <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 22px; height: 0; border-top: 4px dashed #2C6B4F"></span>po zmianie – wariant przeliczony</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 22px; height: 0; border-top: 4px dashed #2C6B4F"></span>przewidywanie po zmianie – model, niezweryfikowane</span>
         </div>
         <span style="position: absolute; left: 14px; bottom: 12px; font: 600 12px 'IBM Plex Mono', monospace; color: #fff; background: rgba(0,0,0,.5); padding: 4px 8px; border-radius: 6px">KADR Z NAGRANIA 21.10 · KORBA Z PRZODU</span>
       </div>
@@ -79,34 +79,40 @@ h1{font:800 30px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
         <div class="card"><div style="display: flex; justify-content: space-between"><b>Kark</b><span class="ld" style="background: #FDF3D6; color: #6B4E00">średnie</span></div><div style="font-size: 13px; color: #5E6A62; margin-top: 6px">Plecy minimalnie wyżej – głowa mniej odchylona.</div></div>
         <div class="card"><div style="display: flex; justify-content: space-between"><b>Dół pleców</b><span class="ld" style="background: #E3F0E7; color: #1F5537">niskie</span></div><div style="font-size: 13px; color: #5E6A62; margin-top: 6px">Kierownica nie jest niżej niż teraz.</div></div>
       </div>
-      <p style="margin: 0; font-size: 12px; color: #5E6A62">Warianty policzyliśmy po analizie, każdy parametr osobno (np. siodło ±20 mm co 5 mm, mostek −30…+20 mm co 10 mm). Suwak wybiera gotowy wariant. Wpływ na ciało jest poglądowy – z uproszczonego modelu sylwetki, nie z pomiaru.</p>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+        <div class="card" style="font-size: 13px; line-height: 1.5"><span class="ld" style="background: #E4EEE8; color: #1E4B38">ROWER · DOKŁADNIE</span><div style="margin-top: 6px">Kierownica 20 mm bliżej siodła. Drop siodło–kierownica bez zmian.</div></div>
+        <div class="card" style="font-size: 13px; line-height: 1.5"><span class="ld" style="background: #FDF3D6; color: #6B4E00">POZYCJA · MODEL</span><div style="margin-top: 6px">Przewidywanie – nie pomiar i nie dowód, że zmiana pomoże. <a href="#" style="font-weight: 600">Założenia modelu</a></div></div>
+        <div class="card" style="font-size: 13px; line-height: 1.5"><span class="ld" style="background: #EDF1EC; color: #5E6A62">ZMIERZONE</span><div style="margin-top: 6px">Sprawdzimy to nagraniem kontrolnym po zmianie (ocena w S14).</div></div>
+      </div>
+      <p style="margin: 0; font-size: 12px; color: #5E6A62">Warianty policzyliśmy na serwerze, każdy parametr osobno (np. siodło ±20 mm co 5 mm, mostek −30…+20 mm co 10 mm) – z Twojego nagrania i wymiarów ciała, bez danych roweru. Wpływ na ciało jest poglądowy – z uproszczonego modelu sylwetki, nie z pomiaru.</p>
     </section>
     <aside style="display: flex; flex-direction: column; gap: 12px; min-width: 0">
       <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center"><h2>Zmień ustawienie</h2><a href="#" style="font-size: 14px; font-weight: 600">Przywróć obecne</a></div>
-        <div class="grp"><b>Siodło</b><span>750 mm · 0 mm · kąt −1° · siodło 143 mm</span><i>+</i></div>
+        <div class="grp"><b>Siodło</b><span>z nagrania: wys. ok. 748 mm · cofnięcie ok. 60 mm</span><i>+</i></div>
         <div class="grp open"><b>Kierownica i mostek</b><span>1 zmiana</span><i>−</i></div>
         <div style="padding: 0 4px 6px">
-          <div class="sl"><div class="t"><b>Długość mostka</b><span class="v">80 mm <i>−20</i></span></div><div class="tr"><em style="left: 50%"></em><span style="left: 17%"></span></div></div>
+          <div class="sl"><div class="t"><b>Długość mostka</b><span class="v">krócej o 20 mm <i>−20</i></span></div><div class="tr"><em style="left: 50%"></em><span style="left: 17%"></span></div></div>
           <div class="sl"><div class="t"><b>Kąt mostka</b><span class="v">−6°</span></div><div style="display: flex; gap: 6px; margin-top: 6px"><span class="pl on">−6°</span><span class="pl">0°</span><span class="pl">+6° (odwrócony)</span><span class="pl">+17°</span></div></div>
-          <div class="sl"><div class="t"><b>Podkładki pod mostkiem</b><span class="v">25 mm</span></div><div class="tr"><span style="left: 62%"></span></div></div>
+          <div style="font-size: 12.5px; color: #5E6A62; margin: 2px 0 4px">Obecna długość mostka: nie podano. <a href="#" style="font-weight: 600">Uzupełnij</a> – dokładniej narysujemy rower i dobierzemy część.</div>
+          <div class="sl"><div class="t"><b>Podkładki pod mostkiem</b><span class="v">bez zmian</span></div><div class="tr"><span style="left: 62%"></span></div></div>
           <div class="sl"><div class="t"><b>Szerokość kierownicy</b><span class="v">420 mm</span></div><div class="tr"><span style="left: 50%"></span></div></div>
           <div class="sl"><div class="t"><b>Klamkomanetki</b><span class="v">w przód / w tył · kąt</span></div><div class="tr"><span style="left: 50%"></span></div></div>
         </div>
-        <div class="grp"><b>Korby, pedały i bloki</b><span>korba 172,5 · bloki 8 mm za osią · bez podkładek</span><i>+</i></div>
-        <div class="grp" style="border-bottom: 0"><b>Rama i koła</b><span>rozmiar 56 · 700c × 28 mm</span><i>+</i></div>
+        <div class="grp"><b>Korby, pedały i bloki</b><span>korba ok. 172,5 (z nagrania) · bloki: nie podano</span><i>+</i></div>
+        <div class="grp" style="border-bottom: 0"><b>Rama i koła</b><span>rozmiar: nie podano – niepotrzebny do zaleceń</span><i>+</i></div>
       </div>
       <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: baseline"><h2>Jak pasuje</h2><span style="font-size: 14px"><b style="font: 800 20px Archivo, sans-serif">5</b> z 5 w zakresie <span style="color: #5E6A62">(było 4)</span></span></div>
         <div class="m"><div class="t"><b>Wysokość siodła</b><span>39°</span></div><div class="bar"><span class="y" style="left: 17%; width: 66%"></span><span class="g" style="left: 33%; width: 34%"></span><span class="now" style="left: 64%"></span></div></div>
         <div class="m"><div class="t"><b>Siodło przód / tył</b><span>−34 mm</span></div><div class="bar"><span class="y" style="left: 22%; width: 44%"></span><span class="g" style="left: 33%; width: 33%"></span><span class="now" style="left: 46%"></span></div></div>
-        <div class="m"><div class="t"><b>Wysokość kierownicy</b><span>40° <span style="color: #1E4B38">teraz w zakresie</span></span></div><div class="bar"><span class="y" style="left: 27%; width: 36%"></span><span class="g" style="left: 36%; width: 18%"></span><span class="was" style="left: 35%"></span><span class="now" style="left: 37%"></span></div></div>
+        <div class="m"><div class="t"><b>Wysokość kierownicy <span class="ld" style="background: #fff; border: 1px dashed #8A948C; color: #5E6A62">tylko pomiar</span></b><span>40°</span></div><div class="bar"><span class="y" style="left: 27%; width: 36%"></span><span class="g" style="left: 36%; width: 18%"></span><span class="was" style="left: 35%"></span><span class="now" style="left: 37%"></span></div></div>
         <div class="m"><div class="t"><b>Odległość do kierownicy</b><span>152°</span></div><div class="bar"><span class="y" style="left: 46%; width: 38%"></span><span class="g" style="left: 54%; width: 24%"></span><span class="was" style="left: 66%"></span><span class="now" style="left: 60%"></span></div></div>
         <div class="m"><div class="t"><b>Ciężar na dłoniach</b><span>31%</span></div><div class="bar"><span class="y" style="left: 13%; width: 47%"></span><span class="g" style="left: 25%; width: 35%"></span><span class="now" style="left: 53%"></span></div></div>
       </div>
       <div class="card" style="background: #15201A; color: #fff; border: 0">
         <div style="font: 600 12px 'IBM Plex Mono', monospace; color: #FFC93F; letter-spacing: .08em">TWÓJ PLAN ZMIAN</div>
-        <div style="font-size: 17px; font-weight: 600; margin: 6px 0 4px">Mostek 100 → 80 mm</div>
+        <div style="font-size: 17px; font-weight: 600; margin: 6px 0 4px">Mostek krótszy o 20 mm</div>
         <div style="font-size: 12.5px; color: #B9C2BB; margin-bottom: 12px">Łączysz kilka zmian? Pokażemy szacunek i przycisk „Przelicz dokładnie” (zadanie na serwerze, ok. 1 min).</div>
         <div style="display: flex; gap: 8px"><a href="13-zmiana.html" class="btn" style="background: #FFC93F; color: #15201A">Zapisz plan</a><a href="#" class="btn sec" style="background: transparent; color: #fff; border-color: #5E6A62">Zaproponuj za mnie</a></div>
       </div>

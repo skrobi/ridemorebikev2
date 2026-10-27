@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
 <style>
 body{margin:0}a{color:#1E4B38}a:hover{color:#15201A}
-.pg{width:1280px;height:860px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
+.pg{width:1280px;height:1340px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
 .hd{height:64px;box-sizing:border-box;padding:0 48px;display:flex;align-items:center;gap:32px;background:#fff;border-bottom:1px solid #E2E5DD;flex:none}
 .wm{font:900 24px 'Big Shoulders Display',sans-serif}.wm i{font-style:normal;color:#2C6B4F}
 .tag{font:600 11px 'IBM Plex Mono',monospace;background:#2C6B4F;color:#fff;padding:3px 9px;border-radius:999px;text-transform:uppercase;margin-left:6px}
@@ -24,6 +24,8 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
 .ft{display:flex;justify-content:space-between;align-items:center;margin-top:22px}
 .sc{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:3px}.sc span{height:30px;border-radius:6px;background:#EDF1EC;display:grid;place-items:center;font:600 12px 'IBM Plex Mono',monospace;color:#5E6A62}.sc span.f{background:#2C6B4F;color:#fff}
 .dot{position:absolute;width:22px;height:22px;border-radius:50%;background:#D14E1E;border:3px solid #fff;box-shadow:0 0 0 2px #D14E1E}
+.st .t{margin-left:auto;white-space:nowrap;padding-left:6px;font:600 11px "IBM Plex Mono",monospace;color:#8A948C;font-weight:600}
+.row{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}.row .chip{min-height:30px;font-size:13px;padding:0 10px}
 </style>
 </head>
 <body>
@@ -34,42 +36,62 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
   </header>
   <div class="bd">
     <ol class="st">
-      <li class="g">WYWIAD · 3 MIN</li>
-      <li class="ok"><span class="n">1</span>Cel i profil jazdy</li>
-      <li class="ok"><span class="n">2</span>Ciało</li>
-      <li class="ok"><span class="n">3</span>Mobilność</li>
-      <li class="on"><span class="n">4</span>Dolegliwości</li>
-      <li><span class="n">5</span>Co z tego wynika</li>
+      <li class="g">WYWIAD · OK. 5 MIN</li>
+      <li class="ok"><span class="n">1</span>Cel i profil jazdy<span class="t">1 min</span></li>
+      <li class="ok"><span class="n">2</span>Ciało<span class="t">1–2 min</span></li>
+      <li class="ok"><span class="n">3</span>Mobilność<span class="t">2 min</span></li>
+      <li class="on"><span class="n">4</span>Bezpieczeństwo i dolegliwości<span class="t">1 min</span></li>
+      <li><span class="n">5</span>Co z tego wynika<span class="t">½ min</span></li>
       <li class="g">ANALIZA</li>
-      <li><span class="n">6</span>Markery</li>
-      <li><span class="n">7</span>Nagranie</li>
+      <li><span class="n">6</span>Markery<span class="t">5 min</span></li>
+      <li><span class="n">7</span>Nagranie<span class="t">3 min</span></li>
       <li><span class="n">8</span>Sprawdź punkty</li>
       <li><span class="n">9</span>Wynik</li>
     </ol>
     <main>
-      <h1>Co Ci dokucza na rowerze?</h1>
-      <p class="lead">Kliknij miejsce na sylwetce albo wybierz z listy. Opisz, jak mocno i kiedy się pojawia.</p>
+      <h1>Bezpieczeństwo i dolegliwości</h1>
+      <p class="lead">Najpierw kilka pytań bezpieczeństwa. Potem kliknij miejsce na sylwetce albo wybierz z listy i opisz, jak mocno, jak często i jak długo dokucza.</p>
+      <div class="card" style="margin-bottom: 14px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline"><h2>Zanim zaczniemy: 7 krótkich pytań</h2><span style="font-size: 13px; color: #5E6A62">„Tak” nie przerywa analizy – pomiar zrobimy, a zalecenia mogą poczekać na konsultację</span></div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr) auto); gap: 6px 14px; margin-top: 10px; font-size: 13.5px; align-items: center">
+          <span>Operacja kolana, biodra, kręgosłupa, barku lub stopy w ostatnich 6 miesiącach?</span><span><span class="chip on">Nie</span> <span class="chip">Tak</span></span>
+          <span>Lekarz lub fizjoterapeuta zalecił obecnie ograniczenie jazdy lub ruchu?</span><span><span class="chip on">Nie</span> <span class="chip">Tak</span></span>
+          <span>Staw puchnie i jednocześnie się blokuje lub „ucieka”?</span><span><span class="chip on">Nie</span> <span class="chip">Tak</span></span>
+          <span>Drętwienie lub osłabienie ręki albo nogi trwa dłużej niż dobę po jeździe?</span><span><span class="chip on">Nie</span> <span class="chip">Tak</span></span>
+          <span>Ból budzi w nocy lub jest w spoczynku, niezależnie od jazdy?</span><span><span class="chip on">Nie</span> <span class="chip">Tak</span></span>
+          <span>Upadek lub uraz w ostatnich 6 tygodniach, po którym ból się utrzymuje?</span><span><span class="chip on">Nie</span> <span class="chip">Tak</span></span>
+          <span>Drętwieniu krocza towarzyszą kłopoty z oddawaniem moczu lub stolca?</span><span><span class="chip on">Nie</span> <span class="chip">Tak</span></span>
+        </div>
+      </div>
+
       <div style="display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 24px">
-        <div class="card" style="position: relative; height: 470px; display: grid; place-items: center">
+        <div class="card" style="position: relative; height: 520px; display: grid; place-items: center">
           <svg width="160" height="420" viewBox="0 0 160 420" fill="#EDF1EC" stroke="#B9C2BB" stroke-width="2" aria-hidden="true"><circle cx="80" cy="34" r="26"/><path d="M50 70h60l14 120-14 4-10-80v100l8 190H82l-2-150-2 150H52l8-190V114l-10 80-14-4z"/></svg>
           <span class="dot" style="left: 113px; top: 255px"></span>
           <span class="dot" style="left: 119px; top: 150px"></span>
           <span style="position: absolute; bottom: 12px; font-size: 12px; color: #5E6A62">widok z przodu · <a href="#">z tyłu</a></span>
         </div>
         <div style="display: flex; flex-direction: column; gap: 14px">
-          <div style="display: flex; flex-wrap: wrap; gap: 6px"><button type="button" class="chip">Kark</button><button type="button" class="chip">Barki</button><button type="button" class="chip">Drętwienie dłoni</button><button type="button" class="chip on">Dół pleców</button><button type="button" class="chip">Krocze / siodło</button><button type="button" class="chip on">Przód kolana</button><button type="button" class="chip">Tył kolana</button><button type="button" class="chip">Bok kolana</button><button type="button" class="chip">Drętwienie stóp</button><button type="button" class="chip">Nic mi nie dokucza</button></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px"><button type="button" class="chip">Kark</button><button type="button" class="chip">Barki</button><button type="button" class="chip">Drętwienie dłoni</button><button type="button" class="chip on">Dół pleców</button><button type="button" class="chip">Siedzenie – ucisk</button><button type="button" class="chip">Drętwienie krocza</button><button type="button" class="chip on">Przód kolana</button><button type="button" class="chip">Tył kolana</button><button type="button" class="chip">Bok kolana</button><button type="button" class="chip">Drętwienie stóp</button><button type="button" class="chip">Nic mi nie dokucza</button></div>
           <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center"><h2>Przód kolana</h2><span style="display: flex; gap: 6px"><button type="button" class="chip">lewe</button><button type="button" class="chip on">prawe</button><button type="button" class="chip">oba</button></span></div>
+            <div style="display: flex; justify-content: space-between; align-items: center"><h2>Przód kolana <span style="font: 600 11px 'IBM Plex Mono'; background: #15201A; color: #fff; padding: 3px 8px; border-radius: 999px; margin-left: 6px">NAJBARDZIEJ DOKUCZA</span></h2><span style="display: flex; gap: 6px"><button type="button" class="chip">lewe</button><button type="button" class="chip on">prawe</button><button type="button" class="chip">oba</button></span></div>
             <div style="font-size: 14px; font-weight: 600; margin: 14px 0 6px">Jak mocno? <span style="font-weight: 400; color: #5E6A62">0 = nic, 10 = nie da się jechać</span></div>
-            <div class="sc"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span class="f">5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
+            <div class="sc"><span>0</span><span>1</span><span>2</span><span>3</span><span class="f">4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
             <div style="font-size: 14px; font-weight: 600; margin: 14px 0 6px">Kiedy się pojawia?</div>
             <div style="display: flex; gap: 6px; flex-wrap: wrap"><button type="button" class="chip">od początku</button><button type="button" class="chip">po 30 min</button><button type="button" class="chip on">po 60 min</button><button type="button" class="chip">po 2 h</button><button type="button" class="chip">dopiero po jeździe</button></div>
+            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px; margin-top: 12px; font-size: 14px">
+              <div><b>Jak to odczuwasz?</b><div class="row"><span class="chip on">ból</span><span class="chip">drętwienie</span><span class="chip">mrowienie</span><span class="chip">ucisk</span></div></div>
+              <div><b>Jak długo trwa po jeździe?</b><div class="row"><span class="chip">mija od razu</span><span class="chip on">do 2 h</span><span class="chip">do wieczora</span><span class="chip">następnego dnia</span></div></div>
+              <div><b>Jak często?</b><div class="row"><span class="chip">rzadko</span><span class="chip">co drugą jazdę</span><span class="chip on">prawie zawsze</span></div></div>
+              <div><b>Także poza rowerem?</b><div class="row"><span class="chip on">nie</span><span class="chip">tak</span></div></div>
+            </div>
           </div>
           <div class="card" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px"><span><b>Dół pleców</b> <span style="color: #5E6A62">· obie strony · 3/10 · po 2 h</span></span><a href="#" style="font-weight: 600; font-size: 14px">Zmień</a></div>
-          <div class="card" style="padding: 14px 20px"><label for="u" style="font-weight: 600; font-size: 15px">Przebyte urazy lub operacje</label><input id="u" type="text" placeholder="np. rekonstrukcja więzadła ACL lewego kolana, 2019" style="display: block; box-sizing: border-box; width: 100%; height: 42px; margin-top: 8px; padding: 0 12px; border: 1px solid #D3D8CE; border-radius: 10px; font: 15px 'Instrument Sans', sans-serif"></div>
+          <div class="card" style="padding: 14px 20px"><div style="display: flex; justify-content: space-between"><b style="font-size: 15px">Urazy i operacje</b><a href="#" style="font-weight: 600; font-size: 14px">+ Dodaj operację</a></div>
+            <div style="display: flex; gap: 8px; align-items: center; margin-top: 8px; font-size: 14px; color: #5E6A62">Brak operacji. <span style="margin-left: auto">Uraz w ostatnich 6 mies.: <b style="color: #15201A">nie</b></span></div></div>
         </div>
       </div>
-      <div class="ft"><a href="04-wywiad3.html" class="btn sec">Wstecz</a><a href="06-wywiad5.html" class="btn">Dalej: podsumowanie</a></div>
+      <div class="ft"><a href="04-wywiad3.html" class="btn sec">Wstecz</a><a href="06-wywiad5.html" class="btn">Dalej: co z tego wynika</a></div>
     </main>
   </div>
 </div>

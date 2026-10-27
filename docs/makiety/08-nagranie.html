@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
 <style>
 body{margin:0}a{color:#1E4B38}a:hover{color:#15201A}
-.pg{width:1280px;height:860px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
+.pg{width:1280px;height:1150px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
 .hd{height:64px;box-sizing:border-box;padding:0 48px;display:flex;align-items:center;gap:32px;background:#fff;border-bottom:1px solid #E2E5DD;flex:none}
 .wm{font:900 24px 'Big Shoulders Display',sans-serif}.wm i{font-style:normal;color:#2C6B4F}
 .tag{font:600 11px 'IBM Plex Mono',monospace;background:#2C6B4F;color:#fff;padding:3px 9px;border-radius:999px;text-transform:uppercase;margin-left:6px}
@@ -23,6 +23,7 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
 .ft{display:flex;justify-content:space-between;align-items:center;margin-top:20px}
 .ck{display:flex;gap:10px;align-items:flex-start;font-size:14px;padding:6px 0;line-height:1.4}.ck input{width:18px;height:18px;margin:1px 0 0;accent-color:#2C6B4F;flex:none}
 .rd{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.45;padding:6px 0}.rd input{width:18px;height:18px;margin:1px 0 0;accent-color:#2C6B4F;flex:none}
+.st .t{margin-left:auto;white-space:nowrap;padding-left:6px;font:600 11px "IBM Plex Mono",monospace;color:#8A948C;font-weight:600}
 </style>
 </head>
 <body>
@@ -33,15 +34,15 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
   </header>
   <div class="bd">
     <ol class="st">
-      <li class="g">WYWIAD · 3 MIN</li>
-      <li class="ok"><span class="n">1</span>Cel i profil jazdy</li>
-      <li class="ok"><span class="n">2</span>Ciało</li>
-      <li class="ok"><span class="n">3</span>Mobilność</li>
-      <li class="ok"><span class="n">4</span>Dolegliwości</li>
-      <li class="ok"><span class="n">5</span>Co z tego wynika</li>
+      <li class="g">WYWIAD · OK. 5 MIN</li>
+      <li class="ok"><span class="n">1</span>Cel i profil jazdy<span class="t">1 min</span></li>
+      <li class="ok"><span class="n">2</span>Ciało<span class="t">1–2 min</span></li>
+      <li class="ok"><span class="n">3</span>Mobilność<span class="t">2 min</span></li>
+      <li class="ok"><span class="n">4</span>Bezpieczeństwo i dolegliwości<span class="t">1 min</span></li>
+      <li class="ok"><span class="n">5</span>Co z tego wynika<span class="t">½ min</span></li>
       <li class="g">ANALIZA</li>
-      <li class="ok"><span class="n">6</span>Markery</li>
-      <li class="on"><span class="n">7</span>Nagranie</li>
+      <li class="ok"><span class="n">6</span>Markery<span class="t">5 min</span></li>
+      <li class="on"><span class="n">7</span>Nagranie<span class="t">3 min</span></li>
       <li><span class="n">8</span>Sprawdź punkty</li>
       <li><span class="n">9</span>Wynik</li>
     </ol>
@@ -68,6 +69,8 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
           <label class="ck"><input type="checkbox" checked> 8 markerów naklejonych na stronie zwróconej do kamery</label>
           <label class="ck"><input type="checkbox"> Znacznik skali 20 cm przyklejony do rury podsiodłowej</label>
           <label class="ck"><input type="checkbox"> 10 minut rozgrzewki, potem stała kadencja</label>
+          <label class="ck"><input type="checkbox" checked> Jadę umiarkowanie – mogę rozmawiać pełnymi zdaniami</label>
+          <label class="ck"><input type="checkbox" checked> Telefon na statywie, nie w ręce</label>
         </div>
         <div style="display: flex; flex-direction: column; gap: 14px">
           <div class="card" style="border: 2px dashed #D3D8CE; background: #FBFCFA; text-align: center; padding: 26px">
@@ -76,14 +79,25 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
             <div style="font-size: 13px; color: #5E6A62; margin-top: 4px">MP4 lub MOV · 30–120 s</div>
             <a href="#" class="btn sec" style="margin-top: 12px; height: 42px">Wybierz plik</a>
           </div>
+          <div class="card" style="display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 16px; align-items: center">
+            <svg width="88" height="88" viewBox="0 0 21 21" shape-rendering="crispEdges" role="img" aria-label="Kod QR do strony przesyłania z telefonu (wzór, nie działa)"><rect width="21" height="21" fill="#fff"/><path fill="#15201A" d="M0 0h7v7H0zM14 0h7v7h-7zM0 14h7v7H0z"/><path fill="#fff" d="M1 1h5v5H1zM15 1h5v5h-5zM1 15h5v5H1z"/><path fill="#15201A" d="M2 2h3v3H2zM16 2h3v3h-3zM2 16h3v3H2zM8 1h1v2H8zM10 2h2v1h-2zM9 5h3v1H9zM8 8h2v2H8zM11 9h3v1h-3zM15 8h2v2h-2zM18 10h2v1h-2zM8 12h1v3H8zM10 13h3v1h-3zM14 12h1v2h-1zM16 14h3v1h-3zM10 16h1v3h-1zM12 17h2v2h-2zM15 17h1v3h-1zM17 18h3v1h-3zM1 9h3v1H1zM4 11h2v1H4z"/></svg>
+            <div><h2>Nagrywasz telefonem?</h2><div style="font-size: 14px; color: #5E6A62; margin-top: 4px; line-height: 1.45">Zeskanuj kod albo wpisz <a href="08m-telefon.html" style="color: #15201A; font-weight: 700">ridemore.bike/fit/t</a> i zaloguj się na telefonie – prześlesz film bez kopiowania na komputer.</div></div>
+          </div>
           <div class="card">
             <h2>Strona ciała do kamery</h2>
-            <div style="display: flex; gap: 8px; margin-top: 10px"><span style="padding: 8px 16px; border-radius: 999px; border: 2px solid #2C6B4F; background: #E4EEE8; font-weight: 600; font-size: 14px; color: #1E4B38">prawa</span><span style="padding: 8px 16px; border-radius: 999px; border: 1px solid #D3D8CE; font-weight: 600; font-size: 14px">lewa</span></div>
+            <div style="display: flex; gap: 8px; margin-top: 10px; align-items: center"><span style="padding: 8px 16px; border-radius: 999px; border: 2px solid #2C6B4F; background: #E4EEE8; font-weight: 600; font-size: 14px; color: #1E4B38">prawa</span><span style="padding: 8px 16px; border-radius: 999px; border: 1px solid #D3D8CE; font-weight: 600; font-size: 14px">lewa</span><span style="font-size: 13px; color: #5E6A62">wybraliśmy prawą – tam dokucza kolano</span></div>
+          </div>
+          <div class="card">
+            <h2>Jak ciężko się jechało podczas nagrania?</h2>
+            <div style="display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 3px; margin-top: 10px"><span style="height: 30px; border-radius: 6px; display: grid; place-items: center; font: 600 12px 'IBM Plex Mono', monospace; background: #EDF1EC">0</span><span style="height: 30px; border-radius: 6px; display: grid; place-items: center; font: 600 12px 'IBM Plex Mono', monospace; background: #EDF1EC">1</span><span style="height: 30px; border-radius: 6px; display: grid; place-items: center; font: 600 12px 'IBM Plex Mono', monospace; background: #EDF1EC">2</span><span style="height: 30px; border-radius: 6px; display: grid; place-items: center; font: 600 12px 'IBM Plex Mono', monospace; background: #2C6B4F; color: #fff">3</span><span style="height: 30px; border-radius: 6px; display: grid; place-items: center; font: 600 12px 'IBM Plex Mono', monospace; background: #EDF1EC">4</span><span style="height: 30px; border-radius: 6px; display: grid; place-items: center; font: 600 12px 'IBM Plex Mono', monospace; background: #EDF1EC">5</span><span style="height: 30px; border-radius: 6px; display: grid; place-items: center; font: 600 12px 'IBM Plex Mono', monospace; background: #EDF1EC">6</span><span style="height: 30px; border-radius: 6px; display: grid; place-items: center; font: 600 12px 'IBM Plex Mono', monospace; background: #EDF1EC">7</span><span style="height: 30px; border-radius: 6px; display: grid; place-items: center; font: 600 12px 'IBM Plex Mono', monospace; background: #EDF1EC">8</span><span style="height: 30px; border-radius: 6px; display: grid; place-items: center; font: 600 12px 'IBM Plex Mono', monospace; background: #EDF1EC">9</span><span style="height: 30px; border-radius: 6px; display: grid; place-items: center; font: 600 12px 'IBM Plex Mono', monospace; background: #EDF1EC">10</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #5E6A62; margin-top: 4px"><span>0 spokojnie</span><span>3–4 umiarkowanie (zalecane)</span><span>10 maksymalnie</span></div>
+            <div style="font-size: 13px; color: #5E6A62; margin-top: 8px">Moc z trenażera (opcjonalnie): <b style="color: #15201A">150 W</b></div>
           </div>
           <div class="card">
             <h2>Co zrobimy z nagraniem?</h2>
-            <label class="rd"><input type="radio" name="r" checked> Usuniemy je po analizie. Zostaną tylko wyniki.</label>
-            <label class="rd"><input type="radio" name="r"> Zachowamy je do porównań i ręcznej korekty. Możesz je usunąć w każdej chwili.</label>
+            <label class="rd"><input type="radio" name="r" checked> <span><b>Usuń po analizie</b> (domyślnie). Zostaną wyniki i punkty; zdjęcia kadrów znikną po sprawdzeniu punktów.</span></label>
+            <label class="rd"><input type="radio" name="r"> <span><b>Zachowaj tylko 4 kadry.</b> Wirtualne dopasowanie i porównania pokażą Twoje zdjęcie.</span></label>
+            <label class="rd"><input type="radio" name="r"> <span><b>Zachowaj nagranie.</b> Możliwa ponowna analiza nowszą wersją. Usuniesz je w każdej chwili.</span></label>
           </div>
         </div>
       </div>

@@ -24,6 +24,7 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
 .row{display:grid;grid-template-columns:200px 30px minmax(0,1fr);gap:14px;align-items:start;padding:14px 0;border-bottom:1px solid #E2E5DD}.row:last-child{border-bottom:0}
 .src{font-size:13px;color:#5E6A62}.eff{font-size:15px;line-height:1.5}
 .k{font:600 11px 'IBM Plex Mono',monospace;color:#5E6A62;letter-spacing:.06em}
+.st .t{margin-left:auto;white-space:nowrap;padding-left:6px;font:600 11px "IBM Plex Mono",monospace;color:#8A948C;font-weight:600}
 </style>
 </head>
 <body>
@@ -34,15 +35,15 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
   </header>
   <div class="bd">
     <ol class="st">
-      <li class="g">WYWIAD · 3 MIN</li>
-      <li class="ok"><span class="n">1</span>Cel i profil jazdy</li>
-      <li class="ok"><span class="n">2</span>Ciało</li>
-      <li class="ok"><span class="n">3</span>Mobilność</li>
-      <li class="ok"><span class="n">4</span>Dolegliwości</li>
-      <li class="on"><span class="n">5</span>Co z tego wynika</li>
+      <li class="g">WYWIAD · OK. 5 MIN</li>
+      <li class="ok"><span class="n">1</span>Cel i profil jazdy<span class="t">1 min</span></li>
+      <li class="ok"><span class="n">2</span>Ciało<span class="t">1–2 min</span></li>
+      <li class="ok"><span class="n">3</span>Mobilność<span class="t">2 min</span></li>
+      <li class="ok"><span class="n">4</span>Bezpieczeństwo i dolegliwości<span class="t">1 min</span></li>
+      <li class="on"><span class="n">5</span>Co z tego wynika<span class="t">½ min</span></li>
       <li class="g">ANALIZA</li>
-      <li><span class="n">6</span>Markery</li>
-      <li><span class="n">7</span>Nagranie</li>
+      <li><span class="n">6</span>Markery<span class="t">5 min</span></li>
+      <li><span class="n">7</span>Nagranie<span class="t">3 min</span></li>
       <li><span class="n">8</span>Sprawdź punkty</li>
       <li><span class="n">9</span>Wynik</li>
     </ol>
@@ -52,14 +53,15 @@ h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif
       <div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 24px">
         <div class="card" style="padding: 6px 22px">
           <div class="row"><span><b>Endurance, 2–3 h</b><br><span class="src">profil jazdy</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="eff">Plecy pochylone umiarkowanie: zakres 40–50°. Kierownica bliżej i wyżej niż w profilu sportowym.</span></div>
-          <div class="row"><span><b>Napięty tył ud</b><br><span class="src">skłon do piszczeli, noga ukośnie</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="eff">Zakres pleców przesuwamy o 5° w górę. Siodła nie podnosimy do górnej granicy zakresu.</span></div>
-          <div class="row"><span><b>Ból dołu pleców</b><br><span class="src">3/10, po 2 h</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="eff">Nie zalecimy obniżenia kierownicy. Niższa kierownica wiąże się z większym zgięciem odcinka lędźwiowego.</span></div>
-          <div class="row"><span><b>Ból przodu kolana</b><br><span class="src">prawe, 5/10, po 60 min</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="eff">Najpierw sprawdzimy wysokość i położenie siodła – zalecenia ułożymy w tej kolejności.</span></div>
+          <div class="row"><span><b>Napięty tył ud</b><br><span class="src">testy domowe: skłon w siadzie −9 cm, noga 66°</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="eff">Zakres pleców przesuwamy o 5° w górę, siodła nie podnosimy na siłę. Wynik orientacyjny – tylko przesuwa zakres, nie blokuje zaleceń.</span></div>
+          <div class="row"><span><b>Ból dołu pleców</b><br><span class="src">3/10, po 2 h</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="eff">Nie zalecimy obniżenia kierownicy.</span></div>
+          <div class="row"><span><b>Ból przodu kolana</b><br><span class="src">prawe, 4/10, po 60 min, prawie zawsze</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="eff">Najpierw sprawdzimy wysokość i położenie siodła. To główna dolegliwość – według niej ocenimy, czy zmiana pomogła.</span></div>
           <div class="row"><span><b>Lewa noga krótsza</b><br><span class="src">ok. 5 mm, stwierdzone</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#6B4E00" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 7v6M12 17h.01"/></svg><span class="eff">Nic nie zmieniamy automatycznie. Oznaczamy dla bike fittera (podkładka pod blok).</span></div>
         </div>
         <div style="display: flex; flex-direction: column; gap: 14px">
-          <div class="card"><div class="k">TWÓJ PROFIL DO ANALIZY</div><div style="font: 800 24px Archivo, sans-serif; margin-top: 6px">Endurance · mniej giętki</div><a href="02-wywiad1.html" style="display: inline-block; margin-top: 8px; font-weight: 600; font-size: 14px">Zmień odpowiedzi</a></div>
-          <div class="card" style="background: #EDF1EC; border: 0; font-size: 14px; line-height: 1.55; color: #38443C"><b>Następnym razem</b> zapytamy tylko, czy coś się zmieniło – wystarczy 30 sekund. Pełny wywiad powtórzymy po urazie albo co pół roku.</div>
+          <div class="card" style="padding: 14px 20px"><div class="k">BEZPIECZEŃSTWO</div><div style="font-size: 14px; margin-top: 6px">✓ Bez uwag – zalecenia ze zwykłym krokiem (do 10 mm). Gdyby coś się zmieniło, zapytamy o to w krótkim wywiadzie.</div></div>
+          <div class="card"><div class="k">TWÓJ PROFIL DO ANALIZY</div><div style="font: 800 24px Archivo, sans-serif; margin-top: 6px">Endurance · z uwzględnieniem ruchomości</div><a href="02-wywiad1.html" style="display: inline-block; margin-top: 8px; font-weight: 600; font-size: 14px">Zmień odpowiedzi</a></div>
+          <div class="card" style="background: #EDF1EC; border: 0; font-size: 14px; line-height: 1.55; color: #38443C"><b>Następnym razem</b> zapytamy tylko, czy coś się zmieniło – wystarczy ok. 1 minuty. Pełny wywiad powtórzymy po urazie albo co pół roku.</div>
         </div>
       </div>
       <div class="ft"><a href="05-wywiad4.html" class="btn sec">Wstecz</a><a href="07-markery.html" class="btn">Dalej: markery i nagranie</a></div>

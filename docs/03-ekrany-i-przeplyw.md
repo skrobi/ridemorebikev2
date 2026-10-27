@@ -2,8 +2,8 @@
 
 Makiety: `docs/makiety/NN-*.html` (otwierane w przeglądarce) i `docs/makiety/png/NN-*.png`. Makiety są wzorcem
 układu, hierarchii i treści; dane na nich są przykładowe. Kolory i typografia: `docs/14-frontend.md`, rozdz. 4.
-Zmiany po panelu ekspertów (`docs/20`) nie są jeszcze naniesione na makiety – obowiązuje ten dokument; lista
-różnic: `docs/makiety/README.md`. Teksty i etykiety: `docs/21-komunikacja.md`.
+Makiety uwzględniają zmiany z `docs/20`, recenzji technicznej i ADR-26; przy rozbieżności obowiązuje ten
+dokument (uproszczenia: `docs/makiety/README.md`). Teksty i etykiety: `docs/21-komunikacja.md`.
 
 ## 1. Układ wspólny
 
@@ -24,17 +24,17 @@ różnic: `docs/makiety/README.md`. Teksty i etykiety: `docs/21-komunikacja.md`.
 |---|---|---|
 | S01 Moje analizy | `/fit` | `01-main` |
 | S02 Wywiad – cel i profil | `/fit/analiza/nowa/cel` | `02-wywiad1` |
-| S02q Szybki start | `/fit/analiza/nowa/szybki` | brak – rozdz. 4 |
+| S02q Szybki start | `/fit/analiza/nowa/szybki` | `02q-szybki-start` |
 | S03 Wywiad – ciało | `/fit/analiza/{draft}/cialo` | `03-wywiad2` |
 | S04 Wywiad – mobilność | `/fit/analiza/{draft}/mobilnosc` | `04-wywiad3` |
 | S05 Wywiad – bezpieczeństwo i dolegliwości | `/fit/analiza/{draft}/dolegliwosci` | `05-wywiad4` |
 | S06 Wywiad – co z tego wynika | `/fit/analiza/{draft}/wnioski` | `06-wywiad5` |
 | S07 Markery | `/fit/analiza/{draft}/markery` | `07-markery` |
 | S08 Nagranie | `/fit/analiza/{draft}/nagranie` | `08-nagranie` |
-| M01 Przesłanie z telefonu | `/fit/analiza/{draft}/telefon` | brak – rozdz. 10.1 |
+| M01 Przesłanie z telefonu | `/fit/analiza/{draft}/telefon` | `08m-telefon` |
 | S09 Analiza w toku | `/fit/sesje/{id}/postep` | `09-analiza` |
 | S10 Sprawdź punkty | `/fit/sesje/{id}/punkty` | `10-punkty` |
-| S11 Wynik | `/fit/sesje/{id}` (zakładki `?tab=szczegoly`) | `11-wynik` |
+| S11 Wynik | `/fit/sesje/{id}` (zakładki `?tab=szczegoly`) | `11-wynik`, tryb raportu `11r-raport` |
 | S12 Wirtualne dopasowanie | `/fit/sesje/{id}/symulacja` | `12-symulator` |
 | S13 Zapis zmiany | `/fit/rowery/{bikeId}/zmiana?plan={planId}` | `13-zmiana` |
 | S14 Ocena zmiany | `/fit/zmiany/{changeId}` | `14-ocenazmiany` |
