@@ -12,7 +12,8 @@ wywiadu z rowerzystą:
 Moduł nie diagnozuje chorób i nie wyznacza jednej „idealnej pozycji”. Zalecenia są szacunkiem opartym na
 publikacjach i praktyce bike fittingu, dopasowanym do profilu jazdy i wywiadu.
 
-**Status:** dokumentacja projektowa (bez kodu). Repozytorium zawiera wyłącznie moduł Fit; platforma ridemore.bike
+**Status:** dokumentacja projektowa (bez kodu). Realizacja etapami z bramkami M0–M5 – najpierw wykonalność
+i zwalidowany pomiar, potem zalecenia (`docs/17`). Repozytorium zawiera wyłącznie moduł Fit; platforma ridemore.bike
 (konta, sesje, strona) działa osobno i jest źródłem tożsamości użytkownika.
 
 ---
@@ -73,6 +74,9 @@ S01 Moje analizy
 | Ocena zmiany | werdykt po kolejnej analizie: pomogło / częściowo / bez zmian / gorzej / za wcześnie |
 | Poziom bezpieczeństwa | wynik pytań bezpieczeństwa: brak uwag / „ostrożnie” (małe kroki) / „wstrzymaj zmiany” (pomiar bez zaleceń) |
 | Poziom pewności | jak bardzo ufamy zaleceniu: pewne / raczej pewne / do sprawdzenia – z wyjaśnieniem |
+| Status reguły | tylko pomiar / eksperymentalna / zwalidowana – czy i jak regulacja może dawać zalecenia |
+| Status walidacji pomiaru | zwalidowany / niezweryfikowany / ukryty – wynik porównania z pomiarem referencyjnym |
+| Karta modelu | opis wersji modelu: zakresy, źródła, wyniki walidacji, ograniczenia, kto zatwierdził |
 | Dopasowanie podstawowe / pełne | wynik po szybkim starcie / po pełnym wywiadzie |
 
 ## Dla Claude Code

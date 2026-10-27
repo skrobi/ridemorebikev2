@@ -1,44 +1,63 @@
 # 17 · Plan zadań
 
-Każde zadanie jest kontraktem implementacyjnym (`CLAUDE.md`, rozdz. 1 i 8). Kolejność jest zalecana; kolumna
-„Zależy od” wskazuje twarde zależności. Status: `todo` · `in_progress` · `done` · `blocked`.
-Zmiany uzgodnione przez panel ekspertów (`docs/20`, C-01…C-23) są już wpisane w dokumenty i zakresy zadań poniżej;
-zadania interfejsu czytają też `docs/21-komunikacja.md`.
+Każde zadanie jest kontraktem implementacyjnym (`CLAUDE.md`, rozdz. 1 i 8). Status: `todo` · `in_progress` ·
+`done` · `blocked`. Zmiany panelu ekspertów (`docs/20`, C-01…C-23) i recenzji technicznej (ADR-21…ADR-25) są wpisane
+w dokumenty i zakresy zadań; zadania interfejsu czytają też `docs/21-komunikacja.md`.
+
+## Etapy i bramki
+
+Realizacja w 6 etapach. **Etap zaczyna się dopiero po spełnieniu bramki poprzedniego.** Najpierw wykazujemy, że
+pomiar działa i jest powtarzalny; dopiero potem budujemy wokół niego zalecenia i pełny proces użytkownika.
+
+| Etap | Cel | Bramka (kryterium ukończenia) |
+|---|---|---|
+| **M0** Wykonalność techniczna | środowisko, zależności, uruchamianie Pythona, kontrakty | raport F0.2 z **faktycznie uruchomionym** `selfcheck` na hostingu: wersja Pythona, OpenCV, model pozy, czas analizy 60 s nagrania ≤ 15 min, pamięć, ffmpeg/ffprobe, `proc_open`, limity crona i procesów CLI. Jeśli hosting nie spełnia – decyzja D-02 (osobne środowisko analizy i sposób komunikacji) **przed** M1 |
+| **M1** Minimalny silnik pomiarowy | wideo → markery → kalibracja → śledzenie → pomiary → jakość; bez interfejsu i zaleceń | V1.1: znane błędy każdego pomiaru (z markerami i bez) na rzeczywistych nagraniach; `knee_flex_bottom` z markerami spełnia kryteria `docs/16` rozdz. 6.1; nieudane analizy domowe ≤ 20% |
+| **M2** Prototyp: weryfikacja i raport pomiarowy | przesłanie → kolejka → S09 → S10 (korekty) → raport pomiarowy z przyczynami odrzuceń; **bez zaleceń** | pełny przepływ na środowisku testowym; testy kolejki i prywatności z `docs/16` rozdz. 3; 5 osób rozumie przyczyny odrzucenia pomiaru |
+| **M3** Profile, rowery, wywiad, historia | integracja z kontem ridemore.bike, wersjonowanie ustawień, wywiad, retencja | Q-01 i D-04 rozstrzygnięte; testy autoryzacji, wersji ustawień, retencji przechodzą |
+| **M4** Ograniczony model dopasowania | jedna regulacja `experimental` (wysokość siodła), pozostałe „tylko pomiar”; pewność, ograniczony krok, odmowa zalecenia | V4.1; karta modelu `fit-model-v1` zatwierdzona przez radę modelu (D-06); decyzja o statusie reguły |
+| **M5** Symulacja, plan i ocena efektów | warianty, plan sekwencyjny, S12–S14, przypomnienia, kolejne reguły po walidacji | V5.2; 12 scenariuszy E2E; wdrożenie produkcyjne |
+
+Wydanie 1 (ograniczona grupa użytkowników) = M0–M4. Wydanie 2 = M5. W M1–M3 wynik `analyze` nie zawiera sekcji
+`fit` ani `variants` (opcjonalne w schemacie, `docs/11`); w M2 sesja może nie mieć wywiadu (`interview_id` NULL).
 
 ## Przegląd
 
-| ID | Zadanie | Zależy od | Status |
-|---|---|---|---|
-| F0.1 | Szkielet repozytorium i narzędzi | – | todo |
-| F0.2 | Weryfikacja hostingu | F0.1 | todo |
-| F0.3 | Kontrakty JSON Schema i przykłady | F0.1 | todo |
-| P1.1 | Geometria i pomiary | F0.1 | todo |
-| P1.2 | Generator syntetycznych nagrań | P1.1 | todo |
-| P1.3 | Odczyt i walidacja wideo, wybór fragmentu | F0.2 | todo |
-| P1.4 | Markery i znacznik skali | P1.2, P1.3 | todo |
-| P1.5 | Estymatory pozy i porównanie modeli | P1.3, F0.2 | todo |
-| P1.6 | Fuzja, śledzenie, wygładzanie | P1.4, P1.5 | todo |
-| P1.7 | Kalibracja, faza korby, cykle | P1.6 | todo |
-| P1.8 | Statystyki, jakość, kadry kluczowe, `analyze` E2E | P1.7, F0.3 | todo |
-| P1.9 | Model dopasowania v1 | P1.1, F0.3 | todo |
-| P1.10 | Kinematyka, warianty, `correct` / `refit` / `simulate` | P1.8, P1.9 | todo |
-| B2.1 | Rdzeń PHP: front controller, router, middleware, układ | F0.1 | todo |
-| B2.2 | Migracje bazy | B2.1 | todo |
-| B2.3 | Profil, zgody, rowery, ustawienia, historia | B2.2 | todo |
-| B2.4 | Wywiad (S02–S06) | B2.3 | todo |
-| B2.5 | Markery, nagranie, przesyłanie (S07–S08) | B2.4 | todo |
-| B2.6 | Kolejka, worker, importer, retencja (S09) | B2.5, F0.3 | todo |
-| B2.7 | Preferencje, przypomnienia, zdarzenia produktowe | B2.2 | todo |
-| U3.1 | S10 Sprawdź punkty + korekty | B2.6, P1.10 | todo |
-| U3.2 | S11 Wynik, profil jazdy, akceptacje | U3.1 | todo |
-| U3.3 | S12 Wirtualne dopasowanie | U3.2 | todo |
-| U3.4 | S13 Zapis zmiany, oceny jazd, przypomnienia, Komfort | U3.3 | todo |
-| U3.5 | S14 Ocena zmiany, S01 pulpit | U3.4 | todo |
-| Q4.1 | E2E web i dostępność | U3.5 | todo |
-| Q4.2 | Wdrożenie na hosting | Q4.1 | todo |
-| Q4.3 | Szablon markerów DIY i treści instrukcji | B2.5 | todo |
-| V5.1 | Walidacja: powtarzalność | Q4.2 | todo |
-| V5.2 | Walidacja: zgodność z fitterem, kalibracja modelu dopasowania | V5.1 | todo |
+| ID | Zadanie | Etap | Zależy od | Status |
+|---|---|---|---|---|
+| F0.1 | Szkielet repozytorium i narzędzi | M0 | – | todo |
+| F0.2 | Weryfikacja hostingu (bramka M0) | M0 | F0.1 | todo |
+| F0.3 | Kontrakty JSON Schema i przykłady | M0 | F0.1 | todo |
+| P1.1 | Geometria i pomiary | M1 | F0.1 | todo |
+| P1.2 | Generator syntetycznych nagrań | M1 | P1.1 | todo |
+| P1.3 | Odczyt i walidacja wideo, wybór fragmentu | M1 | F0.2 | todo |
+| P1.4 | Markery i znacznik skali | M1 | P1.2, P1.3 | todo |
+| P1.5 | Estymatory pozy i porównanie modeli | M1 | P1.3, F0.2 | todo |
+| P1.6 | Fuzja, śledzenie, wygładzanie | M1 | P1.4, P1.5 | todo |
+| P1.7 | Kalibracja, faza korby, cykle | M1 | P1.6 | todo |
+| P1.8 | Statystyki, jakość, kadry kluczowe, `analyze` E2E | M1 | P1.7, F0.3 | todo |
+| Q4.3 | Szablon markerów DIY i treści instrukcji | M1 | P1.4 | todo |
+| V1.1 | Walidacja pomiaru na rzeczywistych nagraniach (bramka M1) | M1 | P1.8, Q4.3 | todo |
+| B2.1 | Rdzeń PHP: front controller, router, middleware, układ | M2 | F0.1 | todo |
+| B2.2 | Migracje bazy (M2: sesje, pliki, kolejka, analizy; M3: pozostałe) | M2/M3 | B2.1 | todo |
+| B2.5 | Markery, nagranie, przesyłanie (S07–S08, M01) | M2 | B2.2 | todo |
+| B2.6 | Kolejka, worker, importer, retencja (S09) | M2 | B2.5, F0.3 | todo |
+| P1.10 | `correct` – przeliczenie po korekcie punktów | M2 | P1.8 | todo |
+| U3.1 | S10 Sprawdź punkty + korekty | M2 | B2.6, P1.10 | todo |
+| U2.1 | Raport pomiarowy (S11 bez zaleceń) | M2 | U3.1 | todo |
+| Q4.2 | Wdrożenie na hosting (M2: środowisko testowe; M5: produkcja) | M2/M5 | U2.1 | todo |
+| B2.3 | Profil, zgody, rowery, ustawienia, historia | M3 | B2.2 | todo |
+| B2.4 | Wywiad (S02–S06) | M3 | B2.3 | todo |
+| P1.9 | Model dopasowania v1 (karty reguł, `refit`, karta modelu) | M4 | P1.8, F0.3, V1.1 | todo |
+| U3.2 | S11 Wynik, profil jazdy, akceptacje | M4 | U2.1, P1.9, B2.4 | todo |
+| V4.1 | Walidacja reguły wysokości siodła (bramka M4) | M4 | U3.2 | todo |
+| P1.11 | Kinematyka, warianty, `simulate`, plan sekwencyjny | M5 | P1.9, V4.1 | todo |
+| U3.3 | S12 Wirtualne dopasowanie | M5 | P1.11, U3.2 | todo |
+| U3.4 | S13 Zapis zmiany, oceny jazd, przypomnienia, Komfort | M5 | U3.3 | todo |
+| U3.5 | S14 Ocena zmiany, S01 pulpit | M5 | U3.4 | todo |
+| B2.7 | Preferencje, przypomnienia, zdarzenia produktowe | M5 | B2.2 | todo |
+| Q4.1 | E2E web i dostępność | M2–M5 (przyrostowo) | U3.5 | todo |
+| V5.2 | Walidacja pozostałych reguł i modelu wariantów (bramka M5) | M5 | P1.11 | todo |
 
 ---
 
@@ -53,10 +72,15 @@ zadania interfejsu czytają też `docs/21-komunikacja.md`.
 
 ## F0.2 · Weryfikacja hostingu
 - **Czytaj:** `docs/07` rozdz. 13 (E2), `docs/01` rozdz. 6.
-- **Zakres:** wykonanie listy E2 przez SSH; skrypt `analyzer/tools/host_check.py`; sprawdzenie limitów PHP
-  (`upload_max_filesize`, `post_max_size`, `max_execution_time` CLI), wersji MariaDB, crona, `proc_open`.
-- **Kryteria:** raport w `docs/18` (D-01, D-02, D-03) z faktycznymi wersjami i czasami; decyzja: analiza na hostingu
-  albo osobne środowisko. **Nie deklarować zgodności bez uruchomienia.**
+- **Zakres:** wykonanie listy E2 przez SSH; skrypt `analyzer/tools/host_check.py`; sprawdzenie: dostępnych
+  interpreterów Pythona (deklaracja dostawcy: zalecany 3.6.15, maksymalny 3.9.23 – do potwierdzenia), instalacji
+  kół `numpy`/`opencv-python-headless`/runtime modelu pozy dla architektury serwera, `selfcheck` na nagraniu
+  wzorcowym (czas, pamięć szczytowa), ffmpeg/ffprobe, limitów PHP (`upload_max_filesize`, `post_max_size`,
+  `max_execution_time` CLI), wersji MariaDB, crona (minimalny odstęp, limit czasu procesu), `proc_open`, procesów
+  w tle i ich zabijania przez dostawcę.
+- **Kryteria (bramka M0):** raport w `docs/18` (D-01, D-02, D-03) z faktycznymi wersjami i czasami. Jeśli
+  którykolwiek warunek nie jest spełniony – decyzja D-02 (osobne środowisko analizy i sposób komunikacji z PHP)
+  przed rozpoczęciem M1. **Nie deklarować zgodności bez uruchomienia.**
 
 ## F0.3 · Kontrakty JSON Schema
 - **Czytaj:** `docs/11`, `docs/09` rozdz. 10.
@@ -104,18 +128,27 @@ zadania interfejsu czytają też `docs/21-komunikacja.md`.
 - **Kryteria:** `python -m ridemore_fit analyze` na syntetycznym nagraniu daje `result.json` zgodny ze schematem;
   błędy pomiarów w granicach `docs/16` rozdz. 2; `progress.json`; kody wyjścia.
 
-## P1.9 · Model dopasowania v1
-- **Czytaj:** `docs/09`, `docs/04` rozdz. 4–5 i 8, `docs/21`.
-- **Zakres:** `configs/fit-models/fit-model-v1.json` (wszystkie zakresy, modyfikatory, sekcje `safety`,
-  `confidence`, `signals`, `effort`, teksty PL zgodne z `docs/21`, źródła), interpreter reguł, poziom pewności,
-  skutki `safety_level` i `fit_level`, porady (w tym długość korby), ocena zmiany z progami bólu i oceną 5-stopniową.
-- **Kryteria:** testy tabelaryczne z `docs/16` rozdz. 2; brak progów w kodzie (tylko w pliku); teksty bez
+## P1.9 · Model dopasowania v1 (etap M4)
+- **Czytaj:** `docs/09` (w tym rozdz. 1.1, 5.3, 12, 13), `docs/04` rozdz. 4–5 i 8, `docs/21`.
+- **Zakres:** `configs/fit-models/fit-model-v1.json` (wszystkie zakresy z `method` i strefami spornymi, karty reguł,
+  `rule_status` – `saddle_height` `experimental`, pozostałe `measure_only`; modyfikatory, sekcje `safety`,
+  `confidence`, `signals`, `effort`, teksty PL zgodne z `docs/21`, źródła), interpreter reguł z kolejnością warstw,
+  kopertą literatury i pustym zakresem, ślad uzasadnienia, poziom pewności, skutki `safety_level` i `fit_level`,
+  porady, `refit`; ocena zmiany (używana od M5); karta modelu `docs/model-cards/fit-model-v1.md`.
+- **Kryteria:** testy tabelaryczne z `docs/16` rozdz. 2; reguła nie wydaje zalecenia, gdy pomiar ma
+  `validation_status ≠ validated` lub nie spełnia karty reguły; brak progów w kodzie (tylko w pliku); teksty bez
   przypisywania przyczyny dolegliwości.
 
-## P1.10 · Kinematyka, warianty, `correct` / `refit` / `simulate`
-- **Czytaj:** `docs/10`, `docs/11` rozdz. 1.
-- **Kryteria:** testy kierunków z `docs/16`; siatka ≤ 38 wariantów < 5 s; korekta `all_frames` zmienia pomiary,
-  `keyframe` nie zmienia statystyk; szkielety w px kadrów.
+## P1.10 · `correct` – przeliczenie po korekcie punktów (etap M2)
+- **Czytaj:** `docs/11` rozdz. 1, `docs/07` rozdz. 6–9.
+- **Kryteria:** korekta `all_frames` przelicza wszystkie zależne pomiary i jakość, `keyframe` zmienia tylko kadr;
+  nowa analiza z `parent_id`; testy z `docs/16` rozdz. 3 (korekty).
+
+## P1.11 · Kinematyka, warianty, `simulate`, plan sekwencyjny (etap M5)
+- **Czytaj:** `docs/10`, `docs/09` rozdz. 11, `docs/11` rozdz. 1–2.
+- **Kryteria:** testy kierunków z `docs/16`; siatka ≤ 38 wariantów < 5 s; wyniki rozdzielone na `geometry`
+  i `prediction`; macierz wpływu; plan sekwencyjny odtwarza przykład z `docs/09` rozdz. 11 (pominięty mostek);
+  szkielety w px kadrów.
 
 ## B2.1 · Rdzeń PHP
 - **Czytaj:** `docs/13` rozdz. 1, 3, 10, 11; `docs/02` rozdz. 6; `docs/15` rozdz. 2–3; `docs/14` rozdz. 2 i 4.
@@ -168,11 +201,19 @@ zadania interfejsu czytają też `docs/21-komunikacja.md`.
 - **Kryteria:** korekta → zadanie `correct` → nowa wersja; przywrócenie; obsługa klawiatury i korekta bez
   przeciągania (kliknij punkt → kliknij miejsce); brak obliczeń w JS.
 
+## U2.1 · Raport pomiarowy (S11 bez zaleceń, etap M2)
+- **Czytaj:** `docs/03` rozdz. 13 (zakładka szczegółów), `docs/07` rozdz. 9–9.1, `docs/08`, `docs/21`.
+- **Zakres:** S11 w trybie „raport pomiarowy”: wartości pomiarów z jakością i statusem walidacji, przyczyny
+  odrzucenia lub „nie oceniono” prostym językiem, „Nagraj ponownie”, kadry; brak zakresów-zaleceń i akcji.
+- **Kryteria:** każda przyczyna z `docs/07` rozdz. 9.1 ma tekst; pomiary `unvalidated` z plakietką, `hidden`
+  niewidoczne; test zrozumiałości przyczyn odrzucenia (5 osób).
+
 ## U3.2 · S11 Wynik
-- **Czytaj:** `docs/03` rozdz. 13, `docs/09` rozdz. 3–8, `docs/21`, makieta 11.
+- **Czytaj:** `docs/03` rozdz. 13, `docs/09` rozdz. 1.1 i 3–8, `docs/21`, makieta 11.
 - **Kryteria:** statusy i paski z API (strefy bez czerwieni, `docs/21` rozdz. 6); poziom pewności z powodami
   i wysiłek zmiany na karcie następnego kroku; stany `caution`, `stop` i `basic`; zmiana profilu → `refit`;
-  akceptacja i cofnięcie; zakładka szczegółów z wykresem w cyklu (SVG) i definicjami.
+  akceptacja i cofnięcie; zakładka szczegółów z wykresem w cyklu (SVG), definicjami i śladem uzasadnienia;
+  regulacje `measure_only` z dopiskiem „Tylko pomiar – bez zalecenia”, zalecenie `experimental` z plakietką.
 
 ## U3.3 · S12 Wirtualne dopasowanie
 - **Czytaj:** `docs/03` rozdz. 14, `docs/10`, `docs/13` rozdz. 9, makieta 12.
@@ -198,15 +239,26 @@ zadania interfejsu czytają też `docs/21-komunikacja.md`.
 - **Czytaj:** `docs/02` rozdz. 7–8, `docs/13` rozdz. 8, `docs/15` rozdz. 5–6.
 - **Zakres:** instrukcja krok po kroku dla osoby nietechnicznej (`docs/wdrozenie.md`): katalogi, uprawnienia,
   venv, konfiguracja, migracje, cron, podpięcie `/fit` w Apache, test dymny.
-- **Kryteria:** wdrożenie na kopii testowej wykonane według instrukcji bez pomocy.
+- **Kryteria:** wdrożenie na kopii testowej wykonane według instrukcji bez pomocy (M2); produkcja po bramce M5
+  (wydanie 1 dla ograniczonej grupy – po M4).
 
 ## Q4.3 · Szablon markerów DIY i treści
 - **Czytaj:** `docs/06` rozdz. 3.
 - **Kryteria:** PDF A4 z 8 markerami i znacznikiem skali 200,0 mm (sprawdzony po wydruku linijką); teksty
   instrukcji w i18n.
 
-## V5.1 / V5.2 · Walidacja
+## V1.1 · Walidacja pomiaru (bramka M1)
+- **Czytaj:** `docs/16` rozdz. 6.1–6.2, `docs/18` (D-17).
+- **Kryteria:** raport dokładności każdego pomiaru (bias, LoA, MDC) z markerami i bez, na rzeczywistych
+  nagraniach; `metrics.validation_status` w `pipeline.json`; korekta 2D kolana (C-21); nagrania domowe.
+
+## V4.1 · Walidacja reguły wysokości siodła (bramka M4)
+- **Czytaj:** `docs/16` rozdz. 6.2, `docs/09` rozdz. 1.1 i 13, `docs/18` (D-06).
+- **Kryteria:** wyniki względem karty reguły; karta modelu uzupełniona; decyzja rady modelu: `validated` albo
+  pozostaje `experimental` (nowa wersja modelu, jeśli zmiana).
+
+## V5.2 · Walidacja pozostałych reguł i modelu wariantów (bramka M5)
 - **Czytaj:** `docs/16` rozdz. 6, `docs/09` (D-06), `docs/18` (D-07, D-15).
-- **Kryteria:** raporty z wynikami względem kryteriów z `docs/01` rozdz. 7 (także badania korekty 2D kolana,
-  testów mobilności w domu i czasu wywiadu); decyzje o zmianie zakresów i progów jako nowa wersja modelu
-  dopasowania lub kwestionariusza.
+- **Kryteria:** raporty względem kart reguł i kryteriów z `docs/01` rozdz. 7 (także testy mobilności w domu,
+  czas wywiadu, zrozumiałość poziomów pewności); decyzje o statusach reguł, zakresach i progach jako nowa wersja
+  modelu dopasowania lub kwestionariusza.

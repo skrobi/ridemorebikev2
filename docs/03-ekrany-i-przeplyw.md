@@ -186,6 +186,12 @@ Kryteria: przeglądarka nie liczy kątów; po korekcie widoczna nowa wersja wyni
 
 Zakładki: **Podsumowanie** (domyślna) i **Szczegóły dla fittera**.
 
+**Tryb „raport pomiarowy” (etap M2, zadanie U2.1):** zamiast Podsumowania – wartości pomiarów z jakością
+i statusem walidacji, przyczyny odrzucenia lub „nie oceniono” (`docs/07`, rozdz. 9.1), „Nagraj ponownie”; bez
+zakresów-zaleceń i akcji. **Statusy reguł (od M4):** regulacja `measure_only` – kafelek „Tylko pomiar – bez
+zalecenia” (wartość i pasek w „Szczegółach”); zalecenie `experimental` – plakietka „Eksperymentalne”, krok 5 mm
+i nagranie kontrolne (`docs/09`, rozdz. 1.1, `docs/21`, rozdz. 3.1).
+
 Podsumowanie:
 1. Wybór profilu jazdy (Komfort / Neutralny / Endurance / Sportowy / Własny-nieaktywny dla rowerzysty) –
    zmiana przelicza zakresy (FR-34) bez nowej analizy. Przy `fit_level = basic` plakietka „Dopasowanie
@@ -197,7 +203,8 @@ Podsumowanie:
 3. Regulacja zaakceptowana („Mi tak wygodnie”) – status „Twoje ustawienie”, powód, „Cofnij”.
 4. Sekcja „Coś jest poza zakresem, a jest Ci wygodnie?” z powodami do wyboru.
 5. Karta **Twój następny krok** (akcja z liczbą mm, uzasadnienie, „Jak:”, poziom pewności z rozwijanym
-   „Dlaczego taka pewność?”, wysiłek zmiany, przyciski „Sprawdź wirtualnie” (S12), „Zaplanuj”, „Zrobione – zapisz
+   „Dlaczego taka pewność?”, „Dlaczego teraz to?” (kolejność z planu), „Wpływ na inne ustawienia” (skutki uboczne),
+   wysiłek zmiany, przyciski „Sprawdź wirtualnie” (S12), „Zaplanuj”, „Zrobione – zapisz
    zmianę” (S13), „Mi tak wygodnie”; przy pewności `low` przycisk główny „Nagraj kontrolnie”). Przy
    `safety_level = caution` dopisek „Małymi krokami”, przy `stop` – karta „Najpierw konsultacja” zamiast zalecenia.
 6. Karta „Dopasowane do Ciebie z wywiadu” (modyfikatory) + link do odpowiedzi.
@@ -212,7 +219,11 @@ reguły i źródła zaleceń, porównanie z poprzednią analizą.
 ## 14. S12 · Wirtualne dopasowanie
 
 - Kadr z nagrania (faza wybierana: góra / przód / dół / tył) z sylwetką **„teraz”** (linia ciągła, żółta) i obrysem
-  **„po zmianie”** (zielona przerywana) z wybranego wariantu; etykiety kątów z różnicą (np. „152° (−4)”).
+  **„przewidywanie po zmianie”** (zielona przerywana) z wybranego wariantu; etykiety kątów z różnicą (np. „152° (−4)”).
+- Trzy rodzaje wyniku rozdzielone wizualnie (`docs/10`, rozdz. 1.1): **„Rower po zmianie”** (geometria, mm –
+  dokładne), **„Przewidywana pozycja”** (z plakietką „przewidywanie modelu – nie pomiar i nie dowód, że zmiana
+  pomoże”; „niezweryfikowane”, dopóki `prediction_validated = false`), **„Zmierzone”** tylko w S14 po nagraniu
+  kontrolnym. Rozwijane „Założenia modelu” (`docs/10`, rozdz. 4.1).
 - Panel „Zmień ustawienie” – grupy rozwijane: **Siodło** (wysokość, przód/tył, kąt*), **Kierownica i mostek**
   (długość mostka, kąt mostka −6°/0°/+6°/+17°, podkładki, szerokość kierownicy*, klamkomanetki*), **Korby, pedały
   i bloki** (długość korby, bloki*), **Rama i koła** (rozmiar ramy*, koła i opony*). Parametry oznaczone * nie

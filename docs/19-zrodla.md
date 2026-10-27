@@ -40,6 +40,8 @@ Identyfikatory (`source_ids`) używane w pliku modelu dopasowania (`docs/09`, ro
 | `ng_2012` | Ng J.Y.Y. i in. „Self-determination theory applied to health contexts: a meta-analysis”, Perspect Psychol Sci 2012 | wspieranie autonomii | `docs/21` (C-14, C-15) |
 | `galesic_2009` | Galesic M., Bosnjak M. „Effects of questionnaire length on participation and indicators of response quality in a web survey”, Public Opinion Quarterly 2009 | dłuższy deklarowany czas → mniej rozpoczętych ankiet | budżet czasu wywiadu (C-11, C-20) |
 | `cvd_prevalence` | Przegląd częstości zaburzeń widzenia barw. <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12385717/> | do ok. 8% mężczyzn | paski bez czerwieni (C-19) |
+| `mitchell_2019` | Mitchell M. i in. „Model Cards for Model Reporting”, FAT* 2019 | wzorzec karty modelu | `docs/09`, rozdz. 13 |
+| `bland_altman_1986` | Bland J.M., Altman D.G. „Statistical methods for assessing agreement between two methods of clinical measurement”, Lancet 1986 | granice zgodności pomiaru | `docs/16`, rozdz. 6.1 |
 | `wcag_22` | W3C „Web Content Accessibility Guidelines (WCAG) 2.2”. <https://www.w3.org/TR/WCAG22/> | poziom AA | NFR-05, `docs/14` |
 
 ## 2. Praktyka bike fittingu i podobne aplikacje

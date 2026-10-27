@@ -4,6 +4,10 @@ Wymiana wyłącznie przez pliki JSON (UTF-8) w katalogu zadania `{storage_root}/
 Schematy JSON Schema (draft 2020-12) w `schemas/`: `job.schema.json`, `result.schema.json`,
 `fit-model.schema.json`. Obie strony walidują pliki przed użyciem. Wersjonowanie semantyczne `schema_version`:
 zmiana niekompatybilna = nowa wersja główna; Python obsługuje bieżącą i poprzednią wersję główną zlecenia.
+Nieznana wersja główna `job.json` → `E_SCHEMA_VERSION`; nieznane pola w `job.json` są odrzucane
+(`additionalProperties: false`). PHP przyjmuje `result.json` tylko w znanej wersji głównej – inaczej zadanie
+`failed` (`E_INTERNAL`) i wpis alertu. Ścieżki w `job.json` są generowane przez serwer i sprawdzane przez Pythona
+względem `--storage-root` (`docs/07`, rozdz. 1).
 
 ## 1. Zlecenie `job.json` (typ `analyze`)
 
@@ -111,7 +115,7 @@ Wynik zawiera wtedy sekcję `change_evaluation`: `{ "verdict": "effective", "com
                             "note": "marker_occluded" } } }
   ],
   "metrics": {
-    "knee_flex_bottom": { "unit": "deg", "quality": "good", "n_cycles": 41,
+    "knee_flex_bottom": { "unit": "deg", "quality": "good", "n_cycles": 41, "validation_status": "validated",
                           "values": { "med": { "value": 38.3, "sd": 1.4 } } },
     "knee_angle": { "unit": "deg", "quality": "good", "n_cycles": 41,
                     "values": { "max": { "value": 141.7, "sd": 1.4 }, "min": { "value": 71.4, "sd": 0.8 }, "rom": { "value": 70.3, "sd": 1.6 } },
@@ -124,10 +128,12 @@ Wynik zawiera wtedy sekcję `change_evaluation`: `{ "verdict": "effective", "com
     "fit_level": "full", "safety_level": "caution",
     "modifiers": [ { "code": "M_LESS_FLEX", "text_key": "mod.less_flex" }, { "code": "M_LOW_BACK", "text_key": "mod.low_back" } ],
     "regulations": {
-      "saddle_height": { "status": "ok", "direction": null, "value": 38.3, "unit": "deg",
-                         "range": { "green": [33, 40], "yellow": [25, 45], "target": 36.5 }, "evidence": "science", "flags": [] },
-      "bar_reach": { "status": "near", "direction": "above", "value": 166.0, "unit": "deg",
-                     "range": { "green": [148, 165], "yellow": [140, 170], "target": 156 }, "evidence": "practice", "flags": [] }
+      "saddle_height": { "status": "ok", "direction": null, "value": 38.3, "unit": "deg", "rule_status": "experimental",
+                         "range": { "green": [33, 40], "yellow": [25, 45], "target": 36.5, "disputed": [] },
+                         "method": "dynamic_2d_lateral_markers", "evidence": "science", "flags": [] },
+      "bar_reach": { "status": "near", "direction": "above", "value": 166.0, "unit": "deg", "rule_status": "validated",
+                     "range": { "green": [148, 165], "yellow": [140, 170], "target": 156, "disputed": [] },
+                     "method": "dynamic_2d_lateral_markers", "evidence": "practice", "flags": [] }
     },
     "recommendations": [
       { "order": 1, "regulation": "bar_reach", "action_key": "rec.bar_reach.shorter", "param": "stem_length_mm",
@@ -136,15 +142,27 @@ Wynik zawiera wtedy sekcję `change_evaluation`: `{ "verdict": "effective", "com
         "effort": { "minutes": 30, "tools": ["tool.stem", "tool.hex_4_5", "tool.torque"], "difficulty": "medium",
                     "shop_recommended": true },
         "text": { "title": "Skróć mostek o ok. 5 mm", "why": "…", "how": "…", "caution": "Małymi krokami…" },
+        "rule_status": "validated",
+        "side_effects": { "torso_angle": 0.6, "knee_over_pedal": 0.0 },
+        "rationale": { "measurement": { "metric": "elbow_angle", "value": 166.0, "sd": 1.9, "quality": "good",
+                                        "validation_status": "validated" },
+                       "base_range": { "green": [148, 165], "source_ids": ["…"], "evidence": "practice" },
+                       "layers": [ { "code": "M_LOW_BACK", "effect": "block:bar_height.lower" } ],
+                       "decision": "above_green_by_1.0", "order_reason": "plan.step1", "model_version": "fit-model-v1" },
         "blocked_by": null }
     ],
     "next_step": 0,
+    "plan": [ { "step": 1, "recommendation": 0, "predicted": { "elbow_angle": 160.4 }, "tentative": false },
+              { "step": 2, "regulation": "bar_height", "param": "spacers_mm", "delta": 10,
+                "predicted": { "torso_angle": 41.2 }, "tentative": true } ],
     "tips": [ { "key": "tip.saddle_width", "params": { "from_mm": 145, "to_mm": 155 } },
               { "key": "tip.crank_length", "params": { "variant_id": "crank_length_mm:-2.5" } } ],
     "signals": { "pelvis_rock": false }
   },
   "variants": [
     { "id": "stem_length_mm:-10", "param": "stem_length_mm", "value": 90, "delta": -10, "approximate": false,
+      "geometry": { "bar_center_mm": [473, 637], "saddle_to_bar_mm": 532, "saddle_bar_drop_mm": 61 },
+      "prediction_validated": false,
       "metrics": { "elbow_angle": 160.4, "torso_angle": 40.6, "knee_flex_bottom": 38.3, "knee_over_pedal": -33.7, "hands_load_share": 31.2 },
       "statuses": { "bar_reach": "ok", "bar_height": "ok", "saddle_height": "ok", "saddle_fore_aft": "ok" },
       "loads": { "hands": "medium", "neck": "medium", "low_back": "low" }, "flags": [],
@@ -159,6 +177,9 @@ w `metrics` obejmują także `knee_flex_top` (`docs/08`). Ostrzeżenie `W_HIGH_E
 
 Pliki towarzyszące w `out_dir`: `tracks.npz` (serie punktów dla `correct`), kadry `tdc.jpg`, `p90.jpg`, `bdc.jpg`,
 `p270.jpg` w `keyframes_dir`, `worker.log` (bez danych osobowych).
+
+Sekcje `fit` i `variants` są opcjonalne w schemacie: w etapach M1–M3 (`docs/17`) wynik zawiera tylko pomiar;
+`variants` i `plan` pojawiają się w M5.
 
 `status`: `ok` · `ok_with_warnings` · `error`. Przy `error` wypełnione `error: { "code", "message_key", "details" }`
 (`details` bez danych osobowych), pozostałe sekcje mogą być puste.
@@ -205,6 +226,8 @@ Pomiary: `docs/08`, rozdz. 3. Regulacje i modyfikatory: `docs/09`, rozdz. 1 i 5.
 | `E_SCALE_INVALID` | nie | Znacznik skali jest nieczytelny. Przyklej go płasko na rurze podsiodłowej. |
 | `E_TIMEOUT` | tak | Analiza trwała za długo. Spróbujemy ponownie automatycznie. |
 | `E_MEMORY` | tak | Zabrakło zasobów serwera. Spróbujemy ponownie automatycznie. |
+| `E_JOB_INVALID` | nie | Wystąpił błąd analizy (kod zdarzenia {id}). Zgłosiliśmy go – nie musisz nic robić. |
+| `E_SCHEMA_VERSION` | nie | jw. |
 | `E_INTERNAL` | tak (maks. 3) | Wystąpił błąd analizy. Spróbujemy ponownie; jeśli się powtórzy – skontaktuj się z nami (kod zdarzenia {id}). |
 
 Ostrzeżenia (`W_*`) – lista w `docs/07`, rozdz. 9; teksty w pliku tłumaczeń `templates/i18n/pl.php`.

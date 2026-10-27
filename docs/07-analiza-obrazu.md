@@ -6,12 +6,20 @@ Pakiet `analyzer/ridemore_fit`, Python 3.9. Nie łączy się z bazą ani siecią
 ## 1. Interfejs wiersza poleceń
 
 ```
-python -m ridemore_fit analyze  --job <job.json> --out <result.json> [--progress <progress.json>]
+python -m ridemore_fit analyze  --storage-root <root> --job <job.json> --out <result.json> [--progress <progress.json>]
 python -m ridemore_fit correct  --job <job.json> --out <result.json>     # ponowne przeliczenie po korekcie punktów
 python -m ridemore_fit refit    --job <job.json> --out <result.json>     # inny profil / akceptacje, bez wideo
 python -m ridemore_fit simulate --job <job.json> --out <result.json>     # kombinacja zmian roweru
 python -m ridemore_fit selfcheck                                          # wersje, biblioteki, test na nagraniu wzorcowym
 ```
+(`--storage-root` jest wymagany dla wszystkich typów zadań; pominięty w skrótach powyżej.)
+
+**Ograniczenie ścieżek (bezpieczeństwo):** `--storage-root` przekazuje worker ze stałej konfiguracji
+(`storage_root`), nie z `job.json`. Przed otwarciem jakiegokolwiek pliku Python sprawdza, że każda ścieżka
+z `job.json` i z argumentów po `realpath` leży wewnątrz `storage_root`, a ścieżki wyjściowe (`out_dir`,
+`keyframes_dir`, `--out`, `--progress`) – wewnątrz katalogu tego zadania; dowiązania symboliczne poza katalog
+są odrzucane. Naruszenie → kod 2, `E_JOB_INVALID`, żaden plik nie jest odczytany. Nieznana wersja główna
+`schema_version` → kod 2, `E_SCHEMA_VERSION`. Wynik zapisywany atomowo (`.tmp` → `rename`, `docs/02`, rozdz. 5.1).
 
 | Kod wyjścia | Znaczenie | Reakcja workera |
 |---|---|---|
@@ -157,6 +165,17 @@ Ostrzeżenia (kody): `W_SCALE_ESTIMATED`, `W_TILT_UNCERTAIN`, `W_MARKER_OCCLUDED
 `W_GRIP_MISMATCH` (chwyt wykryty ≠ zadeklarowany), `W_CHECKLIST:{code}`, `W_HIGH_EFFORT` (`session.recording_rpe`
 ≥ `quality.high_effort_rpe`, C-10). Komunikaty dla użytkownika: `docs/11`, rozdz. 7.
 
+### 9.1 Decyzja: przyjąć, odrzucić czy nagrać ponownie
+
+| Sytuacja | Wynik | Komunikat |
+|---|---|---|
+| błąd danych `E_*` (`docs/11`, rozdz. 7) | analiza odrzucona | przyczyna + co poprawić, przycisk „Nagraj ponownie” |
+| `quality.overall = bad` | wynik zapisany, regulacje `unknown`, brak zaleceń | „Pomiar niewiarygodny” + przyczyny z ostrzeżeń, „Nagraj ponownie” |
+| `warn`, ale pomiar sterujący regulacji < `good` | ta regulacja `unknown` | „Nie oceniliśmy {regulacja}: {przyczyna}. Nagraj ponownie, aby ją ocenić” |
+| `good` / `warn` z kompletem pomiarów | wynik przyjęty | ostrzeżenia w „Szczegółach” |
+
+Każda przyczyna odrzucenia lub „nie oceniono” jest pokazywana użytkownikowi w raporcie pomiarowym (S11, etap M2).
+
 ## 10. Kadry kluczowe
 
 Dla faz 0° (`tdc`), 90° (`p90`), 180° (`bdc`), 270° (`p270`):
@@ -196,8 +215,10 @@ Dla faz 0° (`tdc`), 90° (`p90`), 180° (`bdc`), 270° (`p270`):
 | `quality.high_effort_rpe` | 7 | próg ostrzeżenia `W_HIGH_EFFORT` |
 | `metrics.knee_2d_offset_deg` | 0 | korekta kątów kolana 2D (C-21); 0, bo zakres `saddle_height` (Ferrer-Roca) także pochodzi z pomiaru 2D; zmiana tylko po badaniu walidacyjnym (`docs/16`, rozdz. 6) |
 
-Wszystkie progi są **technicznymi parametrami jakości pomiaru**, nie normami biomechanicznymi. Zmiana progów =
-nowa wersja algorytmu.
+| `metrics.validation_status` | wszystkie `unvalidated` | status walidacji każdego pomiaru osobno dla `markers_mode` (`kit`/`diy` = markery, `none`) – wynik badania V1.1 (`docs/16`, rozdz. 6.1) |
+
+Wszystkie progi są **technicznymi parametrami jakości pomiaru**, nie normami biomechanicznymi. Zmiana progów lub
+statusów walidacji = nowa wersja algorytmu. Każdy pomiar w `result.json` ma `validation_status`.
 
 ## 12. Zasoby i wydajność
 

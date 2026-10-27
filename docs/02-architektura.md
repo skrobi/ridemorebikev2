@@ -113,6 +113,28 @@ sequenceDiagram
 - Zadania zawieszone: `running` z `heartbeat_at` starszym niż `job_timeout_s + 120 s` → `queued` (jeśli próby zostały) lub `failed`.
 - Priorytety: `correct` i `simulate` (interaktywne) przed `analyze`.
 
+### 5.1 Stany, idempotencja i odzyskiwanie
+
+| Stan zadania | Dozwolone przejścia | Kto |
+|---|---|---|
+| `queued` | → `running` (przejęcie), → `cancelled` | worker / użytkownik (usunięcie sesji) |
+| `running` | → `done`, `done_warnings`, `failed`, → `queued` (ponowienie, zawieszenie) | worker |
+| `done`, `done_warnings`, `failed`, `cancelled` | stany końcowe; „Ponów” tworzy **nowe** zadanie | – |
+
+- **Jedno aktywne zadanie danego typu na sesję:** kolumna `active_key` = `"{session_id}:{type}"` dla `queued`/`running`,
+  `NULL` w stanach końcowych, z indeksem `UNIQUE` (MariaDB nie ma indeksów częściowych). Ponowne
+  `POST /sessions/{id}/submit` przy aktywnym zadaniu zwraca istniejący `job_id` (idempotentnie); równoległe
+  żądania kończą się jednym zadaniem. Korekta lub `refit` przy aktywnym zadaniu sesji → 409.
+- **Python zapisuje atomowo:** `result.json.tmp` → `rename` do `result.json` po zakończeniu; kadry do
+  `keyframes_dir` zadania. Worker importuje tylko przy kodzie 0 i obecnym, poprawnym `result.json`.
+- **Import w jednej transakcji**; kadry przenoszone do katalogu analizy dopiero po zatwierdzeniu transakcji;
+  `ResultImporter` idempotentny po `job_id` (ponowny import nie dubluje).
+- **Przerwanie** workera lub procesu (cron, restart serwera): zadanie zostaje w `running` bez `heartbeat_at` →
+  po `job_timeout_s + 120 s` wraca do `queued` (lub `failed` po wyczerpaniu prób); pozostałości katalogu zadania
+  są nadpisywane przy kolejnej próbie.
+- Stan sesji (`fit_session.status`) wynika ze stanu jej zadania `analyze`; użytkownik widzi jeden spójny stan
+  (S09). Testy: `docs/16`, rozdz. 3.
+
 ## 6. Integracja z kontami ridemore.bike (wspólna baza i sesja)
 
 Moduł działa w tej samej domenie co ridemore.bike, korzysta z tej samej bazy MariaDB i odczytuje istniejącą sesję PHP.

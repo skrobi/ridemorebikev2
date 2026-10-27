@@ -22,6 +22,11 @@ Rola pochodzi z konta ridemore.bike lub z tabeli `fit_role` (`docs/12-baza-danyc
 
 ## 3. Zakres MVP
 
+Realizacja etapami z bramkami (`docs/17`, ADR-21). **Wydanie 1** (ograniczona grupa, etapy M0–M4): wywiad,
+nagranie, analiza i weryfikacja punktów, raport pomiarowy, jedna regulacja eksperymentalna (wysokość siodła),
+pozostałe regulacje „tylko pomiar”. **Wydanie 2** (M5): wirtualne dopasowanie, plan zmian, zapis i ocena zmian,
+przypomnienia, kolejne regulacje po walidacji. Poniższa lista opisuje pełny zakres obu wydań.
+
 W zakresie:
 - wywiad (pełny lub szybki start przy pierwszej analizie, krótki „czy coś się zmieniło” przy kolejnych) z pytaniami
   bezpieczeństwa,
@@ -120,7 +125,7 @@ panel bike fittera (po MVP).
 | Serwer WWW | Apache |
 | PHP | 8.2 |
 | Baza | MariaDB (wersja do potwierdzenia – wpływa na `SKIP LOCKED`, `JSON`) |
-| Python | maks. 3.9.23 (dostawca zaleca 3.6.15 – nieużywane, brak wsparcia bibliotek) |
+| Python | deklaracja dostawcy: dostępne do 3.9.23 (zalecany 3.6.15 – nieużywany, brak wsparcia bibliotek); **niepotwierdzone uruchomieniem** – bramka M0 (F0.2), w razie niezgodności D-02 |
 | Dostęp | SSH, cron |
 | Procesy stałe | niegwarantowane – worker uruchamiany z crona, ograniczony czasem |
 | GPU | brak |
@@ -129,9 +134,10 @@ panel bike fittera (po MVP).
 
 ## 7. Kryteria sukcesu MVP
 
-- Powtarzalność: dwa nagrania tego samego rowerzysty bez zmian ustawień → różnica zgięcia kolana na dole ≤ 3°,
-  pochylenia pleców ≤ 3° (z markerami). Weryfikacja: `docs/16`, rozdz. 6.
-- Zgodność z bike fitterem: rozbieżność kątów z pomiarem fittera (goniometr / jego system) ≤ 5° w ≥ 80% przypadków.
+- Dokładność i powtarzalność każdego pomiaru według kryteriów `docs/16`, rozdz. 6.1 (osobno z markerami i bez);
+  pomiar niespełniający kryteriów nie steruje zaleceniami.
+- Zasadność reguły: ocena niezależnego fittera „zalecenie zasadne” ≥ 80%, „gorzej” ≤ 10% (V4.1, V5.2).
+- Przewidywanie: |Δ przewidziana − Δ zmierzona| ≤ 2° w ≥ 80% zmian (dla reguł `validated`).
 - Laik bez pomocy przechodzi przepływ S01→S11 (test z 5 osobami) i potrafi powiedzieć, co ma zmienić.
 
 ### 7.1 Mierniki produktu (C-17, wartości docelowe robocze)

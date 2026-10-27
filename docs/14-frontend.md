@@ -42,6 +42,8 @@ public/fit/assets/
 | Pasek zakresu | 5 stref (poza zakresem, przejściowa, zalecana, przejściowa, poza zakresem – kolory z rozdz. 4, bez czerwieni) z szerokościami z API (`green`, `yellow`, `scale`); strefa zalecana z obramowaniem i podpisem „zalecany”; znacznik wartości (trójkąt/prostokąt, `--ink`), opcjonalnie znacznik „było” (obrys); `role="img"` z opisem słownym; etykiety końców z API (`docs/21`, rozdz. 6) |
 | Status | tekst + ikona + kolor wg `docs/21`, rozdz. 2; nigdy sam kolor |
 | Pewność | słowo + 3 kropki (●●●/●●○/●○○) + `<details>` „Dlaczego taka pewność?” z tekstami powodów z API |
+| Plakietki statusu | „Eksperymentalne”, „Tylko pomiar”, „pomiar niezweryfikowany”, „przewidywanie modelu” – tekst + obramowanie, nigdy sam kolor (`docs/21`, rozdz. 3.1) |
+| Ślad uzasadnienia | lista kroków z `rationale` (pomiar → zakres → warstwy → decyzja → skutki → wielkość → kolejność) w „Szczegółach”; teksty z API |
 | Ocena po jeździe | 5 przycisków (`<button>`, min. 44×44 px) w jednej linii; po wyborze opcjonalny suwak 0–10 z opisami końców |
 | Kadr z nakładką | `<img>` + `<svg viewBox="0 0 W H">` absolutnie nad obrazem; odcinki sylwetki, punkty (kolor źródła), pierścienie niskiej pewności, etykiety kątów z API |
 | Edytor punktów (S10) | `pointerdown/move/up` na punkcie; przeliczenie pozycji kursora na px obrazu przez `getScreenCTM().inverse()`; po puszczeniu wybór zakresu korekty; `POST corrections`; blokada edycji do końca zadania; klawiatura: strzałki przesuwają zaznaczony punkt o 1 px (Shift = 10 px), Enter zatwierdza; alternatywa bez przeciągania (WCAG 2.5.7): kliknij punkt, potem kliknij nowe miejsce |

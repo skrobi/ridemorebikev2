@@ -46,6 +46,20 @@ Kolor czerwony (`--bad-*`) tylko dla błędów, „Wstrzymaj zmiany” i werdykt
 - Przy `low` przycisk główny „Nagraj kontrolnie” zamiast „Zrobione – zapisz zmianę” (zalecenie pozostaje widoczne).
 - Kody powodów (`conf.*`) i reguły: `docs/09`, rozdz. 6.1.
 
+### 3.1 Status reguły, kolejność i przewidywanie
+
+| Sytuacja | Tekst |
+|---|---|
+| `measure_only` | „Tylko pomiar – bez zalecenia. Tę regulację jeszcze weryfikujemy, dlatego nie podpowiadamy zmiany.” |
+| `experimental` | plakietka „Eksperymentalne” + „Zalecenie w fazie sprawdzania. Zmień o 5 mm i nagraj kontrolnie.” |
+| pomiar `unvalidated` (Szczegóły) | plakietka „pomiar niezweryfikowany” |
+| strefa sporna | „Specjaliści różnią się w ocenie tego ustawienia – nie zalecamy zmiany.” |
+| pusty zakres | „Twoje odpowiedzi wskazują sprzeczne potrzeby – to ustawienie warto ocenić z fitterem.” |
+| „Dlaczego teraz to?” | „Najpierw {regulacja}, bo od niej zależy reszta pozycji.” |
+| „Wpływ na inne ustawienia” | „Kierownica będzie o ok. {mm} mm dalej – nadal w zakresie.” / „… – sprawdzimy to w kolejnym kroku.” |
+| przewidywanie (S12) | „Przewidywanie modelu – nie pomiar i nie dowód, że zmiana pomoże. Sprawdzimy to nagraniem po zmianie.” |
+| kolejne kroki planu | „Wstępnie – po nagraniu kontrolnym przeliczymy plan.” |
+
 ## 4. Wysiłek zmiany (C-07)
 
 Na karcie zalecenia linia: „ok. {minutes} min · {tools} · {difficulty}”, np. „ok. 10 min · klucz imbusowy 4–5 mm ·

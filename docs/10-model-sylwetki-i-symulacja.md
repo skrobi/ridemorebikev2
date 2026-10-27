@@ -10,6 +10,19 @@ dostaje gotowe współrzędne do narysowania i gotowe wartości; niczego nie prz
 - Dostarczyć do S12 sylwetkę „teraz” (zmierzoną) i „po zmianie” (przewidzianą) w pikselach kadrów kluczowych.
 - Dostarczyć przewidywaną zmianę pomiaru do oceny zmiany (kryterium „wykonano zgodnie z zaleceniem”).
 
+### 1.1 Trzy rodzaje wyniku – nigdy nie mieszane
+
+| Rodzaj (`kind`) | Co to jest | Pewność | Jak pokazujemy |
+|---|---|---|---|
+| `geometry` – geometria roweru | nowe położenie punktów kontaktu po zmianie (np. siodło +10 mm wzdłuż rury o kącie 73,5° = +9,6 mm w pionie i 2,8 mm w tył; zmiana drop, odległość siodło–kierownica) | dokładne przy znanej geometrii ramy i poprawnym pomiarze roweru | „Rower po zmianie” – liczby w mm, bez zastrzeżeń poza `approximate` (rozdz. 7) |
+| `prediction` – przewidywana pozycja ciała | sylwetka i kąty po zmianie z modelu z jawnymi założeniami (rozdz. 4.1) | przybliżenie; człowiek może zareagować inaczej (przesunąć miednicę, zmienić pracę stopy, ułożenie tułowia) | „Przewidywanie modelu – nie pomiar i nie dowód, że zmiana pomoże”; obrys przerywany |
+| `measured` – pomiar po zmianie | wynik nagrania kontrolnego po wykonaniu zmiany | jak każdy pomiar (`docs/07`, rozdz. 9) | „Zmierzone po zmianie” w S14; jedyna podstawa oceny zmiany |
+
+Przewidywanie (`prediction`) służy do: wyboru wielkości kroku dla reguł `validated`, planu sekwencyjnego
+(`docs/09`, rozdz. 11) i wizualizacji. Nigdy nie jest przedstawiane jako potwierdzenie korzyści biomechanicznej;
+ocena zmiany opiera się wyłącznie na `measured` i odczuciach (`docs/09`, rozdz. 9). Trafność przewidywania jest
+mierzona (rozdz. 10) i raportowana w karcie modelu.
+
 Parametry `sim.*` (np. `torso_follow_deg_per_mm`, `reach_margin_mm`, `min_reach_mm`, `default_hip_offset_mm`,
 `default_hand_offset_mm`, `stem_height_mm`, siatka wariantów) są w pliku modelu dopasowania, sekcja `simulation`
 (`docs/09`, rozdz. 10) – zmiana = nowa wersja modelu.
@@ -60,6 +73,16 @@ Dla nowego ustawienia (zmieniony jeden lub kilka parametrów):
    przewiduje różnicę, a nie wartość bezwzględną; błąd modelu dla stanu bieżącego nie przenosi się do wyniku.
 6. Statusy regulacji wariantu według bieżącego profilu i modyfikatorów (`docs/09`).
 
+### 4.1 Jawne założenia przewidywania i kiedy zawodzą
+
+| Założenie | Kiedy zawodzi | Skutek w interfejsie |
+|---|---|---|
+| biodro w stałym miejscu względem siodła (`o_hip`) | rowerzysta po zmianie przesuwa się na siodle (częste przy dużej zmianie wysokości lub kąta siodła) | krok ograniczony do 10 mm; przewidywanie dla zmian > 10 mm oznaczone `low` |
+| dłoń w stałym miejscu względem kierownicy (`o_hand`) | zmiana chwytu, inne klamkomanetki | `W_GRIP_MISMATCH` → brak przewidywania dla górnej części ciała |
+| krzywa kąta stopy jak w nagraniu | zmiana pracy stopy po zmianie wysokości siodła (kompensacja w stawie skokowym) | przewidywana zmiana zgięcia kolana może być przeszacowana – opisane w „Szczegółach” |
+| stałe pochylenie pleców, dopóki dłonie sięgają (`torso_follow`) | zmiana nawyku ułożenia tułowia | wskaźniki tułowia i obciążeń jako poglądowe |
+| ruch w płaszczyźnie strzałkowej | rotacja miednicy, tor kolana w płaszczyźnie czołowej | niewidoczne w 2D – stałe zastrzeżenie |
+
 ## 5. Wskaźniki obciążenia (poglądowe)
 
 | Kod | Wzór | Poziomy (niskie / średnie / wysokie) | Poziom dowodu |
@@ -84,8 +107,10 @@ mięśni (te poza zakresem – `docs/18`, D-10).
 | `hoods_offset_mm` | −10, +10 | 2 |
 | **Razem** | | ≤ 38 |
 
-Każdy wariant zapisuje: parametr, wartość, pomiary, statusy regulacji, wskaźniki obciążenia, flagi
-(`overextended`, `unreachable`), punkty sylwetki dla 4 faz (mm oraz px w kadrze danej fazy).
+Każdy wariant zapisuje: parametr, wartość, geometrię roweru po zmianie (`geometry`: położenie siodła, osi
+kierownicy, drop, odległość siodło–kierownica), przewidywane pomiary (`prediction`), statusy regulacji, wskaźniki
+obciążenia, flagi (`overextended`, `unreachable`), punkty sylwetki dla 4 faz (mm oraz px w kadrze danej fazy).
+Siatka wariantów daje też **macierz wpływu** (`docs/09`, rozdz. 11).
 
 Parametry niemodelowane (tylko informacja w UI): `saddle_tilt_deg`, `bar_width_mm`, `cleat_*`, `q_factor_mm`,
 `wheel_size`, `tyre_width_mm`, zmiana ramy (ta – przez zadanie `simulate` z nową geometrią, po MVP).
@@ -104,6 +129,8 @@ Jeśli rower nie ma `geo_*`, model używa położeń z obrazu: `T` z punktu wska
   bez geometrii) oznaczony `estimate = true` + przycisk „Przelicz dokładnie” → zadanie `simulate` (Python,
   pełne rozwiązanie z rozdz. 4) → wynik zastępuje szacunek.
 - Przeglądarka tylko wyświetla wartości otrzymane z API.
+- Plan sekwencyjny (`docs/09`, rozdz. 11): krok 1 z wariantu, kolejne kroki – pełne rozwiązanie łącznie
+  z poprzednimi krokami (ta sama funkcja co `simulate`, wywoływana w `analyze`/`correct`/`refit`, ≤ 4 rozwiązania).
 
 ## 9. Rysowanie w S12 i S10
 
@@ -116,4 +143,7 @@ z geometrii.
 
 - Po każdej rzeczywistej zmianie z nagraniem kontrolnym: porównanie Δ przewidzianej z Δ zmierzoną (kryterium
   `executed_as_planned`) – dane zbierane anonimowo (`fit_model_feedback`) do kalibracji `k_follow` i przesunięć.
-- Cel: |Δ przewidziana − Δ zmierzona| ≤ 2° dla `knee_flex_bottom` przy zmianie wysokości siodła o 5–10 mm.
+- Cel: |Δ przewidziana − Δ zmierzona| ≤ 2° dla `knee_flex_bottom` przy zmianie wysokości siodła o 5–10 mm
+  w ≥ 80% zmian; analogiczne cele dla pozostałych regulacji w kartach reguł (`docs/09`, rozdz. 1.1).
+- Dopóki cel nie jest potwierdzony (V4.1, V5.2), wielkość kroku nie pochodzi z przewidywania (reguły
+  `experimental` – stały krok), a S12 pokazuje przewidywanie z plakietką „niezweryfikowane”.

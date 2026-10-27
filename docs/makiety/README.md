@@ -30,6 +30,9 @@ Znane uproszczenia makiet (obowiązuje specyfikacja, nie makieta):
 - S12: suwaki są statyczne; wartości „było/będzie” przykładowe.
 - Ekrany Rowery, Profil i Komfort nie mają makiet w tym zestawie (`docs/03` rozdz. 17).
 
+Makiety pokazują pełny produkt (wydanie 2). Wydanie 1 (etapy M0–M4, `docs/17`) używa S01–S11 z regulacjami
+„Tylko pomiar” i jedną regulacją eksperymentalną; S12–S14 – wydanie 2.
+
 ## Różnice po panelu ekspertów (do naniesienia na makiety)
 
 Makiety powstały przed przeglądem `docs/20`. Do czasu ich aktualizacji obowiązują poniższe zmiany (specyfikacja:

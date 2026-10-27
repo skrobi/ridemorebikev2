@@ -67,7 +67,7 @@ renderuje szablon `templates/pages/S01-moje-analizy.php` itd. Dane do Alpine.js 
 | POST | `/sessions/{id}/uploads` | otwarcie przesyłania | `{size_bytes, file_name, mime}` | `{upload_id, chunk_bytes, chunks_total}` |
 | PUT | `/uploads/{id}/chunks/{n}` | fragment (body binarne) | `Content-Range` | `{received}` |
 | POST | `/uploads/{id}/complete` | złożenie, walidacja, `fit_video` | – | `{video_id}` |
-| POST | `/sessions/{id}/submit` | zgody + zlecenie `analyze` | `{consents:[...]}` | `{job_id}` |
+| POST | `/sessions/{id}/submit` | zgody + zlecenie `analyze`; idempotentne – przy aktywnym zadaniu zwraca jego `job_id` (`docs/02`, rozdz. 5.1) | `{consents:[...]}` | `{job_id}` |
 | GET | `/jobs/{id}` | stan zadania | – | `{status, stage, progress, error?, analysis_id?}` |
 | POST | `/jobs/{id}/retry` | ponowienie `failed` (jeśli plik istnieje) | – | `{job_id}` |
 | GET | `/analyses/{id}` | wynik (podsumowanie) | – | regulacje, zalecenia, modyfikatory, jakość, wersje |
@@ -109,7 +109,7 @@ while (czas < max_seconds && zadań < max_jobs):
     job = JobScheduler::claim()             # docs/02 rozdz. 5
     if !job: break
     zbuduj job.json (JobInputBuilder – z bazy: sesja, wywiad, profil, rower, ustawienie, akceptacje, model)
-    PythonRunner::run(type, jobDir, timeout) # proc_open([python_bin, '-m', 'ridemore_fit', type, '--job', ..., '--out', ..., '--progress', ...])
+    PythonRunner::run(type, jobDir, timeout) # proc_open([python_bin, '-m', 'ridemore_fit', type, '--storage-root', storage_root, '--job', ..., '--out', ..., '--progress', ...])
         pętla: co 2 s odczyt progress.json → fit_job.progress, stage, heartbeat_at; przekroczenie czasu → SIGTERM, po 10 s SIGKILL
     kod 0 → ResultImporter (walidacja schematu, transakcja, zapis tabel, przeniesienie kadrów, is_current)
     kod 2 → failed (kod z result.error)

@@ -163,6 +163,7 @@ SMALLINT NULL, `upload_device` ENUM('desktop','phone') NULL,
 | `attempts`, `max_attempts` | TINYINT | domyślnie 0 / 3 |
 | `run_after` | DATETIME(3) | opóźnienie ponowienia |
 | `claim_token` | CHAR(32) NULL | |
+| `active_key` | VARCHAR(40) NULL, `UNIQUE` | `"{session_id}:{type}"` dla `queued`/`running`, `NULL` w stanach końcowych (`docs/02`, rozdz. 5.1) |
 | `claimed_at`, `heartbeat_at`, `started_at`, `finished_at` | DATETIME(3) NULL | |
 | `progress` | DECIMAL(4,3) | 0–1 |
 | `stage` | VARCHAR(20) NULL | |
@@ -182,7 +183,8 @@ ENUM('analyze','correct','refit','simulate'), `is_current` TINYINT(1), `schema_v
 ENUM('ok','ok_with_warnings'), `quality_overall` ENUM('good','warn','bad'), `frames_ok_pct`, `cycles_total`,
 `cycles_valid`, `scale_px_per_mm`, `scale_source`, `camera_tilt_deg`, `tilt_source`, `direction`,
 `video_duration_s`, `video_fps`, `video_width`, `video_height`, `fragment_start_s`, `fragment_end_s`,
-`processing_ms`, `warnings_json`, `body_model_json`, `result_path`, `created_at`.
+`processing_ms`, `warnings_json`, `body_model_json`, `plan_json` (plan sekwencyjny, `docs/09`, rozdz. 11),
+`result_path`, `created_at`.
 
 **`fit_keyframe`**: `id`, `analysis_id` (idx), `phase` ENUM('tdc','p90','bdc','p270'), `frame_index`, `time_s`,
 `image_path` NULL (NULL po usunięciu), `width`, `height`, `image_deleted_at` NULL. Unikalność (`analysis_id`, `phase`).
@@ -192,7 +194,7 @@ ENUM('ok','ok_with_warnings'), `quality_overall` ENUM('good','warn','bad'), `fra
 
 **`fit_metric`**: `id`, `analysis_id` (idx), `code`, `rep` ENUM('med','max','min','rom','at_p90','at_bdc'),
 `value` DECIMAL(8,2) NULL, `sd` DECIMAL(8,2) NULL, `unit` ENUM('deg','mm','pct'), `quality`
-ENUM('good','warn','bad','na'), `n_cycles` SMALLINT. Unikalność (`analysis_id`, `code`, `rep`).
+ENUM('good','warn','bad','na'), `validation_status` ENUM('validated','unvalidated','hidden'), `n_cycles` SMALLINT. Unikalność (`analysis_id`, `code`, `rep`).
 
 **`fit_cycle`**: `analysis_id`, `n`, `valid`, `reject_reason`, `t_start_s`, `t_end_s`, `cadence_rpm`. PK (`analysis_id`, `n`).
 
@@ -200,14 +202,17 @@ ENUM('good','warn','bad','na'), `n_cycles` SMALLINT. Unikalność (`analysis_id`
 
 **`fit_regulation`**: `id`, `analysis_id`, `code` ENUM('saddle_height','saddle_fore_aft','bar_reach','bar_height'),
 `status` ENUM('ok','near','out','unknown','accepted'), `direction` ENUM('below','above') NULL, `value`, `unit`,
-`green_lo`, `green_hi`, `yellow_lo`, `yellow_hi`, `target`, `evidence`, `flags_json`.
+`green_lo`, `green_hi`, `yellow_lo`, `yellow_hi`, `target`, `disputed_json`, `method`, `evidence`,
+`rule_status` ENUM('measure_only','experimental','validated'), `rationale_json`, `flags_json`.
 
 **`fit_recommendation`**: `id`, `analysis_id` (idx), `order_no`, `regulation`, `action_key`, `param`, `amount_mm`,
 `amount_total_mm`, `variant_key`, `title`, `why`, `how` (teksty wyrenderowane w chwili analizy), `blocked_by` NULL,
-`confidence` ENUM('high','medium','low'), `confidence_reasons_json`, `effort_json`, `is_next_step` TINYINT(1).
+`confidence` ENUM('high','medium','low'), `confidence_reasons_json`, `effort_json`, `rule_status`,
+`side_effects_json`, `rationale_json`, `is_next_step` TINYINT(1).
 
 **`fit_variant`**: `id`, `analysis_id` (idx), `variant_key` VARCHAR(40) (np. `stem_length_mm:-10`), `param`, `value`,
-`delta`, `approximate`, `metrics_json`, `statuses_json`, `loads_json`, `flags_json`, `skeleton_json`.
+`delta`, `approximate`, `geometry_json` (geometria roweru – wynik dokładny), `metrics_json` (przewidywanie),
+`prediction_validated` TINYINT(1), `statuses_json`, `loads_json`, `flags_json`, `skeleton_json`.
 Unikalność (`analysis_id`, `variant_key`).
 
 ### Korekty, akceptacje, plany

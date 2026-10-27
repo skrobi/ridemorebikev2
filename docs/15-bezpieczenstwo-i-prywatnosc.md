@@ -33,6 +33,8 @@ Analiza prawna (podstawa przetwarzania, rejestr czynności, umowa powierzenia z 
 | XSS | `htmlspecialchars` przy każdym wyjściu w szablonach; dane do Alpine jako escapowany JSON; CSP bez `unsafe-eval` |
 | SQL injection | wyłącznie PDO z parametrami; nazwy kolumn do sortowania z białej listy |
 | Wstrzyknięcie poleceń | Python uruchamiany przez `proc_open` z tablicą argumentów, bez powłoki; argumenty to stałe i ścieżki generowane przez serwer |
+| Ścieżki w `job.json` | Python sprawdza każdą ścieżkę względem `--storage-root` ze stałej konfiguracji (`realpath`, brak `..`, brak dowiązań poza katalog), wyjścia tylko w katalogu zadania; naruszenie → `E_JOB_INVALID` (`docs/07`, rozdz. 1) |
+| Pliki tymczasowe | fragmenty przesyłania, katalogi zadań, `tracks.npz`, `result.json.tmp` – w `storage_root`, objęte retencją (`docs/12`, rozdz. 4) i usuwaniem na żądanie |
 | Przesyłanie plików | limit rozmiaru, biała lista rozszerzeń, sygnatura kontenera, nazwa pliku generowana przez serwer, katalog poza webroot, brak wykonywania (`.htaccess` nie dotyczy – pliki poza `public/`) |
 | Path traversal | ścieżki składane wyłącznie z identyfikatorów liczbowych; `realpath` + sprawdzenie prefiksu `storage_root` |
 | Nadużycia | limity: 5 analiz/dzień, 60 żądań API/min, 30 korekt/godz. na użytkownika (konfiguracja) |
@@ -57,6 +59,10 @@ Treść zgód wersjonowana (`version`); zmiana treści = ponowne zapytanie.
 - Nagranie nigdy nie jest udostępniane przez URL (brak podglądu wideo w MVP).
 - Usunięcie na żądanie użytkownika (S11/profil): nagranie, kadry, wszystkie dane modułu – natychmiast, z wpisem
   w `fit_audit_log`.
+
+Weryfikacja: opis mechanizmów nie dowodzi poprawnej implementacji – obowiązują testy prywatności z `docs/16`,
+rozdz. 3 (separacja użytkowników, ścieżki, usuwanie, logi, uprawnienia, brak sieci w Pythonie). Kopie zapasowe
+`storage/fit` – D-12.
 
 ## 6. Sekrety i konfiguracja
 

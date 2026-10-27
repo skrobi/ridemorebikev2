@@ -7,6 +7,10 @@ Jest **konfiguracją** (`analyzer/configs/fit-models/fit-model-v1.json`) interpr
 **Wszystkie zakresy w v1 są robocze.** Każdy ma poziom dowodu: `science` (publikacja), `practice` (praktyka bike
 fittingu, do weryfikacji), `assumption` (założenie projektu). Przed produkcją zatwierdza je bike fitter (`docs/18`, D-06).
 
+**Zasada nadrzędna:** poprawnie działająca aplikacja nie może przedstawiać niezweryfikowanej reguły jako pewnego
+zalecenia. Dlatego każda regulacja ma **status reguły** (rozdz. 1.1), a zalecenie w milimetrach wolno wydać tylko
+wtedy, gdy jej pomiar przeszedł walidację dokładności (`docs/16`, rozdz. 6) w danym trybie nagrania.
+
 ## 1. Regulacje
 
 | Kod | Nazwa (UI) | Pomiar sterujący | Kolejność | Krok maks. | Poziom dowodu |
@@ -16,7 +20,41 @@ fittingu, do weryfikacji), `assumption` (założenie projektu). Przed produkcją
 | `bar_reach` | Odległość do kierownicy | `elbow_angle.med` (pomocniczo `shoulder_angle.med`) | 3 | 10 mm | `practice` |
 | `bar_height` | Wysokość kierownicy | `torso_angle.med` | 4 | 10 mm | `practice` |
 
+Kolumna „Kolejność” to kolejność bazowa „od podstawy w górę”; ostateczną kolejność ustala plan (rozdz. 11).
+
+### 1.1 Status reguły i karta reguły
+
+| Status (`rule_status`) | Co widzi użytkownik | Warunek przejścia |
+|---|---|---|
+| `measure_only` | wartość i pasek zakresu z dopiskiem „Tylko pomiar – bez zalecenia”; brak akcji i mm | stan początkowy reguły |
+| `experimental` | zalecenie kierunku i stałego małego kroku (`step_experimental_mm`, 5 mm) z plakietką „Eksperymentalne”, pewność maks. `medium`, zawsze z nagraniem kontrolnym | pomiar sterujący ma `validation_status = validated` w danym trybie (`docs/16`, rozdz. 6.1) |
+| `validated` | pełne zalecenie z wielkością z wariantów (rozdz. 4) | spełnione kryterium walidacji reguły z karty (V4.1 / V5.2) i decyzja rady modelu (rozdz. 13) |
+
+Status zapisuje plik modelu; zmiana statusu = nowa wersja modelu. **Konfiguracja v1:** `saddle_height` =
+`experimental`, pozostałe = `measure_only` (etap M4, `docs/17`).
+
+Karta reguły (obowiązkowa dla każdej regulacji, w pliku modelu i w karcie modelu):
+
+| Element | `saddle_height` | `saddle_fore_aft` | `bar_reach` | `bar_height` |
+|---|---|---|---|---|
+| Wejścia | `knee_flex_bottom.med` (hip, knee, ankle) | `knee_over_pedal.at_p90` (knee, pedal, skala) | `elbow_angle.med` + kierunek `shoulder_angle.med` | `torso_angle.med` (hip, shoulder, poziom) |
+| Minimalna jakość | pomiar `good`, ≥ 20 cykli, `validation_status = validated` | jw. + `scale_source = marker` | jw. + chwyt zgodny z deklarowanym | jw. + poziom kamery wyznaczony |
+| Wolno wydać zalecenie, gdy | wartość poza zielonym o więcej niż `min_margin` (max(2°, SD)); poza strefą sporną; RPE ≤ 6; brak blokady i `stop` | poza zielonym o > max(5 mm, SD) | poza zielonym o > max(3°, SD) i `shoulder_angle` wskazuje ten sam kierunek | poza zielonym o > max(3°, SD) |
+| Krok | 5 mm (`experimental`), ≤ 10 mm (`validated`) | 5 mm | 10 mm (mostki co 10 mm) lub klamkomanetki | 5–10 mm podkładek |
+| „Nie oceniono”, gdy | jakość < `good`, `W_SEGMENT_MISMATCH` udo/podudzie, < 20 cykli | `W_SCALE_ESTIMATED`, `W_TILT_UNCERTAIN`, tryb `none` | `W_GRIP_MISMATCH`, niska pewność `wrist`/`elbow` | `W_TILT_UNCERTAIN`, `W_GRIP_MISMATCH` |
+| Źródło / dowód | Ferrer-Roca 2012, Bini 2011 / `science` | praktyka (KOPS – punkt wyjścia) / `practice` | praktyka / `practice` | praktyka, `lbp_review_2017` / `practice` |
+| Kryterium walidacji reguły | pomiar: kryteria z `docs/16` rozdz. 6.1; przewidywanie: \|Δ przewidziana − Δ zmierzona\| ≤ 2° w ≥ 80% zmian; skutek: ocena fittera „zasadne” ≥ 80% i „gorzej” ≤ 10% w badaniu V4.1 | jw., ± 5 mm | jw., ± 3° | jw., ± 3° |
+| Status w v1 | `experimental` | `measure_only` | `measure_only` | `measure_only` |
+
 ## 2. Zakresy bazowe
+
+**Metoda pomiaru i konsensus.** Każdy zakres ma pole `method` (w v1: `dynamic_2d_lateral_markers` – wideo z boku,
+w ruchu, markery na punktach z `docs/06`). Źródła mierzone inną metodą (np. statycznie goniometrem w dolnym
+położeniu korby, 3D, inne punkty anatomiczne) są przeliczane na tę metodę albo opisane jako niezgodne – wiele
+pozornych sprzeczności między fizjoterapeutami i fitterami wynika z różnych metod (np. ok. 25–35° statycznie
+odpowiada ok. 30–40° w ruchu – Ferrer-Roca i in. 2012). Gdy źródła tej samej metody się różnią, obszar różnicy jest
+**strefą sporną** (`disputed`): status `near`, brak akcji, dopisek „specjaliści różnią się w ocenie”. Zmianę
+zalecamy tylko wtedy, gdy wartość jest poza zakresem akceptowanym przez wszystkie uwzględnione źródła.
 
 Zielony = zakres zalecany; żółty = strefa przejściowa (`near`); poza żółtym = `out`.
 
@@ -59,6 +97,7 @@ Zielony 20–34%, żółty 15–40% – `assumption` (model poglądowy, `docs/10
 | `good` | `ok` | `near` | `out` |
 | `warn` | `ok` | `near` + flaga „sprawdź kolejnym nagraniem” | `out` + flaga |
 | `bad` / `na` | `unknown` | `unknown` | `unknown` |
+| warunek „nie oceniono” z karty reguły (rozdz. 1.1) | `unknown` | `unknown` | `unknown` |
 | zaakceptowana przez użytkownika | `accepted` (niezależnie od wartości) | | |
 
 Teksty statusów: `ok` „W porządku”, `near` „Blisko granicy”, `out` „Warto zmienić”, `unknown` „Nie oceniono”,
@@ -74,7 +113,8 @@ Zasady języka i ikony: `docs/21`.
 | `bar_reach` | łokcie mocno zgięte, za blisko → **Wydłuż mostek** (alternatywa: klamkomanetki do przodu) | łokcie prawie proste, za daleko → **Skróć mostek** (alternatywa: klamkomanetki do tyłu) |
 | `bar_height` | plecy za nisko → **Podnieś kierownicę** (podkładki pod mostek / odwrócenie mostka) | plecy wysoko → **Możesz obniżyć kierownicę** (tylko jeśli brak modyfikatora `M_LOW_BACK`) |
 
-Wielkość zmiany (mm) wyznacza się z **wariantów** (`docs/10`, rozdz. 4): najmniejszy wariant danego parametru,
+Wielkość zmiany (mm) dla reguł `validated` wyznacza się z **wariantów** (`docs/10`, rozdz. 4); dla reguł
+`experimental` jest to stały krok `step_experimental_mm` (rozdz. 1.1): najmniejszy wariant danego parametru,
 który przenosi pomiar do celu lub najbliżej celu; zaokrąglenie do 5 mm; ograniczenie do kroku maks. (10 mm;
 5 mm przy `safety_level = caution` – rozdz. 5.1).
 `amount_total_mm` = wartość potrzebna do celu (informacja „łącznie może być potrzebne ok. X mm”).
@@ -126,13 +166,30 @@ Porady informacyjne (bez statusu regulacji, sekcja „Inne wskazówki”):
 - szerokość kierownicy ≈ `body.shoulder_width_cm` ± 2 cm – `practice`,
 - długość korby – rozdz. 6.3; drętwienie krocza – `M_PERINEAL`; nagranie drugiej strony – `M_ASYMMETRY`.
 
+### 5.3 Kolejność stosowania warstw i ich łączenie
+
+Zakres i akcje regulacji powstają zawsze w tej kolejności; każdy krok zapisuje się w śladzie uzasadnienia (rozdz. 12):
+
+1. zakres bazowy (`ranges[bike_type][profile]`, z `method` i strefą sporną);
+2. **wymiary ciała nie zmieniają zakresów kątowych** – kąty mierzone w ruchu już zawierają proporcje ciała;
+   wymiary służą do kontroli skali i segmentów, porad (siodło, kierownica) i modelu sylwetki (`docs/10`);
+3. modyfikatory mobilności – tylko przesunięcia zakresu;
+4. modyfikatory dolegliwości – blokady kierunku, zawężenia, priorytet;
+5. **koperta literatury:** wynikowy zielony zakres przycina się do żółtego zakresu bazowego (modyfikatory nie
+   wyprowadzą zakresu poza literaturę); przesunięcia tego samego zakresu łączą się przez **maksimum**, nie sumę;
+6. **pusty zakres** (np. `M_KNEE_FRONT` wymaga ≤ 38°, `M_KNEE_BACK` ≥ 32° i dolna granica przekracza górną) →
+   status `unknown`, brak zalecenia, flaga `conflicting_requirements` „do oceny przez fittera”;
+7. akceptacja „Mi tak wygodnie”; 8. poziom bezpieczeństwa (rozdz. 5.1); 9. status reguły (rozdz. 1.1).
+
 ## 6. Następny krok i lista zaleceń
 
-1. Odrzuć regulacje `ok`, `unknown`, `accepted`.
-2. Posortuj: najpierw `out`, potem `near`; w grupie wg kolejności z rozdz. 1, zmienionej przez modyfikatory.
-3. Usuń akcje zablokowane przez modyfikatory (wtedy regulacja pokazuje status, ale zamiast akcji tekst
+1. Odrzuć regulacje `ok`, `unknown`, `accepted` i reguły `measure_only`.
+2. Kolejność ustala **plan sekwencyjny** (rozdz. 11); przy jednej regulacji `experimental` (etap M4) – ta
+   regulacja.
+3. Akcje zablokowane przez modyfikatory nie wchodzą do planu (regulacja pokazuje status i tekst
    „Nie zalecamy zmiany z powodu …”).
-4. Pierwsza pozycja = **następny krok** (zawsze jedna). Pozostałe: „Kolejne kroki – po nagraniu kontrolnym”.
+4. Pierwszy krok planu = **następny krok** (zawsze jeden). Pozostałe: „Kolejne kroki – wstępnie, po nagraniu
+   kontrolnym przeliczymy”.
 
 Teksty (`text_key` + parametry): np. `rec.saddle_height.raise` → „Podnieś siodło o ok. {mm} mm”, uzasadnienie
 `why.saddle_height.high` → „Na dole obrotu kolano zgina się bardziej niż w zalecanym zakresie. Wyższe siodło
@@ -140,7 +197,9 @@ zmniejszy to zgięcie.”, sposób `how.saddle_height` → „Poluzuj obejmę sz
 wysokość taśmą. Zmieniaj najwyżej o 5–10 mm naraz.” Pełna lista tekstów w pliku modelu (`texts`), język PL,
 zgodnie z `docs/21` (bez przypisywania przyczyny dolegliwości).
 
-Każde zalecenie zawiera dodatkowo `confidence` z powodami (rozdz. 6.1) i `effort` (rozdz. 6.2).
+Każde zalecenie zawiera dodatkowo `confidence` z powodami (rozdz. 6.1), `effort` (rozdz. 6.2), `rule_status`,
+skutki uboczne dla pozostałych regulacji (rozdz. 11) i ślad uzasadnienia (rozdz. 12). Przy `experimental`
+wielkość = `step_experimental_mm` (bez `amount_total_mm`), pewność maks. `medium`.
 
 ### 6.1 Poziom pewności (C-06)
 
@@ -158,6 +217,7 @@ Start: `high`. Każdy spełniony warunek obniża o jeden poziom (minimum `low`);
 | `conf.basic_fit` | `fit_level = basic` | −1 |
 | `conf.high_effort` | `W_HIGH_EFFORT` (nagranie przy RPE ≥ 7) | −1 |
 | `conf.pelvis_rock_support` | „obniż siodło” i `pelvis_vertical.rom > signals.pelvis_rock_mm` (C-23) | +1 |
+| `conf.rule_experimental` | `rule_status = experimental` | pewność maks. `medium` (ograniczenie, nie odjęcie) |
 
 Przy `low` interfejs proponuje nagranie kontrolne przed zmianą (`docs/21`, rozdz. 3). Progi `signals.*` robocze
 (D-15).
@@ -239,10 +299,15 @@ Kamper i in. 2009) i opcjonalnie siłę dolegliwości docelowej 0–10 (`docs/03
   "valid_from": "2027-01-01",
   "regulations": {
     "saddle_height": {
-      "metric": "knee_flex_bottom", "rep": "med", "order": 1, "step_max_mm": 10,
+      "metric": "knee_flex_bottom", "rep": "med", "order": 1, "step_max_mm": 10, "step_experimental_mm": 5,
+      "rule_status": "experimental", "min_quality": "good", "min_cycles": 20,
+      "min_margin": { "abs": 2, "sd_factor": 1 }, "unknown_if": ["W_SEGMENT_MISMATCH:thigh", "W_SEGMENT_MISMATCH:shank"],
       "param": "saddle_height_mm", "evidence": "science", "source_ids": ["ferrer_roca_2012", "bini_2011"],
-      "ranges": { "*": { "*": { "green": [30, 40], "yellow": [25, 45], "target": 35 } } },
-      "actions": { "below": "rec.saddle_height.lower", "above": "rec.saddle_height.raise" }
+      "method": "dynamic_2d_lateral_markers",
+      "ranges": { "*": { "*": { "green": [30, 40], "yellow": [25, 45], "target": 35, "disputed": [] } } },
+      "actions": { "below": "rec.saddle_height.lower", "above": "rec.saddle_height.raise" },
+      "validation": { "metric_tolerance_deg": 2, "prediction_tolerance_deg": 2, "fitter_agreement_min": 0.8,
+                      "worse_max": 0.10 }
     }
   },
   "modifiers": [
@@ -266,5 +331,73 @@ Kamper i in. 2009) i opcjonalnie siłę dolegliwości docelowej 0–10 (`docs/03
 }
 ```
 
+Sekcja `plan`: `{ "max_steps": 4, "base_order": ["saddle_height", "saddle_fore_aft", "bar_reach", "bar_height"] }`.
+
 Klucze `ranges`: `ranges[bike_type][profile]`, `*` = dowolny. Plik jest walidowany schematem
 `schemas/fit-model.schema.json`. Zmiana pliku = nowa `model_version`; stare wyniki zachowują swoją wersję.
+
+## 11. Zależności między regulacjami i plan zmian
+
+Zmiana jednego parametru wpływa na inne regulacje. Przykład z modelu 2D (wartości indywidualne liczy serwer
+z wariantów, `docs/10`, rozdz. 6):
+
+| Zmiana o 10 mm | Zgięcie kolana | Kolano względem pedału | Łokieć | Plecy |
+|---|---|---|---|---|
+| siodło w górę (wzdłuż rury, kąt 73,5°) | −3…−5° | −3 mm (siodło cofa się o ok. 2,8 mm) | +2…+4° | ~0* |
+| siodło do przodu | +0,5…1° | +10 mm | −5…−10° | ~0* |
+| mostek krótszy | 0 | 0 | −3…−5° | +0,5…1° |
+| kierownica wyżej | 0 | 0 | ok. −1° | ok. +1° (założenie `torso_follow`) |
+
+\* model zakłada stałe pochylenie pleców, dopóki dłonie sięgają kierownicy (`docs/10`, rozdz. 4 – założenie).
+
+**Macierz wpływu** `M[param][metric]` = różnica pomiaru wariantu i stanu bieżącego, liczona dla każdej analizy.
+Jest prawie trójkątna: siodło wpływa na wszystkie regulacje, kierownica tylko na górę ciała. To uzasadnia kolejność
+„od podstawy w górę” – najpierw to, od czego zależy reszta, aby nie poprawiać dwa razy tego samego.
+
+**Plan sekwencyjny** (etap M5; liczony w `analyze`, `correct`, `refit`):
+1. Stan `S0` = zmierzony.
+2. Kandydaci: akcje regulacji `out`/`near` o statusie reguły ≥ `experimental`, niezablokowane, dozwolone przy
+   poziomie bezpieczeństwa.
+3. Odrzuć akcje, które przewidywanie wypycha inną regulację ze statusu `ok` do `out`.
+4. Wybierz regulację najbliżej podstawy (kolejność bazowa) ze statusem `out`, potem `near`. Dolegliwość podnosi
+   priorytet regulacji z nią związanej tylko w obrębie tego samego poziomu podstawy (nie wyprzedza `out` niższej
+   regulacji, chyba że jej akcja jest zablokowana).
+5. Spośród akcji tej regulacji wybierz kolejno: poprawiającą przy okazji inną regulację `out`/`near`, z najmniejszymi
+   skutkami ubocznymi, z najmniejszym wysiłkiem (rozdz. 6.2).
+6. `S(k+1)` = przewidywanie po kroku (wariant; dla kolejnych kroków – `simulate` łącznie z poprzednimi); powtórz
+   od 2. Maks. 4 kroki.
+7. Jedna zmiana na krok; korekta skutku ubocznego jest **osobnym** krokiem. Pewny jest tylko krok 1 – kolejne
+   oznaczone „wstępnie”; po nagraniu kontrolnym plan liczy się od nowa ze zmierzonego stanu.
+
+Przykład (kolano 42°, kolano 50 mm za pedałem, łokieć 168°, ból dołu pleców): lista statyczna dałaby siodło +10 →
+siodło do przodu → **krótszy mostek** → kierownica wyżej; plan sekwencyjny po kroku 2 (siodło do przodu) przewiduje
+łokieć ok. 161° w zakresie, więc **pomija zakup mostka**.
+
+## 12. Ślad uzasadnienia (`rationale`)
+
+Każde zalecenie i każda regulacja `unknown` zapisuje uporządkowany ślad (pokazywany w „Szczegółach”, skrót w „Dlaczego?”):
+
+| Pole | Przykład |
+|---|---|
+| `measurement` | zgięcie kolana 42° (SD 1,4; jakość dobra; 41 cykli; pomiar zwalidowany – markery) |
+| `base_range` | 30–40°, `method` dynamic_2d_lateral_markers, źródła `ferrer_roca_2012`, `bini_2011`, `science` |
+| `layers` | profil: bez zmian → `M_LESS_FLEX`: dolna granica 33 → koperta: bez przycięcia |
+| `decision` | poza zakresem o 2° (> `min_margin` 1,4°) → siodło nisko |
+| `side_effects` | kolano względem pedału −3 mm (nadal w zakresie), łokieć +3° |
+| `amount` | +5 mm (`experimental`) / +10 mm z wariantu (`validated`) |
+| `order` | krok 1 – siodło wpływa na pozostałe regulacje |
+| `confidence` | `medium` – reguła eksperymentalna |
+| `model` | `fit-model-v1`, `rule_status` experimental |
+
+## 13. Karta modelu i rada modelu
+
+Każda wersja modelu ma **kartę modelu** (wzorzec: Mitchell i in. 2019) w `docs/model-cards/{model_version}.md`,
+tworzoną w P1.9 i aktualizowaną po każdej walidacji:
+- zakresy, metody i źródła; strefy sporne; zmiany względem poprzedniej wersji;
+- status każdej reguły i dane, na których go nadano;
+- wyniki trzech poziomów poprawności: **pomiar** (kryteria `docs/16` rozdz. 6.1, z markerami i bez),
+  **przewidywanie** (różnice przewidziane − zmierzone), **zalecenie** (zasadność wg fittera, odsetek „pomogło” /
+  „gorzej” dla każdej reguły);
+- znane ograniczenia (2D, jedna strona, założenia modelu sylwetki, testy domowe);
+- kto zatwierdził (rada modelu: bike fitter + fizjoterapeuta, D-06) i kiedy.
+Wynik zawiera `fit.model_version`, więc każde zalecenie odsyła do karty (link w „Szczegółach”).
