@@ -1,5 +1,75 @@
-# ridemore.bike Fit
+# ridemore.bike Fit – moduł analizy i dopasowania pozycji na rowerze
 
-Moduł analizy i dopasowania pozycji na rowerze dla platformy ridemore.bike.
+Moduł platformy **ridemore.bike**, który na podstawie nagrania jazdy na trenażerze (kamera z boku) i krótkiego
+wywiadu z rowerzystą:
 
-Dokumentacja projektowa: w przygotowaniu (pull request z gałęzi `claude/charming-cannon-lh5hlh`).
+1. mierzy pozycję (kąty i odległości wyznaczone z punktów anatomicznych, wspomaganych markerami na ciele),
+2. ocenia jakość pomiaru i pozwala ręcznie poprawić punkty,
+3. podaje **proste zalecenie, co zmienić w rowerze** (np. „Podnieś siodło o ok. 10 mm”),
+4. pozwala **wirtualnie sprawdzić zmianę** na własnej sylwetce, zanim cokolwiek zostanie przykręcone,
+5. zapisuje zmiany ustawień i **ocenia, czy zmiana pomogła** (pomiar + odczucia).
+
+Moduł nie diagnozuje chorób i nie wyznacza jednej „idealnej pozycji”. Zalecenia są szacunkiem opartym na
+publikacjach i praktyce bike fittingu, dopasowanym do profilu jazdy i wywiadu.
+
+**Status:** dokumentacja projektowa (bez kodu). Repozytorium zawiera wyłącznie moduł Fit; platforma ridemore.bike
+(konta, sesje, strona) działa osobno i jest źródłem tożsamości użytkownika.
+
+---
+
+## Mapa dokumentacji
+
+| Dokument | Zawartość |
+|---|---|
+| `CLAUDE.md` | zasady pracy dla Claude Code (kolejność czytania, zakres, bezpieczeństwo, weryfikacja) |
+| `docs/01-wymagania.md` | cel, użytkownicy, zakres MVP, wymagania funkcjonalne (FR) i niefunkcjonalne (NFR), ograniczenia środowiska |
+| `docs/02-architektura.md` | warstwy A–E, struktura katalogów, przepływ danych, kolejka zadań, integracja z kontami ridemore.bike |
+| `docs/03-ekrany-i-przeplyw.md` | 14 ekranów (S01–S14) z makiet: zawartość, dane, stany, akcje, kryteria akceptacji |
+| `docs/04-wywiad.md` | wszystkie pytania wywiadu: typy, opcje, jednostki, walidacja, sposób pomiaru, wpływ na analizę |
+| `docs/05-rower-i-ustawienia.md` | parametry roweru: geometria ramy, komponenty, punkty kontaktu, bloki, koła; definicje i jednostki |
+| `docs/06-nagranie-i-markery.md` | protokół nagrania, ustawienie kamery, markery na ciele, znacznik skali, limity plików |
+| `docs/07-analiza-obrazu.md` | potok przetwarzania wideo (Python): markery, estymacja pozy, fuzja, śledzenie, kalibracja, cykle, kadry kluczowe, jakość |
+| `docs/08-pomiary.md` | definicje geometryczne wszystkich pomiarów, wzory, konwencje znaków, wartości raportowane |
+| `docs/09-model-dopasowania.md` | model dopasowania (moduł E): profile jazdy, zakresy, modyfikatory z wywiadu, reguły zaleceń, „Mi tak wygodnie”, ocena zmiany |
+| `docs/10-model-sylwetki-i-symulacja.md` | model kinematyczny 2D sylwetki i roweru, warianty wirtualnego dopasowania liczone na serwerze |
+| `docs/11-kontrakt-danych.md` | wersjonowane kontrakty JSON: zlecenie analizy, wynik, korekta punktów, symulacja, kody błędów |
+| `docs/12-baza-danych.md` | schemat MariaDB (tabele `fit_*`), relacje, retencja |
+| `docs/13-backend-php.md` | backend PHP 8.2 bez frameworka: moduły, trasy HTTP/API, przesyłanie plików, worker kolejki, cron |
+| `docs/14-frontend.md` | frontend: szablony PHP + Alpine.js, nakładki SVG, korekta punktów, styl ridemore.bike |
+| `docs/15-bezpieczenstwo-i-prywatnosc.md` | autoryzacja, CSRF, IDOR, pliki poza webroot, RODO (wizerunek, dane o zdrowiu), retencja |
+| `docs/16-testy-i-walidacja.md` | strategia testów (PHP, Python, kontrakty, E2E) i walidacja pomiarów |
+| `docs/17-plan-zadan.md` | etapy i zadania (kontrakty implementacyjne) w kolejności realizacji |
+| `docs/18-decyzje-i-otwarte-kwestie.md` | rejestr decyzji (ADR) i kwestii do potwierdzenia |
+| `docs/19-zrodla.md` | źródła naukowe i przegląd podobnych aplikacji |
+| `docs/makiety/` | makiety 14 ekranów (HTML + PNG) – wzorzec wyglądu i przepływu |
+
+## Główny przepływ użytkownika
+
+```
+S01 Moje analizy
+  → S02–S06 Wywiad (cel i profil jazdy, ciało, mobilność, dolegliwości, wnioski)
+  → S07 Markery → S08 Nagranie → S09 Analiza w toku
+  → S10 Sprawdź punkty (weryfikacja / ręczna korekta)
+  → S11 Wynik (następny krok, 4 regulacje, „Mi tak wygodnie”)
+  → S12 Wirtualne dopasowanie → S13 Zapis zmiany
+  → (jazdy, nagranie kontrolne) → S14 Ocena zmiany
+```
+
+## Pojęcia
+
+| Pojęcie | Znaczenie |
+|---|---|
+| Sesja (analiza) | jedno nagranie + wywiad + wynik dla jednego roweru i jednego ustawienia |
+| Ustawienie roweru | zapisany stan punktów kontaktu (siodło, kierownica, korby, bloki) w danym czasie |
+| Regulacja | jedna z 4 ocenianych regulacji: wysokość siodła, siodło przód/tył, odległość do kierownicy, wysokość kierownicy |
+| Profil jazdy | Komfort, Neutralny, Endurance, Sportowy lub Własny – przesuwa zalecane zakresy |
+| Kadr kluczowy | klatka nagrania w fazie korby: 0° (góra, GMP), 90°, 180° (dół, DMP), 270° |
+| Marker | naklejka na punkcie anatomicznym, wykrywana na obrazie |
+| Wariant | pozycja przeliczona na serwerze dla zmiany jednego parametru roweru (wirtualne dopasowanie) |
+| Akceptacja („Mi tak wygodnie”) | świadoma decyzja użytkownika, że ustawienie poza zakresem jest dla niego właściwe |
+| Ocena zmiany | werdykt po kolejnej analizie: skuteczna / częściowo / bez efektu / pogorszenie / za wcześnie |
+
+## Dla Claude Code
+
+Zacznij od `CLAUDE.md`, a następnie `docs/17-plan-zadan.md`. Każde zadanie wskazuje dokumenty, które trzeba
+przeczytać przed implementacją.

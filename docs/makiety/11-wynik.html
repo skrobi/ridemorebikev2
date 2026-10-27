@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wynik analizy – makieta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1E4B38}a:hover{color:#15201A}
+</style>
+</head>
+<body>
+<div style="width: 1280px; height: 1320px; box-sizing: border-box; background: #F4F5F1; color: #15201A; font-family: 'Instrument Sans', system-ui, sans-serif; display: flex; flex-direction: column">
+  <header style="height: 72px; box-sizing: border-box; padding: 0 48px; display: flex; align-items: center; gap: 40px; background: #FFFFFF; border-bottom: 1px solid #E2E5DD">
+    <div style="display: flex; align-items: baseline; gap: 8px">
+      <span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-size: 26px">ridemore<span style="color: #2C6B4F">.</span>bike</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; background: #2C6B4F; color: #FFFFFF; padding: 3px 9px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.08em">fit</span>
+    </div>
+    <nav style="display: flex; gap: 8px; font-size: 15px; font-weight: 600">
+      <a href="01-main.html" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; background: #E4EEE8; color: #1E4B38">Moje analizy</a>
+      <a href="#" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; color: #5E6A62">Rowery</a>
+      <a href="#" style="text-decoration: none; padding: 10px 14px; border-radius: 999px; color: #5E6A62">Profil</a>
+    </nav>
+  </header>
+
+  <div style="padding: 32px 48px 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px">
+    <div>
+      <a href="01-main.html" style="font-size: 14px; font-weight: 600">← Moje analizy</a>
+      <h1 style="margin: 8px 0 0; font-family: Archivo, sans-serif; font-weight: 800; font-size: 34px">Analiza z 21 października</h1>
+      <p style="margin: 4px 0 0; font-size: 15px; color: #5E6A62">Szosa endurance · po podniesieniu siodła o 10 mm</p>
+    </div>
+    <div style="display: flex; gap: 4px; background: #FFFFFF; border: 1px solid #D3D8CE; border-radius: 999px; padding: 4px">
+      <button type="button" style="height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: #15201A; color: #FFFFFF; font: 600 14px 'Instrument Sans', sans-serif">Podsumowanie</button>
+      <button type="button" style="height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: transparent; color: #5E6A62; font: 600 14px 'Instrument Sans', sans-serif">Szczegóły dla fittera</button>
+    </div>
+  </div>
+
+  <div style="padding: 24px 48px 40px; display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; flex: 1; box-sizing: border-box">
+    <section style="display: flex; flex-direction: column; gap: 20px">
+
+      <div style="background: #FFFFFF; border: 1px solid #E2E5DD; border-radius: 16px; padding: 22px 26px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
+          <h2 style="margin: 0; font-family: Archivo, sans-serif; font-size: 20px; font-weight: 700">Profil jazdy</h2>
+          <span style="font-size: 13px; color: #5E6A62">zmiana profilu przelicza zalecenia, nie pomiar</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 14px">
+          <button type="button" style="text-align: left; border: 1px solid #D3D8CE; background: #FFFFFF; border-radius: 12px; padding: 12px; font-family: 'Instrument Sans', sans-serif; cursor: pointer">
+            <span style="display: block; font-weight: 600; font-size: 15px; color: #15201A">Komfort</span>
+            <span style="display: block; font-size: 12.5px; color: #5E6A62; margin-top: 2px">wyprostowany, rekreacja</span>
+          </button>
+          <button type="button" style="text-align: left; border: 1px solid #D3D8CE; background: #FFFFFF; border-radius: 12px; padding: 12px; font-family: 'Instrument Sans', sans-serif; cursor: pointer">
+            <span style="display: block; font-weight: 600; font-size: 15px; color: #15201A">Neutralny</span>
+            <span style="display: block; font-size: 12.5px; color: #5E6A62; margin-top: 2px">uniwersalny</span>
+          </button>
+          <button type="button" style="text-align: left; border: 2px solid #2C6B4F; background: #E4EEE8; border-radius: 12px; padding: 11px; font-family: 'Instrument Sans', sans-serif; cursor: pointer">
+            <span style="display: block; font-weight: 700; font-size: 15px; color: #1E4B38">Endurance</span>
+            <span style="display: block; font-size: 12.5px; color: #1E4B38; margin-top: 2px">długie dystanse</span>
+          </button>
+          <button type="button" style="text-align: left; border: 1px solid #D3D8CE; background: #FFFFFF; border-radius: 12px; padding: 12px; font-family: 'Instrument Sans', sans-serif; cursor: pointer">
+            <span style="display: block; font-weight: 600; font-size: 15px; color: #15201A">Sportowy</span>
+            <span style="display: block; font-size: 12.5px; color: #5E6A62; margin-top: 2px">nisko, agresywnie</span>
+          </button>
+          <button type="button" style="text-align: left; border: 1px dashed #8A948C; background: #FFFFFF; border-radius: 12px; padding: 12px; font-family: 'Instrument Sans', sans-serif; cursor: pointer">
+            <span style="display: block; font-weight: 600; font-size: 15px; color: #15201A">Własny</span>
+            <span style="display: block; font-size: 12.5px; color: #5E6A62; margin-top: 2px">ustawia fitter</span>
+          </button>
+        </div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 1px solid #E2E5DD; border-radius: 16px; padding: 22px 26px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <h2 style="margin: 0; font-family: Archivo, sans-serif; font-size: 20px; font-weight: 700">Twoje 4 ustawienia</h2>
+          <span style="font-size: 13px; color: #5E6A62">ciemniejsze pole = zakres dla Ciebie</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0; margin-top: 8px">
+          <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr) 150px; gap: 20px; align-items: center; padding: 16px 0; border-bottom: 1px solid #E2E5DD">
+            <div><div style="font-weight: 600; font-size: 15px">Wysokość siodła</div><div style="font-size: 13px; color: #5E6A62">noga na dole obrotu</div></div>
+            <div>
+              <div style="position: relative; height: 12px; display: flex; gap: 2px; border-radius: 999px; overflow: hidden">
+                <span style="width: 18%; background: #F3C9C4"></span><span style="width: 14%; background: #F8E3A6"></span><span style="width: 36%; background: #8FC3A3"></span><span style="width: 14%; background: #F8E3A6"></span><span style="width: 18%; background: #F3C9C4"></span>
+              </div>
+              <div style="position: relative; height: 0"><span style="position: absolute; left: 56%; top: -22px; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 10px solid #15201A; transform: translateX(-50%)"></span></div>
+              <div style="display: flex; justify-content: space-between; font-size: 12px; color: #5E6A62; margin-top: 6px"><span>za wysoko</span><span>za nisko</span></div>
+            </div>
+            <span style="justify-self: end; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #E3F0E7; color: #1F5537">W porządku</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr) 150px; gap: 20px; align-items: center; padding: 16px 0; border-bottom: 1px solid #E2E5DD">
+            <div><div style="font-weight: 600; font-size: 15px">Siodło przód / tył</div><div style="font-size: 13px; color: #5E6A62">kolano względem pedału</div></div>
+            <div>
+              <div style="position: relative; height: 12px; display: flex; gap: 2px; border-radius: 999px; overflow: hidden">
+                <span style="width: 18%; background: #F3C9C4"></span><span style="width: 14%; background: #F8E3A6"></span><span style="width: 36%; background: #8FC3A3"></span><span style="width: 14%; background: #F8E3A6"></span><span style="width: 18%; background: #F3C9C4"></span>
+              </div>
+              <div style="position: relative; height: 0"><span style="position: absolute; left: 10%; top: -22px; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 10px solid #15201A; transform: translateX(-50%)"></span></div>
+              <div style="display: flex; justify-content: space-between; font-size: 12px; color: #5E6A62; margin-top: 6px"><span>daleko za pedałem</span><span>przed pedałem</span></div>
+              <div style="margin-top: 10px; display: flex; gap: 10px; align-items: center; background: #EEF0FB; border-radius: 10px; padding: 8px 12px; font-size: 13px; color: #1E3F94">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>
+                <span>Oznaczyłeś jako wygodne: <b>długie uda w stosunku do podudzi</b>. Nie zalecamy zmiany. <a href="#" style="color: #1E3F94; font-weight: 600">Cofnij</a></span>
+              </div>
+            </div>
+            <span style="justify-self: end; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #E3EAFA; color: #1E3F94">Twoje ustawienie</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr) 150px; gap: 20px; align-items: center; padding: 16px 0; border-bottom: 1px solid #E2E5DD">
+            <div><div style="font-weight: 600; font-size: 15px">Odległość do kierownicy</div><div style="font-size: 13px; color: #5E6A62">kąt tułów–ramię</div></div>
+            <div>
+              <div style="position: relative; height: 12px; display: flex; gap: 2px; border-radius: 999px; overflow: hidden">
+                <span style="width: 18%; background: #F3C9C4"></span><span style="width: 14%; background: #F8E3A6"></span><span style="width: 36%; background: #8FC3A3"></span><span style="width: 14%; background: #F8E3A6"></span><span style="width: 18%; background: #F3C9C4"></span>
+              </div>
+              <div style="position: relative; height: 0"><span style="position: absolute; left: 74%; top: -22px; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 10px solid #15201A; transform: translateX(-50%)"></span></div>
+              <div style="display: flex; justify-content: space-between; font-size: 12px; color: #5E6A62; margin-top: 6px"><span>za blisko</span><span>za daleko</span></div>
+            </div>
+            <span style="justify-self: end; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #FDF3D6; color: #6B4E00">Lekko za daleko</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr) 150px; gap: 20px; align-items: center; padding: 16px 0">
+            <div><div style="font-weight: 600; font-size: 15px">Wysokość kierownicy</div><div style="font-size: 13px; color: #5E6A62">pochylenie pleców</div></div>
+            <div>
+              <div style="position: relative; height: 12px; display: flex; gap: 2px; border-radius: 999px; overflow: hidden">
+                <span style="width: 18%; background: #F3C9C4"></span><span style="width: 14%; background: #F8E3A6"></span><span style="width: 8%; background: #C9DFD1"></span><span style="width: 28%; background: #5FA27D"></span><span style="width: 14%; background: #F8E3A6"></span><span style="width: 18%; background: #F3C9C4"></span>
+              </div>
+              <div style="position: relative; height: 0"><span style="position: absolute; left: 52%; top: -22px; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 10px solid #15201A; transform: translateX(-50%)"></span></div>
+              <div style="display: flex; justify-content: space-between; font-size: 12px; color: #5E6A62; margin-top: 6px"><span>za nisko</span><span>wysoko</span></div>
+              <div style="margin-top: 8px; font-size: 13px; color: #1E4B38">Zakres przesunięty w górę, bo napięte mięśnie z tyłu uda ograniczają pochylenie (wywiad, test 3).</div>
+            </div>
+            <span style="justify-self: end; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #E3F0E7; color: #1F5537">W porządku</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 1px solid #E2E5DD; border-radius: 16px; padding: 22px 26px">
+        <h2 style="margin: 0; font-family: Archivo, sans-serif; font-size: 20px; font-weight: 700">Coś jest poza zakresem, a jest Ci wygodnie?</h2>
+        <p style="margin: 8px 0 14px; font-size: 15px; line-height: 1.55; color: #15201A">Zakresy opisują typowego rowerzystę. Budowa ciała, przebyty uraz albo różnica długości nóg mogą sprawić, że dla Ciebie najlepsze ustawienie jest inne. Zaznacz to – nie będziemy namawiać do zmiany, a bike fitter zobaczy powód.</p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap">
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 999px; border: 1px solid #D3D8CE; background: #FFFFFF">budowa ciała / proporcje</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 999px; border: 1px solid #D3D8CE; background: #FFFFFF">przebyty uraz lub operacja</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 999px; border: 1px solid #D3D8CE; background: #FFFFFF">różnica długości nóg</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 999px; border: 1px solid #D3D8CE; background: #FFFFFF">ograniczona ruchomość</span>
+          <span style="font-size: 13px; padding: 7px 12px; border-radius: 999px; border: 1px solid #D3D8CE; background: #FFFFFF">po prostu mi wygodnie</span>
+        </div>
+      </div>
+    </section>
+
+    <aside style="display: flex; flex-direction: column; gap: 20px">
+      <div style="background: #FFFFFF; border: 2px solid #2C6B4F; border-radius: 16px; padding: 24px 26px">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #1E4B38">Twój następny krok</div>
+        <h2 style="margin: 8px 0 8px; font-family: Archivo, sans-serif; font-weight: 800; font-size: 28px; line-height: 1.15; color: #1E4B38">Skróć mostek o ok. 10 mm</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55">Łokcie są prawie wyprostowane. Krótszy mostek zdejmie ciężar z dłoni i karku.</p>
+        <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid #E2E5DD; font-size: 14px; line-height: 1.55; color: #5E6A62">
+          <b style="color: #15201A">Jak:</b> wymień mostek 100 → 90 mm. Przy małej zmianie wystarczy przesunąć klamkomanetki do tyłu.
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 16px">
+          <a href="12-symulator.html" style="display: flex; align-items: center; justify-content: center; height: 46px; border-radius: 999px; background: #2C6B4F; color: #FFFFFF; font-weight: 600; font-size: 15px; text-decoration: none">Sprawdź wirtualnie</a>
+          <a href="13-zmiana.html" style="display: flex; align-items: center; justify-content: center; height: 46px; border-radius: 999px; border: 1px solid #D3D8CE; background: #FFFFFF; color: #15201A; font-weight: 600; font-size: 15px; text-decoration: none">Zrobione – zapisz zmianę</a>
+          <button type="button" style="height: 46px; border: 1px solid #D3D8CE; border-radius: 999px; background: #FFFFFF; color: #15201A; font: 600 15px 'Instrument Sans', sans-serif">Mi tak wygodnie</button>
+        </div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 1px solid #E2E5DD; border-radius: 16px; padding: 22px 24px">
+        <h3 style="margin: 0 0 12px; font-family: Archivo, sans-serif; font-size: 17px; font-weight: 700">Dopasowane do Ciebie z wywiadu</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 1.5">
+          <div style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19c4-1 6-5 8-9s4-6 8-6"/></svg>
+            <span><b>Napięte mięśnie z tyłu uda</b> – kierownica może być wyżej niż typowo.</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5"/></svg>
+            <span><b>Ból dolnej części pleców</b> po 2 h – unikamy obniżania kierownicy.</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v16M18 9v11"/></svg>
+            <span><b>Lewa noga krótsza o ok. 5 mm</b> (pomiar własny) – do potwierdzenia u fittera.</span>
+          </div>
+        </div>
+        <a href="06-wywiad5.html" style="display: inline-block; margin-top: 14px; font-size: 14px; font-weight: 600">Zobacz wywiad</a>
+      </div>
+
+      <div style="background: #EDF1EC; border-radius: 16px; padding: 18px 22px; font-size: 13px; line-height: 1.55; color: #5E6A62">
+        Zalecenia to szacunek z nagrania z boku i zakresów z badań oraz praktyki bike fittingu. Nie zastępują wizyty u fittera. Jeśli coś boli, a nie tylko męczy – skonsultuj się z fizjoterapeutą.
+      </div>
+      <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5E6A62">DANE PRZYKŁADOWE · KONCEPCJA UX</p>
+    </aside>
+  </div>
+</div>
+</body>
+</html>

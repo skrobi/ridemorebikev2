@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analiza w toku – makieta</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}a{color:#1E4B38}a:hover{color:#15201A}
+.pg{width:1280px;height:860px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
+.hd{height:64px;box-sizing:border-box;padding:0 48px;display:flex;align-items:center;gap:32px;background:#fff;border-bottom:1px solid #E2E5DD;flex:none}
+.wm{font:900 24px 'Big Shoulders Display',sans-serif}.wm i{font-style:normal;color:#2C6B4F}
+.tag{font:600 11px 'IBM Plex Mono',monospace;background:#2C6B4F;color:#fff;padding:3px 9px;border-radius:999px;text-transform:uppercase;margin-left:6px}
+.nv{display:flex;gap:6px;font-weight:600;font-size:15px}.nv a{text-decoration:none;padding:9px 14px;border-radius:999px;color:#5E6A62}.nv a.on{background:#E4EEE8;color:#1E4B38}
+.bd{flex:1;display:grid;grid-template-columns:250px minmax(0,1fr);gap:44px;padding:36px 48px;box-sizing:border-box;min-height:0}
+.st{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}.st li{padding:10px 12px;border-radius:10px;font-weight:600;font-size:15px;color:#8A948C;display:flex;gap:10px;align-items:center}
+.st li.on{background:#fff;color:#15201A;box-shadow:inset 3px 0 0 #2C6B4F}.st li.ok{color:#1E4B38}.st .g{font:600 11px 'IBM Plex Mono',monospace;color:#8A948C;padding:14px 12px 4px;letter-spacing:.06em}
+.n{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 12px 'IBM Plex Mono',monospace;background:#E2E5DD;color:#5E6A62;flex:none}.on .n{background:#15201A;color:#fff}.ok .n{background:#2C6B4F;color:#fff}
+h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif;margin:0}
+.lead{font-size:16px;color:#5E6A62;margin:6px 0 22px;line-height:1.5}
+.card{background:#fff;border:1px solid #E2E5DD;border-radius:16px;padding:20px 24px}
+.btn{display:inline-flex;align-items:center;height:48px;padding:0 26px;border-radius:999px;background:#2C6B4F;color:#fff;font-weight:600;font-size:16px;text-decoration:none}.btn.sec{background:#fff;color:#15201A;border:1px solid #D3D8CE}
+.stp{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid #EDF1EC;font-size:15px}.stp:last-child{border-bottom:0}
+.d{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:600 12px 'IBM Plex Mono',monospace;flex:none;background:#E2E5DD;color:#8A948C}.d.ok{background:#2C6B4F;color:#fff}.d.run{background:#FFC93F;color:#15201A}
+</style>
+</head>
+<body>
+<div class="pg">
+  <header class="hd">
+    <span class="wm">ridemore<i>.</i>bike<span class="tag">fit</span></span>
+    <nav class="nv"><a href="01-main.html" class="on">Moje analizy</a><a href="#">Rowery</a><a href="#">Profil</a></nav>
+  </header>
+  <div class="bd">
+    <ol class="st">
+      <li class="g">WYWIAD · 3 MIN</li>
+      <li class="ok"><span class="n">1</span>Cel i profil jazdy</li>
+      <li class="ok"><span class="n">2</span>Ciało</li>
+      <li class="ok"><span class="n">3</span>Mobilność</li>
+      <li class="ok"><span class="n">4</span>Dolegliwości</li>
+      <li class="ok"><span class="n">5</span>Co z tego wynika</li>
+      <li class="g">ANALIZA</li>
+      <li class="ok"><span class="n">6</span>Markery</li>
+      <li class="ok"><span class="n">7</span>Nagranie</li>
+      <li class="on"><span class="n">8</span>Sprawdź punkty</li>
+      <li><span class="n">9</span>Wynik</li>
+    </ol>
+    <main>
+      <h1>Analizujemy Twoje nagranie</h1>
+      <p class="lead">Zwykle trwa to kilka minut. Możesz zamknąć stronę – wynik pojawi się w „Moich analizach”.</p>
+      <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 22px">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: baseline"><h2>Postęp</h2><span style="font: 600 14px 'IBM Plex Mono', monospace">58%</span></div>
+          <div style="height: 10px; border-radius: 999px; background: #EDF1EC; margin: 12px 0 8px; overflow: hidden"><span style="display: block; width: 58%; height: 100%; background: #2C6B4F; border-radius: 999px"></span></div>
+          <div class="stp"><span class="d ok">✓</span>Sprawdzamy plik i jakość obrazu</div>
+          <div class="stp"><span class="d ok">✓</span>Znajdujemy markery i punkty ciała (biodro, kolano, kostka, stopa, bark, łokieć, nadgarstek)</div>
+          <div class="stp"><span class="d run">3</span><b>Śledzimy ruch w każdym obrocie korby</b></div>
+          <div class="stp" style="color: #8A948C"><span class="d">4</span>Sprawdzamy, czy pomiar jest wiarygodny</div>
+          <div class="stp" style="color: #8A948C"><span class="d">5</span>Dopasowujemy zalecenia do Twojego wywiadu</div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <div class="card" style="background: #FDF3D6; border-color: #F2DE9E">
+            <h2>Jeśli coś pójdzie nie tak</h2>
+            <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.55">Powiemy dokładnie, co poprawić, np. „za ciemno – nagraj przy świetle z przodu”. Nieudane nagranie trzymamy 7 dni, żeby można było ponowić analizę.</p>
+          </div>
+          <div class="card">
+            <h2>W międzyczasie</h2>
+            <p style="margin: 6px 0 12px; font-size: 14px; line-height: 1.55; color: #5E6A62">Sprawdź, jak zmiana mostka lub siodła wpłynęłaby na pozycję z poprzedniej analizy.</p>
+            <a href="12-symulator.html" class="btn sec" style="height: 42px">Wirtualne dopasowanie</a>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-top: 22px"><a href="01-main.html" class="btn sec">Wróć do moich analiz</a><a href="10-punkty.html" class="btn">Sprawdź punkty (gdy gotowe)</a></div>
+    </main>
+  </div>
+</div>
+</body>
+</html>
