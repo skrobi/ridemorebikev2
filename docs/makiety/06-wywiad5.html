@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wywiad – co z tego wynika – makieta</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}a{color:#1E4B38}a:hover{color:#15201A}
+.pg{width:1280px;height:860px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
+.hd{height:64px;box-sizing:border-box;padding:0 48px;display:flex;align-items:center;gap:32px;background:#fff;border-bottom:1px solid #E2E5DD;flex:none}
+.wm{font:900 24px 'Big Shoulders Display',sans-serif}.wm i{font-style:normal;color:#2C6B4F}
+.tag{font:600 11px 'IBM Plex Mono',monospace;background:#2C6B4F;color:#fff;padding:3px 9px;border-radius:999px;text-transform:uppercase;margin-left:6px}
+.nv{display:flex;gap:6px;font-weight:600;font-size:15px}.nv a{text-decoration:none;padding:9px 14px;border-radius:999px;color:#5E6A62}.nv a.on{background:#E4EEE8;color:#1E4B38}
+.bd{flex:1;display:grid;grid-template-columns:250px minmax(0,1fr);gap:44px;padding:36px 48px;box-sizing:border-box;min-height:0}
+.st{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}.st li{padding:10px 12px;border-radius:10px;font-weight:600;font-size:15px;color:#8A948C;display:flex;gap:10px;align-items:center}
+.st li.on{background:#fff;color:#15201A;box-shadow:inset 3px 0 0 #2C6B4F}.st li.ok{color:#1E4B38}.st .g{font:600 11px 'IBM Plex Mono',monospace;color:#8A948C;padding:14px 12px 4px;letter-spacing:.06em}
+.n{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 12px 'IBM Plex Mono',monospace;background:#E2E5DD;color:#5E6A62;flex:none}.on .n{background:#15201A;color:#fff}.ok .n{background:#2C6B4F;color:#fff}
+h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif;margin:0}
+.lead{font-size:16px;color:#5E6A62;margin:6px 0 20px;line-height:1.5}
+.card{background:#fff;border:1px solid #E2E5DD;border-radius:16px;padding:18px 20px}
+.btn{display:inline-flex;align-items:center;height:48px;padding:0 26px;border-radius:999px;background:#2C6B4F;color:#fff;font-weight:600;font-size:16px;text-decoration:none}.btn.sec{background:#fff;color:#15201A;border:1px solid #D3D8CE}
+.ft{display:flex;justify-content:space-between;align-items:center;margin-top:22px}
+.row{display:grid;grid-template-columns:200px 30px minmax(0,1fr);gap:14px;align-items:start;padding:14px 0;border-bottom:1px solid #E2E5DD}.row:last-child{border-bottom:0}
+.src{font-size:13px;color:#5E6A62}.eff{font-size:15px;line-height:1.5}
+.k{font:600 11px 'IBM Plex Mono',monospace;color:#5E6A62;letter-spacing:.06em}
+.st .t{margin-left:auto;white-space:nowrap;padding-left:6px;font:600 11px "IBM Plex Mono",monospace;color:#8A948C;font-weight:600}
+</style>
+</head>
+<body>
+<div class="pg">
+  <header class="hd">
+    <span class="wm">ridemore<i>.</i>bike<span class="tag">fit</span></span>
+    <nav class="nv"><a href="01-main.html" class="on">Moje sesje</a><a href="#">Rowery</a><a href="#">Profil</a></nav>
+  </header>
+  <div class="bd">
+    <ol class="st">
+      <li class="g">WYWIAD · OK. 5 MIN</li>
+      <li class="ok"><span class="n">1</span>Cel i profil jazdy<span class="t">1 min</span></li>
+      <li class="ok"><span class="n">2</span>Ciało<span class="t">1–2 min</span></li>
+      <li class="ok"><span class="n">3</span>Mobilność<span class="t">2 min</span></li>
+      <li class="ok"><span class="n">4</span>Bezpieczeństwo i dolegliwości<span class="t">1 min</span></li>
+      <li class="on"><span class="n">5</span>Co z tego wynika<span class="t">½ min</span></li>
+      <li class="g">NAGRANIE I WYNIK</li>
+      <li><span class="n">6</span>Markery<span class="t">5 min</span></li>
+      <li><span class="n">7</span>Nagranie<span class="t">3 min</span></li>
+      <li><span class="n">8</span>Sprawdź punkty</li>
+      <li><span class="n">9</span>Wynik</li>
+    </ol>
+    <main>
+      <h1>Tak dopasujemy sesję do Ciebie</h1>
+      <p class="lead">Odpowiedzi zmieniają zalecane zakresy i kolejność zaleceń. Pomiar z nagrania pozostaje bez zmian.</p>
+      <div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 24px">
+        <div class="card" style="padding: 6px 22px">
+          <div class="row"><span><b>Endurance, 2–3 h</b><br><span class="src">profil jazdy</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="eff">Plecy pochylone umiarkowanie: zakres 40–50°. Kierownica bliżej i wyżej niż w profilu sportowym.</span></div>
+          <div class="row"><span><b>Napięty tył ud</b><br><span class="src">testy domowe: skłon w siadzie −9 cm, noga 66°</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="eff">Zakres pleców przesuwamy o 5° w górę, siodła nie podnosimy na siłę. Wynik orientacyjny – tylko przesuwa zakres, nie blokuje zaleceń.</span></div>
+          <div class="row"><span><b>Ból dołu pleców</b><br><span class="src">3/10, po 2 h</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="eff">Nie zalecimy obniżenia kierownicy.</span></div>
+          <div class="row"><span><b>Ból przodu kolana</b><br><span class="src">prawe, 4/10, po 60 min, prawie zawsze</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2C6B4F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="eff">Najpierw sprawdzimy wysokość i położenie siodła. To główna dolegliwość – według niej ocenimy, czy zmiana pomogła.</span></div>
+          <div class="row"><span><b>Lewa noga krótsza</b><br><span class="src">ok. 5 mm, stwierdzone</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#6B4E00" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 7v6M12 17h.01"/></svg><span class="eff">Nic nie zmieniamy automatycznie. Oznaczamy dla bike fittera (podkładka pod blok).</span></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <div class="card" style="padding: 14px 20px"><div class="k">BEZPIECZEŃSTWO</div><div style="font-size: 14px; margin-top: 6px">✓ Bez uwag – zalecenia ze zwykłym krokiem (do 10 mm). Gdyby coś się zmieniło, zapytamy o to w krótkim wywiadzie.</div></div>
+          <div class="card"><div class="k">TWÓJ PROFIL DO ANALIZY</div><div style="font: 800 24px Archivo, sans-serif; margin-top: 6px">Endurance · z uwzględnieniem ruchomości</div><a href="02-wywiad1.html" style="display: inline-block; margin-top: 8px; font-weight: 600; font-size: 14px">Zmień odpowiedzi</a></div>
+          <div class="card" style="background: #EDF1EC; border: 0; font-size: 14px; line-height: 1.55; color: #38443C"><b>Następnym razem</b> zapytamy tylko, czy coś się zmieniło – wystarczy ok. 1 minuty. Pełny wywiad powtórzymy po urazie albo co pół roku.</div>
+        </div>
+      </div>
+      <div class="ft"><a href="05-wywiad4.html" class="btn sec">Wstecz</a><a href="07-markery.html" class="btn">Dalej: markery i nagranie</a></div>
+    </main>
+  </div>
+</div>
+</body>
+</html>
