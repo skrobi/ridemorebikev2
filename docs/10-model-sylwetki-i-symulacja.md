@@ -142,9 +142,14 @@ Parametry niemodelowane (tylko informacja w UI): `saddle_tilt_deg`, `bar_width_m
 
 | Źródło skali (`scale_source`) | Dokładność | Skutek |
 |---|---|---|
-| `marker` – znacznik 20 cm | ok. 1–3% | pełne wartości w mm |
+| `marker` – znacznik 20 cm (opcjonalny) | ok. 1–3% | pełne wartości w mm |
+| `crank` – podana długość korby, promień okręgu pedału | ok. 1–2% | pełne wartości w mm |
+| `wheel` – średnica koła z rozmiaru opony | ok. 1–2% | pełne wartości w mm |
+| `crank_default` – typowa korba | ok. 3–4% | wartości w mm, `W_SCALE_ESTIMATED` |
 | `body` – długość nogi, wzrost, rozpiętość ramion (proporcje segmentów, np. udo ≈ 0,245 wzrostu; kontrola wzajemna wymiarów) | ok. 3–5% | wartości w mm, `W_SCALE_ESTIMATED`; błąd 5% przy zmianie 15 mm ≈ 0,7 mm |
-| `none` – brak obu | – | tylko kąty i kierunek; zalecenie = stały krok 5 mm; pomiary w mm ukryte (`W_NO_SCALE`) |
+| `none` – brak wszystkich | – | tylko kąty i kierunek; zalecenie = stały krok 5 mm; pomiary w mm ukryte (`W_NO_SCALE`) |
+
+Pełny opis źródeł, ich porównania i korekty kamery ustawionej ukośnie: `docs/06` rozdz. 4 i `docs/07` rozdz. 4.1.
 
 Bez danych roweru (`sim.default_*` z rozdz. 3.1) zalecenie jest pełne: parametr, kierunek i wielkość (np. „skróć
 mostek o 20 mm”) – liczone z ciała, nie z roweru, więc pewność nie jest obniżana. Gdy potrzebna zmiana przekracza

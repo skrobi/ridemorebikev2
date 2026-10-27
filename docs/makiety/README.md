@@ -36,6 +36,7 @@ Znane uproszczenia makiet (obowiązuje specyfikacja, nie makieta):
 - Stany „Małymi krokami”, „Najpierw konsultacja”, „Dopasowanie podstawowe” i zalecenie „Eksperymentalne” są opisane w `docs/03` i `docs/21`, bez osobnych makiet.
 - S03a i S07a pokazują po jednym przykładowym kroku (długość nogi, kolano); pozostałe kroki według tabel w `docs/04` rozdz. 3.1 i `docs/06` rozdz. 3.4.
 - Kod QR w S08 jest wzorem graficznym, nie działającym kodem.
+- Znacznik skali jest opcjonalny (ADR-28); w scenariuszu skala pochodzi z korby 172,5 mm i koła 700 × 28.
 - Ekrany Rowery, Profil i Komfort nie mają makiet w tym zestawie (`docs/03` rozdz. 17).
 
 Makiety pokazują pełny produkt (wydanie 2). Wydanie 1 (etapy M0–M4, `docs/17`) używa S01–S11 z regulacjami

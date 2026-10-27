@@ -5,7 +5,7 @@
 | Element | Wymaganie | Dlaczego |
 |---|---|---|
 | Rower | na trenażerze, ustawiony poziomo (przednie koło na podstawce, jeśli trenażer podnosi tył) | poziom odniesienia dla kątów |
-| Kamera | statyw, obiektyw na wysokości siodła, dokładnie prostopadle do płaszczyzny roweru, wypoziomowana | błąd perspektywy rośnie z odchyleniem od prostopadłej |
+| Kamera | statyw, obiektyw na wysokości siodła, zalecane prostopadle do płaszczyzny roweru, wypoziomowana; odchylenie do `calibration.yaw_warn_deg` (15°) korygowane automatycznie, do `calibration.yaw_max_deg` (25°) z ostrzeżeniem, powyżej – prośba o ponowne nagranie | błąd perspektywy rośnie z odchyleniem; korekta z elipsy toru pedału i kół (`docs/07`, rozdz. 4.1) |
 | Odległość | 2,5–4 m od roweru; cały rower i rowerzysta w kadrze z zapasem ~10% | zniekształcenia obiektywu przy brzegach kadru |
 | Orientacja | pozioma (landscape) | pełna sylwetka w kadrze |
 | Rozdzielczość / fps | min. 1280×720 przy 30 fps; zalecane 1920×1080 przy 60 fps | rozmycie ruchu stopy przy niskim fps |
@@ -25,7 +25,7 @@
 | `light` | Światło z przodu lub z boku, nie pod okno |
 | `clothing` | Obcisły strój, widoczne kolano, kostka, bark i łokieć |
 | `markers` | 8 markerów naklejonych na stronie zwróconej do kamery |
-| `scale` | Znacznik skali 20 cm przyklejony do rury podsiodłowej |
+| `scale` | (opcjonalnie) Znacznik skali 20 cm przyklejony do rury podsiodłowej – poprawia dokładność |
 | `warmup` | 10 minut rozgrzewki, potem stała kadencja |
 | `effort` | Jadę umiarkowanie – mogę rozmawiać pełnymi zdaniami |
 | `tripod` | Telefon na statywie, nie w ręce |
@@ -75,9 +75,9 @@ Tryb `none`: analiza tylko modelem pozy; wszystkie punkty mają źródło `model
 ### 3.4 Kreator naklejania krok po kroku (S07)
 
 Kreator działa na komputerze i na telefonie (M01, kod QR) – przy rowerze zwykle jest telefon. Postęp zapisuje się
-w szkicu sesji. Kolejność: przygotowanie → 8 punktów → znacznik skali → podsumowanie.
+w szkicu sesji. Kolejność: przygotowanie → 8 punktów → znacznik skali (opcjonalny) → podsumowanie.
 
-**Przygotowanie (S07):** co potrzebne (8 naklejek, znacznik skali, obcisły strój, pomocnik – zalecany przy 1 i 6),
+**Przygotowanie (S07):** co potrzebne (8 naklejek, obcisły strój, pomocnik – zalecany przy 1 i 6; znacznik skali opcjonalnie), pytanie o długość korby (nadruk na korbie) i rozmiar opony – opcjonalne, ale dają znaną długość w kadrze,
 wybór `kit` / `diy` / `none` (`none` → od razu nagranie), **strona ciała** (`side` – wybierana tutaj, nie w S08;
 naklejamy na stronie zwróconej do kamery), czas ok. 5 min.
 
@@ -95,25 +95,39 @@ z niższą pewnością, zapis `markers_skipped`) / „Wstecz”.
 | 6 | Bark – wyrostek barkowy | dłonie na kierownicy w zwykłym chwycie | przesuwaj palce wzdłuż obojczyka na zewnątrz aż do kostnego „daszka”; naklej na jego bocznej krawędzi | na mięśniu poniżej barku |
 | 7 | Łokieć – nadkłykieć boczny | jw., łokieć lekko zgięty | kostna wypukłość po zewnętrznej stronie łokcia | na mięśniu przedramienia |
 | 8 | Nadgarstek – wyrostek rylcowaty kości łokciowej | jw. | guzek na nadgarstku od strony małego palca | na luźnym mankiecie lub rękawiczce |
-| S | Znacznik skali | – | pasek płasko na rurze podsiodłowej, wzdłuż rury, kropki widoczne z boku | na zakrzywionej części ramy; przekrzywiony |
+| S | Znacznik skali (opcjonalny – „Pomiń” bez utraty zaleceń) | – | pasek płasko na rurze podsiodłowej, wzdłuż rury, kropki widoczne z boku | na zakrzywionej części ramy; przekrzywiony |
 
 **Podsumowanie (S07b):** lista punktów (naklejone / pominięte), przypomnienie o stronie, „Dalej: nagranie”.
 
 **Po MVP – zdjęcie kontrolne (D-18):** zdjęcie z boku przed nagraniem; serwer wykrywa markery i sprawdza kolejność
 i odległości (np. biodro–kolano względem długości nogi), wskazuje punkt do poprawy. Wymaga nowego typu zadania.
 
-## 4. Kalibracja
+## 4. Kalibracja (ADR-28: znacznik skali opcjonalny)
 
-| Element | Metoda | Wynik |
-|---|---|---|
-| Skala | odległość w pikselach między `scale_a` i `scale_b` / `scale_marker_mm` | `scale_px_per_mm` |
-| Poziom | linia podłogi (wykrywanie linii) lub linia osi kół; fallback: założenie poziomej kamery + ostrzeżenie `W_TILT_UNCERTAIN` | `camera_tilt_deg` |
-| Ograniczenie | skala obowiązuje tylko w płaszczyźnie znacznika; ciało rowerzysty jest ~10–15 cm bliżej kamery niż rama → błąd skali kilka % | komunikat w szczegółach |
+**Kąty nie wymagają skali** – statusy regulacji i kierunek zaleceń liczą się zawsze. Skala jest potrzebna tylko do
+wartości w mm (kolano względem pedału, ruch miednicy, wielkość zmiany). Źródła skali w kolejności pewności:
 
-Brak znacznika skali → wartości w mm (KOPS, ruch miednicy, warianty w mm) liczone ze skali z wymiarów ciała:
-długość nogi (`body.inseam_cm`), wzrost i rozpiętość ramion przez proporcje segmentów (wzajemna kontrola –
-rozbieżność > 8% → ostrzeżenie), oznaczone jako mniej pewne (`W_SCALE_ESTIMATED`). Brak znacznika i wymiarów →
-tylko kąty i kierunek zmiany (`W_NO_SCALE`, `docs/10`, rozdz. 7). Dane roweru nie są potrzebne do skali.
+| Źródło (`scale_source`) | Znana długość | Jak mierzone | Dokładność (robocza, do V1.1) | Wysiłek użytkownika |
+|---|---|---|---|---|
+| `marker` | znacznik 200 mm | odległość kropek `scale_a`–`scale_b` | ok. 1–3% | przykleić pasek (opcjonalnie) |
+| `crank` | `crank_length_mm` podana przez użytkownika (nadruk na korbie) | promień okręgu dopasowanego do toru pedału (setki klatek) | ok. 1–2% | odczytać nadruk |
+| `wheel` | średnica zewnętrzna koła z rozmiaru opony (np. 700×28 → ok. 680 mm) | elipsa obrysu przedniego (lub tylnego) koła | ok. 1–2% | podać rozmiar opony |
+| `body` | wymiary z wywiadu (noga, wzrost, rozpiętość ramion) | długości segmentów z proporcji | ok. 3–5% | już w wywiadzie |
+| `crank_default` | typowa korba dla rozmiaru (172,5 mm) | jw. | ok. 3–4% | nic |
+| `none` | – | – | tylko kąty i kierunek | – |
+
+Zasady:
+- Serwer liczy skalę ze **wszystkich dostępnych** źródeł i porównuje je; wybiera najpewniejsze, a rozbieżność
+  > `calibration.scale_disagree_pct` (5%) daje `W_SCALE_SOURCES_DISAGREE` i obniża pewność wielkości zalecenia.
+- Znacznik skali, jeśli jest i jest czytelny, **zawsze** jest źródłem głównym i poprawia też korektę perspektywy;
+  nieczytelny znacznik nie przerywa analizy (`W_SCALE_MARKER_UNREADABLE`, przejście do kolejnego źródła).
+- Korba, koło i znacznik leżą w płaszczyźnie roweru; ciało jest ok. 10–15 cm bliżej kamery (różnica skali ok.
+  4–5% przy 3 m). Model koryguje to przesunięciem płaszczyzny ciała szacowanym z porównania skali `body`
+  z płaszczyzną roweru (gdy oba źródła dostępne), w przeciwnym razie stałą `calibration.body_plane_offset_mm` (120).
+- **Poziom:** linia podłogi lub osi kół; fallback – założenie poziomej kamery + `W_TILT_UNCERTAIN` → `camera_tilt_deg`.
+- **Kamera nie na wprost (odchylenie w poziomie, `camera_yaw_deg`):** okrąg pedału i koła widziane ukośnie są
+  elipsami; stosunek osi elipsy daje kąt odchylenia (`cos yaw ≈ b/a`), a serwer prostuje płaszczyznę roweru
+  (rozciągnięcie wzdłuż krótszej osi) przed pomiarami – szczegóły `docs/07`, rozdz. 4.1.
 
 ## 5. Plik wideo – walidacja
 

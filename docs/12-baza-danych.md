@@ -183,7 +183,7 @@ ENUM('analyze','correct','refit','simulate'), `is_current` TINYINT(1), `schema_v
 `pose_model`, `pose_model_version`, `fit_model_version`, `pipeline_config_hash`, `profile`,
 `fit_level` ENUM('basic','full'), `safety_level` ENUM('none','caution','stop'), `status`
 ENUM('ok','ok_with_warnings'), `quality_overall` ENUM('good','warn','bad'), `frames_ok_pct`, `cycles_total`,
-`cycles_valid`, `scale_px_per_mm`, `scale_source` ENUM('marker','body','none'), `camera_tilt_deg`, `tilt_source`, `direction`,
+`cycles_valid`, `scale_px_per_mm`, `scale_source` ENUM('marker','crank','wheel','body','crank_default','none'), `scale_sources_json`, `camera_yaw_deg`, `rectified` TINYINT(1), `camera_tilt_deg`, `tilt_source`, `direction`,
 `video_duration_s`, `video_fps`, `video_width`, `video_height`, `fragment_start_s`, `fragment_end_s`,
 `processing_ms`, `warnings_json`, `body_model_json`, `plan_json` (plan sekwencyjny, `docs/09`, rozdz. 11),
 `result_path`, `created_at`.

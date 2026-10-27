@@ -35,8 +35,8 @@ milimetry. W obrazie oś Y jest skierowana w dół – konwersja w `docs/08`, ro
 | `geo_chainstay_mm` | Długość tylnych widełek | mm | 380–480 | nie (rysunek) |
 | `geo_bb_drop_mm` | Obniżenie suportu | mm | 30–90 | nie (rysunek) |
 | `geo_wheelbase_mm` | Rozstaw osi | mm | 900–1300 | nie (rysunek) |
-| `wheel_size` | Rozmiar kół | – | `700c` · `650b` · `29` · `27_5` · `26` | nie – nie zmienia kątów rowerzysty (patrz rozdz. 5) |
-| `tyre_width_mm` | Szerokość opony | mm | 20–70 | nie |
+| `wheel_size` | Rozmiar kół | – | `700c` · `650b` · `29` · `27_5` · `26` | nie zmienia kątów rowerzysty (rozdz. 5); **źródło skali** `wheel` (średnica obręczy ETRTO) |
+| `tyre_width_mm` | Szerokość opony | mm | 20–70 | z `wheel_size` daje średnicę zewnętrzną koła ≈ obręcz + 2 × szerokość (np. 622 + 2·28 ≈ 678 mm) – źródło skali |
 
 Brak geometrii → model podstawowy z nagrania (`docs/10`, rozdz. 3.1); zalecenia pełne, brak danych wskazany
 osobno (`docs/10`, rozdz. 7).

@@ -143,13 +143,15 @@ Akcja główna: „Dalej: markery i nagranie”.
 
 Kreator (`docs/06`, rozdz. 3.4), dostępny też na telefonie (M01, kod QR):
 - **S07 Przygotowanie:** co potrzebne (8 naklejek, znacznik skali, obcisły strój, pomocnik), czas ok. 5 min,
-  wybór „Mam zestaw ridemore” / „Zrobię je sam” (szablon do druku) / „Nagrywam bez markerów” (→ S08), **strona
+  wybór „Mam zestaw ridemore” / „Zrobię je sam” (szablon do druku) / „Nagrywam bez markerów” (→ S08), pytania
+  opcjonalne „Długość korby (nadruk na korbie)” i „Rozmiar opony” – dają znaną długość w kadrze (ADR-28), **strona
   ciała do kamery** (wstępnie strona głównej dolegliwości, jeśli jednostronna – C-22), mapa 8 punktów na sylwetce.
   Zapis: `fit_session.markers_mode`, `side`.
 - **S07a Punkt „N z 8”:** zbliżenie miejsca na sylwetce, pozycja przy naklejaniu, jak znaleźć dotykiem, typowy
   błąd z rysunkiem „tak / nie tak”, przyciski „Naklejone”, „Nie mogę znaleźć – pomiń”, „Wstecz”; pasek postępu
   z 9 kropkami (8 punktów + znacznik skali).
 - **S07b Podsumowanie:** lista punktów (naklejone / pominięte → „punkt wyznaczy model, z niższą pewnością”),
+  znacznik skali jako opcja („Dodaj znacznik skali – dokładniejszy wynik”),
   strona ciała, „Wróć do punktu”, „Dalej: nagranie”. Po MVP: „Zrób zdjęcie kontrolne” (D-18).
 
 ## 10. S08 · Nagranie

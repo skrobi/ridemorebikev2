@@ -67,6 +67,7 @@ panel bike fittera (po MVP).
 ### Nagranie i analiza
 | ID | Wymaganie |
 |---|---|
+| FR-21a | Analiza działa bez znacznika skali: skala z podanej długości korby, rozmiaru opony lub wymiarów ciała; kamera ustawiona ukośnie (do 15°) korygowana automatycznie. Znacznik skali – opcjonalnie, dla większej dokładności. |
 | FR-20 | Kreator markerów krok po kroku (przygotowanie i strona ciała, 8 punktów: pozycja, jak znaleźć, typowy błąd; znacznik skali; podsumowanie) z opcją „nagrywam bez markerów” i pominięcia punktu; także na telefonie. Po MVP: zdjęcie kontrolne rozmieszczenia markerów. |
 | FR-02a | Pomiar ciała krok po kroku: dla każdego wymiaru instrukcja (potrzebne rzeczy, kroki, typowy błąd) i kontrola wiarygodności wyniku. |
 | FR-21 | Instrukcja kamery i lista kontrolna; przesłanie MP4/MOV z walidacją po stronie przeglądarki i serwera. |

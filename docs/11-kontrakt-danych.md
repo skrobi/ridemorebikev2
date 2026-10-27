@@ -54,7 +54,7 @@ względem `--storage-root` (`docs/07`, rozdz. 1).
 }
 ```
 
-`calibration.scale_source`: `marker` · `body` · `none` (`docs/10`, rozdz. 7). Sekcje `bike.geometry` i pola `bike.setup` są opcjonalne (`null` = nieznane); wymagany jest tylko `bike.type`.
+`calibration.scale_source`: `marker` · `crank` · `wheel` · `body` · `crank_default` · `none`; dodatkowo `scale_sources` (wszystkie oszacowania px/mm), `camera_yaw_deg`, `rectified` (`docs/10`, rozdz. 7). Sekcje `bike.geometry` i pola `bike.setup` są opcjonalne (`null` = nieznane); wymagany jest tylko `bike.type`.
 
 Typy `correct`, `refit`, `simulate` – te same sekcje `rider`, `bike`, `fit` oraz:
 
@@ -228,7 +228,7 @@ Pomiary: `docs/08`, rozdz. 3. Regulacje i modyfikatory: `docs/09`, rozdz. 1 i 5.
 | `E_POSE_COVERAGE` | nie | Nie widać całej sylwetki w {pct}% klatek. Najczęściej: nagranie pod światło lub ktoś/coś zasłania. |
 | `E_TRACKING_LOST` | nie | Zgubiliśmy punkty ciała w zbyt wielu klatkach. Sprawdź, czy cała noga i ręka są w kadrze. |
 | `E_CYCLES_TOO_FEW` | nie | Za mało równych obrotów korby. Nagraj min. 30 s w stałej kadencji. |
-| `E_SCALE_INVALID` | nie | Znacznik skali jest nieczytelny. Przyklej go płasko na rurze podsiodłowej. |
+| (usunięty) `E_SCALE_INVALID` | – | nieczytelny znacznik nie jest już błędem – ostrzeżenie `W_SCALE_MARKER_UNREADABLE` i inne źródło skali (ADR-28) |
 | `E_TIMEOUT` | tak | Analiza trwała za długo. Spróbujemy ponownie automatycznie. |
 | `E_MEMORY` | tak | Zabrakło zasobów serwera. Spróbujemy ponownie automatycznie. |
 | `E_JOB_INVALID` | nie | Wystąpił błąd analizy (kod zdarzenia {id}). Zgłosiliśmy go – nie musisz nic robić. |

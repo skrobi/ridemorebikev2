@@ -72,8 +72,25 @@ Worker przenosi to do `fit_job.progress` i `heartbeat_at`.
      (przy 60 fps; skalowana ∝ 1/fps).
 6. Brak kandydata w bramce → marker „niewidoczny” w tej klatce (przyczyna: zasłonięcie, rozmycie).
 
-Znacznik skali: dwie ciemne kropki na jasnym pasku w obszarze rury podsiodłowej; szukane w pierwszych 30 s
-nagrania, mediana odległości z ≥ 30 klatek; odrzucenie, gdy zmienność > 2%.
+Znacznik skali (opcjonalny): dwie ciemne kropki na jasnym pasku w obszarze rury podsiodłowej; szukane w pierwszych
+30 s nagrania, mediana odległości z ≥ 30 klatek; zmienność > 2% → `W_SCALE_MARKER_UNREADABLE` i inne źródło skali.
+
+### 4.1 Skala i perspektywa bez znacznika (etap `calibrate`)
+
+1. **Okrąg pedału:** po śledzeniu (rozdz. 7) – dopasowanie elipsy do toru `mtp5`/osi pedału z ważnych cykli
+   (RANSAC + najmniejsze kwadraty). Środek = `bb`; półosie `a ≥ b`; kąt osi.
+2. **Koła:** detekcja elips obrysu opony (krawędzie + dopasowanie elipsy w obszarze przed i za `bb`, wielkość
+   zgodna z elipsą pedału); przednie koło preferowane (tylne bywa zdjęte przy trenażerze bezpośrednim).
+3. **Odchylenie kamery:** `camera_yaw_deg = acos(b/a)` z elipsy pedału, uśrednione z elipsami kół (zgodność
+   ± 3°). Prostowanie: przekształcenie afiniczne płaszczyzny roweru rozciągające obraz wzdłuż krótszej osi o `a/b`
+   (przybliżenie dla kamery w odległości ≥ 2,5 m; przy bliższej – pełna homografia z dwóch elips kół, gdy oba
+   widoczne). Wszystkie punkty i pomiary liczone po prostowaniu.
+4. **Skala:** `marker` → `crank` (promień = `a` po prostowaniu, długość z `crank_length_mm`) → `wheel` (średnica
+   z rozmiaru opony) → `body` → `crank_default`; porównanie źródeł i korekta płaszczyzny ciała (`docs/06`, rozdz. 4).
+5. **Progi:** `camera_yaw_deg` > `calibration.yaw_warn_deg` (15) → `W_CAMERA_OBLIQUE` (pewność −1 dla pomiarów
+   w mm); > `calibration.yaw_max_deg` (25) → regulacje `unknown` i prośba „Ustaw kamerę bardziej z boku”.
+Zapis w `result.json`: `calibration.scale_source`, `scale_sources` (wszystkie oszacowania), `camera_yaw_deg`,
+`yaw_source`, `rectified`.
 
 ## 5. Estymacja pozy (model)
 
@@ -160,7 +177,7 @@ Tryb `markers_mode = none`: tylko `model`/`interpolated`/`missing`.
 | `bad` | < 0,6 | < 60% próbek → wartość ukryta w interfejsie | – |
 | `na` | – | pomiar niemożliwy z tego nagrania (np. tor kolana z boku) | – |
 
-Ostrzeżenia (kody): `W_SCALE_ESTIMATED`, `W_NO_SCALE`, `W_TILT_UNCERTAIN`, `W_MARKER_OCCLUDED:{point}`, `W_LOW_CONFIDENCE:{point}`,
+Ostrzeżenia (kody): `W_SCALE_ESTIMATED`, `W_NO_SCALE`, `W_SCALE_SOURCES_DISAGREE`, `W_SCALE_MARKER_UNREADABLE`, `W_CAMERA_OBLIQUE`, `W_TILT_UNCERTAIN`, `W_MARKER_OCCLUDED:{point}`, `W_LOW_CONFIDENCE:{point}`,
 `W_FEW_CYCLES`, `W_CADENCE_UNSTABLE`, `W_LOW_FPS`, `W_VIDEO_TRIMMED`, `W_SEGMENT_MISMATCH:{segment}`,
 `W_GRIP_MISMATCH` (chwyt wykryty ≠ zadeklarowany), `W_CHECKLIST:{code}`, `W_HIGH_EFFORT` (`session.recording_rpe`
 ≥ `quality.high_effort_rpe`, C-10). Komunikaty dla użytkownika: `docs/11`, rozdz. 7.
@@ -213,6 +230,10 @@ Dla faz 0° (`tdc`), 90° (`p90`), 180° (`bdc`), 270° (`p270`):
 | `keyframes.phase_tolerance_deg` | 4 | dobór kadru |
 | `keyframes.jpeg_quality` / `keyframes.max_short_side` | 85 / 1080 | zapis kadru |
 | `quality.high_effort_rpe` | 7 | próg ostrzeżenia `W_HIGH_EFFORT` |
+| `calibration.yaw_warn_deg` / `calibration.yaw_max_deg` | 15 / 25 | odchylenie kamery: ostrzeżenie / brak oceny |
+| `calibration.scale_disagree_pct` | 5 | rozbieżność źródeł skali |
+| `calibration.body_plane_offset_mm` | 120 | domyślna odległość płaszczyzny ciała od płaszczyzny roweru |
+| `calibration.default_crank_mm` | `{"S":170,"M":172.5,"L":175,"*":172.5}` | korba domyślna wg rozmiaru ramy |
 | `metrics.knee_2d_offset_deg` | 0 | korekta kątów kolana 2D (C-21); 0, bo zakres `saddle_height` (Ferrer-Roca) także pochodzi z pomiaru 2D; zmiana tylko po badaniu walidacyjnym (`docs/16`, rozdz. 6) |
 
 | `metrics.validation_status` | wszystkie `unvalidated` | status walidacji każdego pomiaru osobno dla `markers_mode` (`kit`/`diy` = markery, `none`) – wynik badania V1.1 (`docs/16`, rozdz. 6.1) |

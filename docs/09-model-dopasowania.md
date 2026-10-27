@@ -38,10 +38,10 @@ Karta reguły (obowiązkowa dla każdej regulacji, w pliku modelu i w karcie mod
 | Element | `saddle_height` | `saddle_fore_aft` | `bar_reach` | `bar_height` |
 |---|---|---|---|---|
 | Wejścia | `knee_flex_bottom.med` (hip, knee, ankle) | `knee_over_pedal.at_p90` (knee, pedal, skala) | `elbow_angle.med` + kierunek `shoulder_angle.med` | `torso_angle.med` (hip, shoulder, poziom) |
-| Minimalna jakość | pomiar `good`, ≥ 20 cykli, `validation_status = validated` | jw. + `scale_source = marker` | jw. + chwyt zgodny z deklarowanym | jw. + poziom kamery wyznaczony |
+| Minimalna jakość | pomiar `good`, ≥ 20 cykli, `validation_status = validated` | jw. + skala ze znanej długości (`scale_source` ∈ `marker`, `crank`, `wheel`), `camera_yaw_deg` ≤ 15° | jw. + chwyt zgodny z deklarowanym | jw. + poziom kamery wyznaczony |
 | Wolno wydać zalecenie, gdy | wartość poza zielonym o więcej niż `min_margin` (max(2°, SD)); poza strefą sporną; RPE ≤ 6; brak blokady i `stop` | poza zielonym o > max(5 mm, SD) | poza zielonym o > max(3°, SD) i `shoulder_angle` wskazuje ten sam kierunek | poza zielonym o > max(3°, SD) |
 | Krok | 5 mm (`experimental`), ≤ 10 mm (`validated`) | 5 mm | 10 mm (mostki co 10 mm) lub klamkomanetki | 5–10 mm podkładek |
-| „Nie oceniono”, gdy | jakość < `good`, `W_SEGMENT_MISMATCH` udo/podudzie, < 20 cykli | `W_SCALE_ESTIMATED`, `W_TILT_UNCERTAIN`, tryb `none` | `W_GRIP_MISMATCH`, niska pewność `wrist`/`elbow` | `W_TILT_UNCERTAIN`, `W_GRIP_MISMATCH` |
+| „Nie oceniono”, gdy | jakość < `good`, `W_SEGMENT_MISMATCH` udo/podudzie, < 20 cykli | brak skali ze znanej długości, `W_CAMERA_OBLIQUE` > 15°, `W_TILT_UNCERTAIN`, tryb `none` | `W_GRIP_MISMATCH`, niska pewność `wrist`/`elbow` | `W_TILT_UNCERTAIN`, `W_GRIP_MISMATCH` |
 | Źródło / dowód | Ferrer-Roca 2012, Bini 2011 / `science` | praktyka (KOPS – punkt wyjścia) / `practice` | praktyka / `practice` | praktyka, `lbp_review_2017` / `practice` |
 | Kryterium walidacji reguły | pomiar: kryteria z `docs/16` rozdz. 6.1; przewidywanie: \|Δ przewidziana − Δ zmierzona\| ≤ 2° w ≥ 80% zmian; skutek: ocena fittera „zasadne” ≥ 80% i „gorzej” ≤ 10% w badaniu V4.1 | jw., ± 5 mm | jw., ± 3° | jw., ± 3° |
 | Status w v1 | `experimental` | `measure_only` | `measure_only` | `measure_only` |
@@ -214,8 +214,9 @@ Start: `high`. Każdy spełniony warunek obniża o jeden poziom (minimum `low`);
 | `conf.no_markers` | `markers_mode = none` | −1 |
 | `conf.near_boundary` | odległość wartości od najbliższej granicy zielonego < 2 × SD pomiaru | −1 |
 | `conf.evidence_assumption` | zakres regulacji ma poziom dowodu `assumption` | −1 |
-| `conf.no_scale` | `scale_source = none` (bez znacznika i wymiarów ciała) | −1 |
-| `conf.scale_estimated` | `W_SCALE_ESTIMATED` i regulacja mierzona w mm (`saddle_fore_aft`) | −1 |
+| `conf.no_scale` | `scale_source = none` (bez znacznika, korby, koła i wymiarów ciała) | −1 |
+| `conf.camera_oblique` | `W_CAMERA_OBLIQUE` i regulacja mierzona w mm | −1 |
+| `conf.scale_estimated` | `W_SCALE_ESTIMATED` lub `W_SCALE_SOURCES_DISAGREE` i regulacja mierzona w mm (`saddle_fore_aft`) lub wielkość zmiany | −1 |
 | `conf.basic_fit` | `fit_level = basic` | −1 |
 | `conf.high_effort` | `W_HIGH_EFFORT` (nagranie przy RPE ≥ 7) | −1 |
 | `conf.pelvis_rock_support` | „obniż siodło” i `pelvis_vertical.rom > signals.pelvis_rock_mm` (C-23) | +1 |
