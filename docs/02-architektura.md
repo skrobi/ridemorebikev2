@@ -165,6 +165,9 @@ Moduł działa w tej samej domenie co ridemore.bike, korzysta z tej samej bazy M
 | `retention.job_dir_days` | 30 | katalogi zadań |
 | `interview.full_max_age_days` | 180 | po ilu dniach pełny wywiad zamiast krótkiego |
 | `fit.followup_days` | 14 | przypomnienie o nagraniu kontrolnym po zmianie |
+| `notifications.max_per_change` | 2 | maks. przypomnień na zmianę lub plan (C-14) |
+| `notifications.email_available` | false | czy platforma udostępnia wysyłkę e-mail (D-11) |
+| `analytics.enabled` / `analytics.retention_months` | true / 12 | zdarzenia produktowe `fit_event` (C-17) |
 | `limits.analyses_per_day` | 5 | nowe analizy na użytkownika |
 | `limits.api_per_min` | 60 | żądania API na użytkownika |
 | `limits.corrections_per_hour` | 30 | korekty punktów |

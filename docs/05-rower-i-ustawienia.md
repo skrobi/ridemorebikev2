@@ -107,5 +107,8 @@ względem suportu się nie zmienia, więc **kąty rowerzysty pozostają takie sa
 | `markers_mode` | Markery | `kit` · `diy` · `none` |
 | `scale_marker_mm` | Długość znacznika skali | 100–400, domyślnie 200 |
 | `cadence_target_rpm` | Deklarowana kadencja | 60–110 (opcjonalnie) |
-| `video_retention` | Polityka nagrania | `delete_after` · `keyframes_only` · `keep` |
+| `video_retention` | Polityka nagrania | `delete_after` (domyślnie) · `keyframes_only` · `keep` |
+| `recording_rpe` | Wysiłek podczas nagrania (skala Borga CR10) | 0–10, wymagane; zalecane 3–4 (`docs/06`, rozdz. 1) |
+| `recording_power_w` | Moc podczas nagrania (jeśli trenażer pokazuje) | 30–1500 W, opcjonalnie |
+| `upload_device` | Skąd przesłano nagranie | `desktop` · `phone` (`docs/06`, rozdz. 7) |
 | `checklist` | Lista kontrolna z S08 | mapa `kod → bool` (`docs/06`, rozdz. 2) |

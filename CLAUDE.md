@@ -43,6 +43,7 @@ właściwy dokument w tym samym commicie.
   (`snake_case` w bazie i JSON, `camelCase` w PHP/JS, `snake_case` w Pythonie).
 - Jednostki w danych: milimetry (`_mm`), stopnie (`_deg`), sekundy (`_s`), piksele (`_px`). Kąty zawsze w stopniach.
 - Kody pomiarów, regulacji, punktów i błędów – tylko z list w `docs/08`, `docs/09`, `docs/07`, `docs/11`.
+- Teksty dla użytkownika (statusy, zalecenia, komunikaty bezpieczeństwa) – zgodnie z `docs/21-komunikacja.md`.
 - Każdy wynik analizy zapisuje: wersję schematu, wersję algorytmu, model pozy i jego wersję, wersję modelu
   dopasowania, czas przetwarzania, ostrzeżenia.
 

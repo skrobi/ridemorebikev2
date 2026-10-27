@@ -19,8 +19,9 @@ zmiana niekompatybilna = nowa wersja główna; Python obsługuje bieżącą i po
   },
   "session": {
     "id": 301, "side": "right", "grip": "hoods", "markers_mode": "diy",
-    "scale_marker_mm": 200, "cadence_target_rpm": 88,
-    "checklist": { "frame_full": true, "light": true, "clothing": true, "markers": true, "scale": false, "warmup": true, "tripod": true }
+    "scale_marker_mm": 200, "cadence_target_rpm": 88, "recording_rpe": 3, "recording_power_w": null,
+    "checklist": { "frame_full": true, "light": true, "clothing": true, "markers": true, "scale": false, "warmup": true,
+                   "effort": true, "tripod": true }
   },
   "rider": {
     "body": { "height_cm": 182, "mass_kg": 76, "inseam_cm": 86, "arm_span_cm": 184, "foot_length_cm": 27.5,
@@ -28,9 +29,14 @@ zmiana niekompatybilna = nowa wersja główna; Python obsługuje bieżącą i po
               "leg_length_diff": "yes", "leg_length_diff_side": "left", "leg_length_diff_mm": 5 },
     "flex": { "posterior_chain": "limited", "ankle": "good", "hip_flexor": "good", "thoracic": "limited",
               "asymmetry": false, "less_flexible": true },
-    "complaints": [ { "region": "knee_front", "side": "right", "intensity": 5, "onset": "m60" },
-                    { "region": "lower_back", "side": null, "intensity": 3, "onset": "h2" } ],
-    "injury_recent": false
+    "complaints": [ { "region": "knee_front", "side": "right", "intensity": 5, "onset": "m60", "type": "pain",
+                      "duration_after": "lt2h", "frequency": "always", "off_bike": false, "is_primary": true },
+                    { "region": "lower_back", "side": null, "intensity": 3, "onset": "h2", "type": "pressure",
+                      "duration_after": "none", "frequency": "half", "off_bike": false, "is_primary": false } ],
+    "surgeries": [ { "type": "meniscus", "side": "right", "performed_ym": "2023-04", "restrictions": false } ],
+    "injury_recent": false,
+    "safety": { "level": "caution", "reasons": ["safety.complaint_5_7", "safety.surgery_past"] },
+    "fit_level": "full"
   },
   "bike": {
     "type": "road",
@@ -60,11 +66,17 @@ Opcjonalna sekcja `evaluate_change` (typy `analyze` i `refit`) – gdy ustawieni
   "before_result": "/srv/storage/fit/results/77/288/result.json",
   "predicted": { "knee_flex_bottom": 38.6 },
   "rides_since_change": 5,
-  "ride_feedback": ["better", "better", "same"],
-  "complaints_before": [ { "region": "knee_front", "intensity": 5 } ],
-  "complaints_after": [ { "region": "knee_front", "intensity": 3 } ]
+  "ride_feedback": [ { "global": "better", "target_intensity": 4 }, { "global": "much_better", "target_intensity": 3 },
+                     { "global": "same", "target_intensity": null } ],
+  "target_region": "knee_front",
+  "complaints_before": [ { "region": "knee_front", "intensity": 5, "is_primary": true } ],
+  "complaints_after": [ { "region": "knee_front", "intensity": 3, "is_primary": true } ]
 }
 ```
+
+`ride_feedback[].global`: `much_better` · `better` · `same` · `worse` · `much_worse` (`docs/09`, rozdz. 9).
+`rider.safety.level` i `rider.fit_level` wylicza PHP (`docs/04`, rozdz. 5.1 i 8); Python stosuje ich skutki
+(`docs/09`, rozdz. 5.1–5.2) i nie wylicza ich ponownie.
 
 Wynik zawiera wtedy sekcję `change_evaluation`: `{ "verdict": "effective", "comparable": true, "criteria": { "executed_as_planned": "yes", "in_range": "yes", "feels_better": "yes", "comparable": "yes", "single_change": "no" }, "notes_keys": ["eval.multi_change"] }` (reguły: `docs/09`, rozdz. 9).
 
@@ -109,6 +121,7 @@ Wynik zawiera wtedy sekcję `change_evaluation`: `{ "verdict": "effective", "com
                   "offsets_mm": { "hip_from_saddle": [13, 46], "hand_from_bar": [130, -35] }, "approximate": false },
   "fit": {
     "model_version": "fit-model-v1", "profile": "endurance", "bike_type": "road",
+    "fit_level": "full", "safety_level": "caution",
     "modifiers": [ { "code": "M_LESS_FLEX", "text_key": "mod.less_flex" }, { "code": "M_LOW_BACK", "text_key": "mod.low_back" } ],
     "regulations": {
       "saddle_height": { "status": "ok", "direction": null, "value": 38.3, "unit": "deg",
@@ -118,11 +131,17 @@ Wynik zawiera wtedy sekcję `change_evaluation`: `{ "verdict": "effective", "com
     },
     "recommendations": [
       { "order": 1, "regulation": "bar_reach", "action_key": "rec.bar_reach.shorter", "param": "stem_length_mm",
-        "amount_mm": 10, "amount_total_mm": 20, "variant_id": "stem_length_mm:-10",
-        "text": { "title": "Skróć mostek o ok. 10 mm", "why": "…", "how": "…" }, "blocked_by": null }
+        "amount_mm": 5, "amount_total_mm": 20, "variant_id": "stem_length_mm:-10",
+        "confidence": "medium", "confidence_reasons": ["conf.near_boundary"],
+        "effort": { "minutes": 30, "tools": ["tool.stem", "tool.hex_4_5", "tool.torque"], "difficulty": "medium",
+                    "shop_recommended": true },
+        "text": { "title": "Skróć mostek o ok. 5 mm", "why": "…", "how": "…", "caution": "Małymi krokami…" },
+        "blocked_by": null }
     ],
     "next_step": 0,
-    "tips": [ { "key": "tip.saddle_width", "params": { "from_mm": 145, "to_mm": 155 } } ]
+    "tips": [ { "key": "tip.saddle_width", "params": { "from_mm": 145, "to_mm": 155 } },
+              { "key": "tip.crank_length", "params": { "variant_id": "crank_length_mm:-2.5" } } ],
+    "signals": { "pelvis_rock": false }
   },
   "variants": [
     { "id": "stem_length_mm:-10", "param": "stem_length_mm", "value": 90, "delta": -10, "approximate": false,
@@ -135,6 +154,9 @@ Wynik zawiera wtedy sekcję `change_evaluation`: `{ "verdict": "effective", "com
 }
 ```
 
+Przy `safety_level = stop`: `recommendations = []`, `next_step = null`, regulacje i pomiary bez zmian. Pomiary
+w `metrics` obejmują także `knee_flex_top` (`docs/08`). Ostrzeżenie `W_HIGH_EFFORT` – `docs/07`, rozdz. 9.
+
 Pliki towarzyszące w `out_dir`: `tracks.npz` (serie punktów dla `correct`), kadry `tdc.jpg`, `p90.jpg`, `bdc.jpg`,
 `p270.jpg` w `keyframes_dir`, `worker.log` (bez danych osobowych).
 
@@ -145,7 +167,7 @@ Pliki towarzyszące w `out_dir`: `tracks.npz` (serie punktów dla `correct`), ka
 
 | Sekcja | Tabela |
 |---|---|
-| `algorithm`, `video`, `calibration`, `quality` (nagłówek) | `fit_analysis` |
+| `algorithm`, `video`, `calibration`, `quality` (nagłówek), `fit.fit_level`, `fit.safety_level` | `fit_analysis` |
 | `keyframes[]` | `fit_keyframe` + `fit_point` |
 | `metrics` (bez `series`) | `fit_metric` |
 | `cycles[]` | `fit_cycle` |

@@ -2,6 +2,8 @@
 
 Każde zadanie jest kontraktem implementacyjnym (`CLAUDE.md`, rozdz. 1 i 8). Kolejność jest zalecana; kolumna
 „Zależy od” wskazuje twarde zależności. Status: `todo` · `in_progress` · `done` · `blocked`.
+Zmiany uzgodnione przez panel ekspertów (`docs/20`, C-01…C-23) są już wpisane w dokumenty i zakresy zadań poniżej;
+zadania interfejsu czytają też `docs/21-komunikacja.md`.
 
 ## Przegląd
 
@@ -26,6 +28,7 @@ Każde zadanie jest kontraktem implementacyjnym (`CLAUDE.md`, rozdz. 1 i 8). Kol
 | B2.4 | Wywiad (S02–S06) | B2.3 | todo |
 | B2.5 | Markery, nagranie, przesyłanie (S07–S08) | B2.4 | todo |
 | B2.6 | Kolejka, worker, importer, retencja (S09) | B2.5, F0.3 | todo |
+| B2.7 | Preferencje, przypomnienia, zdarzenia produktowe | B2.2 | todo |
 | U3.1 | S10 Sprawdź punkty + korekty | B2.6, P1.10 | todo |
 | U3.2 | S11 Wynik, profil jazdy, akceptacje | U3.1 | todo |
 | U3.3 | S12 Wirtualne dopasowanie | U3.2 | todo |
@@ -65,7 +68,7 @@ Każde zadanie jest kontraktem implementacyjnym (`CLAUDE.md`, rozdz. 1 i 8). Kol
 - **Czytaj:** `docs/08`.
 - **Zakres:** `ridemore_fit.metrics`: funkcje bazowe, konwersje układów, wszystkie pomiary z rozdz. 3 na seriach,
   statystyki cykli (rozdz. 4).
-- **Kryteria:** wszystkie wektory testowe z rozdz. 6; testy wartości `null`.
+- **Kryteria:** wszystkie wektory testowe z rozdz. 6 (w tym `knee_flex_top`); testy wartości `null`.
 
 ## P1.2 · Generator syntetycznych nagrań
 - **Czytaj:** `docs/16` rozdz. 2, `docs/10` rozdz. 3–4.
@@ -102,10 +105,12 @@ Każde zadanie jest kontraktem implementacyjnym (`CLAUDE.md`, rozdz. 1 i 8). Kol
   błędy pomiarów w granicach `docs/16` rozdz. 2; `progress.json`; kody wyjścia.
 
 ## P1.9 · Model dopasowania v1
-- **Czytaj:** `docs/09`, `docs/04` rozdz. 4–5.
-- **Zakres:** `configs/fit-models/fit-model-v1.json` (wszystkie zakresy, modyfikatory, teksty PL, źródła),
-  interpreter reguł, ocena zmiany, porady informacyjne.
-- **Kryteria:** testy tabelaryczne z `docs/16` rozdz. 2; brak progów w kodzie (tylko w pliku).
+- **Czytaj:** `docs/09`, `docs/04` rozdz. 4–5 i 8, `docs/21`.
+- **Zakres:** `configs/fit-models/fit-model-v1.json` (wszystkie zakresy, modyfikatory, sekcje `safety`,
+  `confidence`, `signals`, `effort`, teksty PL zgodne z `docs/21`, źródła), interpreter reguł, poziom pewności,
+  skutki `safety_level` i `fit_level`, porady (w tym długość korby), ocena zmiany z progami bólu i oceną 5-stopniową.
+- **Kryteria:** testy tabelaryczne z `docs/16` rozdz. 2; brak progów w kodzie (tylko w pliku); teksty bez
+  przypisywania przyczyny dolegliwości.
 
 ## P1.10 · Kinematyka, warianty, `correct` / `refit` / `simulate`
 - **Czytaj:** `docs/10`, `docs/11` rozdz. 1.
@@ -128,44 +133,66 @@ Każde zadanie jest kontraktem implementacyjnym (`CLAUDE.md`, rozdz. 1 i 8). Kol
 - **Kryteria:** API z `docs/13`; wersjonowanie ustawień; IDOR → 404; ekrany Rowery i Profil.
 
 ## B2.4 · Wywiad
-- **Czytaj:** `docs/04`, `docs/03` rozdz. 4–8, makiety 02–06.
-- **Zakres:** szkic i autozapis, pełny/krótki, klasyfikacja mobilności z `config/questionnaire-q-1.json`,
-  podgląd modyfikatorów w S06 (z pliku modelu dopasowania – odczyt tekstów i warunków, bez wyliczania zakresów).
-- **Kryteria:** walidacja zakresów; zgoda `health_data` przed S04/S05; zgodność ekranów z makietami.
+- **Czytaj:** `docs/04`, `docs/03` rozdz. 4–8, `docs/21`, makiety 02–06 (z różnicami z `docs/makiety/README.md`).
+- **Zakres:** szkic i autozapis, pełny/krótki/szybki start (S02q), testy podstawowe i dodatkowe z metadanymi
+  (próby, „sam / z pomocą”, ból), klasyfikacja mobilności i poziomu bezpieczeństwa (`MobilityClassifier`,
+  `SafetyClassifier`) z `config/questionnaire-q-1.json`, pytania bezpieczeństwa, szczegóły dolegliwości i główna
+  dolegliwość, historia operacji (`fit_surgery`), podgląd modyfikatorów i komunikatu bezpieczeństwa w S06 (z pliku
+  modelu dopasowania – odczyt tekstów i warunków, bez wyliczania zakresów), uzupełnienie wywiadu po szybkim starcie
+  → `refit`, szacowany czas przy krokach.
+- **Kryteria:** walidacja zakresów; zgoda `health_data` przed S04/S05 i pytaniami bezpieczeństwa (odmowa →
+  `basic` + `caution`); testy klasyfikatorów z `docs/16` rozdz. 3; zgodność ekranów z makietami i `docs/03`.
 
 ## B2.5 · Markery, nagranie, przesyłanie
-- **Czytaj:** `docs/06`, `docs/03` rozdz. 9–10, `docs/13` rozdz. 6, makiety 07–08.
-- **Kryteria:** przesyłanie 500 MB fragmentami z wznowieniem; walidacja sygnatury; zgody; zapis opcji sesji.
+- **Czytaj:** `docs/06` (w tym rozdz. 7), `docs/03` rozdz. 9–10.1, `docs/13` rozdz. 6, makiety 07–08.
+- **Zakres:** S07, S08 (RPE, moc, domyślna strona z dolegliwości, neutralny opis polityk nagrania, karta QR),
+  M01 (przesłanie z telefonu po zalogowaniu), `GET /sessions/{id}/upload-status`.
+- **Kryteria:** przesyłanie 500 MB fragmentami z wznowieniem; walidacja sygnatury; zgody; zapis opcji sesji;
+  M01 działa na 390 px; adres w kodzie QR bez tokenu i z kontrolą właściciela.
 
 ## B2.6 · Kolejka, worker, importer, retencja
 - **Czytaj:** `docs/02` rozdz. 4–5, `docs/13` rozdz. 7–8, `docs/12` rozdz. 4, `docs/11` rozdz. 3, makieta 09.
 - **Kryteria:** testy kolejki z `docs/16` rozdz. 3; worker z zastępczym skryptem i z prawdziwym `analyze`;
   S09 z odpytywaniem i błędami.
 
+## B2.7 · Preferencje, przypomnienia, zdarzenia produktowe
+- **Czytaj:** `docs/12` (`fit_user_pref`, `fit_reminder`, `fit_event`), `docs/13` rozdz. 2 i 5, `docs/15` rozdz. 1,
+  `docs/01` rozdz. 7, `docs/20` (C-14, C-17).
+- **Zakres:** `PreferenceService`, `GET/PUT /preferences`, limit przypomnień, kanał e-mail za flagą
+  `notifications.email_available`, `EventLogger` z białą listą zdarzeń i kluczy, retencja `fit_event`, prosty
+  raport mierników (CLI `bin/fit-kpi.php` – agregaty bez `user_id`).
+- **Kryteria:** testy z `docs/16` rozdz. 3 (analityka, przypomnienia); brak danych o zdrowiu w `fit_event`.
+
 ## U3.1 · S10 Sprawdź punkty
 - **Czytaj:** `docs/03` rozdz. 12, `docs/14` rozdz. 3, `docs/10` rozdz. 9, makieta 10.
-- **Kryteria:** korekta → zadanie `correct` → nowa wersja; przywrócenie; obsługa klawiatury; brak obliczeń w JS.
+- **Kryteria:** korekta → zadanie `correct` → nowa wersja; przywrócenie; obsługa klawiatury i korekta bez
+  przeciągania (kliknij punkt → kliknij miejsce); brak obliczeń w JS.
 
 ## U3.2 · S11 Wynik
-- **Czytaj:** `docs/03` rozdz. 13, `docs/09` rozdz. 3–8, makieta 11.
-- **Kryteria:** statusy i paski z API; zmiana profilu → `refit`; akceptacja i cofnięcie; zakładka szczegółów
-  z wykresem w cyklu (SVG) i definicjami.
+- **Czytaj:** `docs/03` rozdz. 13, `docs/09` rozdz. 3–8, `docs/21`, makieta 11.
+- **Kryteria:** statusy i paski z API (strefy bez czerwieni, `docs/21` rozdz. 6); poziom pewności z powodami
+  i wysiłek zmiany na karcie następnego kroku; stany `caution`, `stop` i `basic`; zmiana profilu → `refit`;
+  akceptacja i cofnięcie; zakładka szczegółów z wykresem w cyklu (SVG) i definicjami.
 
 ## U3.3 · S12 Wirtualne dopasowanie
 - **Czytaj:** `docs/03` rozdz. 14, `docs/10`, `docs/13` rozdz. 9, makieta 12.
-- **Kryteria:** wybór wariantu; szacunek kombinacji; `simulate`; zapis planu; parametry niemodelowane jako informacja.
+- **Kryteria:** wybór wariantu; szacunek kombinacji; `simulate`; zapis planu; parametry niemodelowane jako
+  informacja; przy `stop` tylko podgląd.
 
 ## U3.4 · S13, oceny jazd, przypomnienia, Komfort
-- **Czytaj:** `docs/03` rozdz. 15 i 17, `docs/05` rozdz. 4, makieta 13.
-- **Kryteria:** nowa wersja ustawienia + zmiany; ostrzeżenie przy > 1 zmianie; przypomnienie na pulpicie.
+- **Czytaj:** `docs/03` rozdz. 3 i 15 i 17, `docs/05` rozdz. 4, `docs/21` rozdz. 8, makieta 13.
+- **Kryteria:** okno „Zaplanuj” (data, jazdy testowe) → `fit_plan` + przypomnienie; nowa wersja ustawienia +
+  zmiany; ostrzeżenie przy > 1 zmianie; ocena po jeździe 5-stopniowa z opcjonalną siłą dolegliwości;
+  przypomnienia zgodne z preferencjami (maks. 2 na zmianę).
 
 ## U3.5 · S14 i pulpit
 - **Czytaj:** `docs/03` rozdz. 3 i 16, `docs/09` rozdz. 9, makiety 01 i 14.
-- **Kryteria:** werdykt z wyniku Pythona; pulpit bez kątów; stany puste.
+- **Kryteria:** werdykt z wyniku Pythona (etykiety z `docs/21`); pulpit bez kątów; ocena jazdy jednym
+  dotknięciem i trend komfortu na S01; karta „Dokończ analizę”; stany puste.
 
 ## Q4.1 · E2E web i dostępność
 - **Czytaj:** `docs/16` rozdz. 4.
-- **Kryteria:** 8 scenariuszy przechodzi; axe bez naruszeń krytycznych; 1440 i 390 px.
+- **Kryteria:** 12 scenariuszy przechodzi; axe (reguły WCAG 2.2 AA) bez naruszeń krytycznych; 1440 i 390 px.
 
 ## Q4.2 · Wdrożenie na hosting
 - **Czytaj:** `docs/02` rozdz. 7–8, `docs/13` rozdz. 8, `docs/15` rozdz. 5–6.
@@ -179,6 +206,7 @@ Każde zadanie jest kontraktem implementacyjnym (`CLAUDE.md`, rozdz. 1 i 8). Kol
   instrukcji w i18n.
 
 ## V5.1 / V5.2 · Walidacja
-- **Czytaj:** `docs/16` rozdz. 6, `docs/09` (D-06).
-- **Kryteria:** raporty z wynikami względem kryteriów z `docs/01` rozdz. 7; decyzje o zmianie zakresów jako nowa
-  wersja modelu dopasowania.
+- **Czytaj:** `docs/16` rozdz. 6, `docs/09` (D-06), `docs/18` (D-07, D-15).
+- **Kryteria:** raporty z wynikami względem kryteriów z `docs/01` rozdz. 7 (także badania korekty 2D kolana,
+  testów mobilności w domu i czasu wywiadu); decyzje o zmianie zakresów i progów jako nowa wersja modelu
+  dopasowania lub kwestionariusza.

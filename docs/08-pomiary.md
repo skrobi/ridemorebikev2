@@ -29,6 +29,7 @@ w prawo kadru, `d = −1` gdy w lewo (wtedy też odwrócenie x). Kierunek jazdy 
 |---|---|---|---|---|---|
 | `knee_angle` | Kąt kolana | `hip`, `knee` (wierzch.), `ankle` | `angle_at(knee, hip, ankle)`; 180° = pełny wyprost | ° | `max`, `min`, `rom` |
 | `knee_flex_bottom` | Zgięcie kolana na dole obrotu | jw. | `180 − max(knee_angle)` w cyklu (maks. wyprost występuje zwykle blisko DMP) | ° | `med` (mediana z cykli) |
+| `knee_flex_top` | Zgięcie kolana w górze obrotu | jw. | `180 − min(knee_angle)` w cyklu (maks. zgięcie, zwykle blisko GMP); rośnie z długością korby | ° | `med` |
 | `hip_angle` | Kąt biodra | `shoulder`, `hip` (wierzch.), `knee` | `angle_at(hip, shoulder, knee)` | ° | `min` (biodro najbardziej zamknięte, zwykle przy GMP), `max`, `rom` |
 | `ankle_angle` | Kąt stawu skokowego | `knee`, `ankle` (wierzch.), `mtp5` | `angle_at(ankle, knee, mtp5)` | ° | `min`, `max`, `rom` |
 | `foot_angle` | Pozycja stopy | `heel`, `mtp5` | `−angle_to_horizontal(heel, mtp5)`; dodatnia = przód stopy niżej niż pięta (palce w dół) | ° | `max`, `min`, `rom`, `at_bdc` |
@@ -36,7 +37,7 @@ w prawo kadru, `d = −1` gdy w lewo (wtedy też odwrócenie x). Kierunek jazdy 
 | `shoulder_angle` | Kąt tułów–ramię | `hip`, `shoulder` (wierzch.), `elbow` | `angle_at(shoulder, hip, elbow)` | ° | `med`, `at_p90` |
 | `elbow_angle` | Kąt łokcia | `shoulder`, `elbow` (wierzch.), `wrist` | `angle_at(elbow, shoulder, wrist)`; 180° = prosty | ° | `med` |
 | `knee_over_pedal` | Kolano względem osi pedału | `knee`, `pedal` | `knee.x − pedal.x` przy fazie 90° (korba poziomo z przodu); ujemne = kolano za osią | mm | `at_p90` |
-| `pelvis_vertical` | Ruch miednicy w pionie | `hip` | `y_hip(t) − mean(y_hip)` | mm | `rom` (amplituda), `max`, `min` |
+| `pelvis_vertical` | Ruch miednicy w pionie | `hip` | `y_hip(t) − mean(y_hip)`; `rom` używany jako sygnał pomocniczy wysokości siodła (`docs/09`, rozdz. 6.3) | mm | `rom` (amplituda), `max`, `min` |
 | `pelvis_horizontal` | Ruch miednicy w poziomie | `hip` | `x_hip(t) − mean(x_hip)` | mm | `rom` |
 | `hands_load_share` | Udział ciężaru tułowia na dłoniach (poglądowy) | `hip`, `shoulder`, `wrist` | model statyczny `docs/10`, rozdz. 5 | % | `med` |
 | `knee_track` | Tor kolana (płaszczyzna czołowa) | – | wymaga kamery z przodu | mm | zawsze `na` w MVP |
@@ -61,7 +62,7 @@ Liczba cykli `n_cycles` zapisywana przy każdym pomiarze.
 
 | Pomiar | Punkty wymagane | Uwagi o wiarygodności |
 |---|---|---|
-| `knee_flex_bottom`, `knee_angle` | hip, knee, ankle | najbardziej wiarygodny; czuły na błąd punktu `hip` |
+| `knee_flex_bottom`, `knee_flex_top`, `knee_angle` | hip, knee, ankle | najbardziej wiarygodny; czuły na błąd punktu `hip`; pomiar 2D zaniża kąty kolana o ok. 2–3° względem 3D (`docs/07`, rozdz. 11, `metrics.knee_2d_offset_deg`) |
 | `hip_angle` | shoulder, hip, knee | czuły na rotację miednicy (niewidoczna w 2D) |
 | `ankle_angle`, `foot_angle` | knee, ankle, heel, mtp5 | punkty na bucie; częste zasłonięcia przez korbę |
 | `torso_angle` | hip, shoulder | czuły na przechył kamery (`camera_tilt_deg`) |
@@ -78,6 +79,7 @@ Liczba cykli `n_cycles` zapisywana przy każdym pomiarze.
 | 45° do poziomu | `angle_to_horizontal((0,0),(1,1))` | 45,0 |
 | odcinek w dół | `angle_to_horizontal((0,0),(1,−1))` | −45,0 |
 | kolano | hip (−200, 765), knee (121, 494), ankle (22, 25) [mm, y w górę] | `knee_angle` = 118,25 ± 0,01 |
+| zgięcie w górze | `min(knee_angle)` w cyklu = 71,4 | `knee_flex_top` = 108,6 |
 | tułów | hip (−200, 765), shoulder (248, 1134) | `torso_angle` = 39,48 ± 0,01 |
 | KOPS | knee.x = 121, pedal.x = 172,5 | `knee_over_pedal` = −51,5 |
 | konwersja obrazu | bb = (500, 800) px, scale = 2 px/mm, tilt = 0, jazda w prawo, punkt (700, 400) px | (100, 200) mm |

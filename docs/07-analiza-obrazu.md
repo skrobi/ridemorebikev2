@@ -154,7 +154,8 @@ Tryb `markers_mode = none`: tylko `model`/`interpolated`/`missing`.
 
 Ostrzeżenia (kody): `W_SCALE_ESTIMATED`, `W_TILT_UNCERTAIN`, `W_MARKER_OCCLUDED:{point}`, `W_LOW_CONFIDENCE:{point}`,
 `W_FEW_CYCLES`, `W_CADENCE_UNSTABLE`, `W_LOW_FPS`, `W_VIDEO_TRIMMED`, `W_SEGMENT_MISMATCH:{segment}`,
-`W_GRIP_MISMATCH` (chwyt wykryty ≠ zadeklarowany), `W_CHECKLIST:{code}`. Komunikaty dla użytkownika: `docs/11`, rozdz. 7.
+`W_GRIP_MISMATCH` (chwyt wykryty ≠ zadeklarowany), `W_CHECKLIST:{code}`, `W_HIGH_EFFORT` (`session.recording_rpe`
+≥ `quality.high_effort_rpe`, C-10). Komunikaty dla użytkownika: `docs/11`, rozdz. 7.
 
 ## 10. Kadry kluczowe
 
@@ -192,6 +193,8 @@ Dla faz 0° (`tdc`), 90° (`p90`), 180° (`bdc`), 270° (`p270`):
 | `metric.sd_good` | `{"deg": 3.0, "mm": 8.0}` | maks. SD między cyklami dla `good` |
 | `keyframes.phase_tolerance_deg` | 4 | dobór kadru |
 | `keyframes.jpeg_quality` / `keyframes.max_short_side` | 85 / 1080 | zapis kadru |
+| `quality.high_effort_rpe` | 7 | próg ostrzeżenia `W_HIGH_EFFORT` |
+| `metrics.knee_2d_offset_deg` | 0 | korekta kątów kolana 2D (C-21); 0, bo zakres `saddle_height` (Ferrer-Roca) także pochodzi z pomiaru 2D; zmiana tylko po badaniu walidacyjnym (`docs/16`, rozdz. 6) |
 
 Wszystkie progi są **technicznymi parametrami jakości pomiaru**, nie normami biomechanicznymi. Zmiana progów =
 nowa wersja algorytmu.

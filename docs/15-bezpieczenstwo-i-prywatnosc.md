@@ -5,7 +5,8 @@
 | Dane | Kategoria | Przechowywanie |
 |---|---|---|
 | Nagranie wideo, kadry kluczowe | wizerunek (dane osobowe) | pliki poza webroot, retencja wg wyboru (`docs/06`, rozdz. 6) |
-| Dolegliwości, urazy, wyniki testów mobilności, różnica długości nóg | **dane o zdrowiu** (szczególna kategoria – art. 9 RODO) | tabele `fit_complaint`, `fit_interview*`, `fit_rider_profile`; tylko za wyraźną zgodą |
+| Dolegliwości, urazy i operacje, odpowiedzi bezpieczeństwa i `safety_level`, wyniki testów mobilności, różnica długości nóg, oceny po jeździe z siłą dolegliwości | **dane o zdrowiu** (szczególna kategoria – art. 9 RODO) | tabele `fit_complaint`, `fit_surgery`, `fit_interview*`, `fit_rider_profile`, `fit_ride_feedback`; tylko za wyraźną zgodą |
+| Zdarzenia produktowe | dane osobowe (bez danych o zdrowiu) | `fit_event`, retencja 12 mies., rezygnacja w preferencjach (C-17) |
 | Wymiary ciała, masa | dane osobowe | `fit_rider_profile` |
 | Wyniki pomiarów, ustawienia roweru | dane osobowe | tabele `fit_*` |
 
@@ -19,6 +20,9 @@ Analiza prawna (podstawa przetwarzania, rejestr czynności, umowa powierzenia z 
   tabela `fit_share`). Zasób innego użytkownika → 404.
 - Identyfikatory w adresach są liczbowe; ochrona przed IDOR nie polega na ich nieprzewidywalności, tylko na
   sprawdzeniu właściciela w każdym repozytorium (`findForUser($id, $userId)`).
+- Przesyłanie z telefonu (M01, C-18): kod QR zawiera wyłącznie adres strony szkicu; telefon loguje się normalnie
+  do ridemore.bike, a strona sprawdza właściciela szkicu. Brak tokenów jednorazowych w MVP (nie osłabiamy
+  uwierzytelnienia).
 - Rola `admin`: dostęp do kolejki i statystyk technicznych, **bez** dostępu do nagrań, kadrów i danych o zdrowiu.
 
 ## 3. Ochrona żądań
@@ -38,7 +42,7 @@ Analiza prawna (podstawa przetwarzania, rejestr czynności, umowa powierzenia z 
 
 | Kod (`fit_consent.kind`) | Kiedy | Treść (skrót) | Skutek odmowy / cofnięcia |
 |---|---|---|---|
-| `health_data` | przed zapisem kroku „Dolegliwości” (S05) i testów mobilności (S04) | zgoda na przetwarzanie informacji o dolegliwościach i ruchomości w celu dopasowania zaleceń | kroki S04–S05 pomijane; brak modyfikatorów; cofnięcie → usunięcie odpowiedzi tych kroków |
+| `health_data` | przed zapisem kroku „Dolegliwości” (S05), testów mobilności (S04) i pytań bezpieczeństwa (także w szybkim starcie) | zgoda na przetwarzanie informacji o zdrowiu, dolegliwościach i ruchomości w celu dopasowania i bezpieczeństwa zaleceń | kroki S04–S05 i pytania bezpieczeństwa pomijane; brak modyfikatorów; analiza z `fit_level = basic` i `safety_level = caution` (krok maks. 5 mm, komunikat „nie znamy Twojego stanu zdrowia”); cofnięcie → usunięcie odpowiedzi tych kroków |
 | `video_processing` | S08, przed wysłaniem | zgoda na przetwarzanie nagrania (wizerunek) w celu analizy pozycji | brak analizy |
 | `keyframes_storage` | S08, przy wyborze `keyframes_only` / `keep` | zgoda na przechowywanie kadrów / nagrania | obowiązuje `delete_after` |
 | `model_feedback` | opcjonalnie, w profilu | anonimowe dane do ulepszania modelu (`fit_model_feedback`) | brak zapisu |
@@ -65,4 +69,7 @@ Treść zgód wersjonowana (`version`); zmiana treści = ponowne zapytanie.
 
 - Pomiar 2D z jednej kamery – zawsze komunikat o ograniczeniach (`docs/14`, rozdz. 6).
 - Wartości o niewystarczającej jakości ukryte lub oznaczone (`docs/09`, rozdz. 3).
-- Moduł nie stawia diagnoz; przy silnym bólu lub świeżym urazie – zalecenie konsultacji (`docs/04`, rozdz. 5).
+- Moduł nie stawia diagnoz; sygnały bezpieczeństwa (`docs/04`, rozdz. 5.1) wstrzymują lub ograniczają zalecenia
+  (`docs/09`, rozdz. 5.1) z komunikatem o konsultacji (`docs/21`, rozdz. 5).
+- Przypomnienia e-mail tylko po włączeniu przez użytkownika; treść e-maila bez danych o zdrowiu (np. „Czas na
+  nagranie kontrolne”).

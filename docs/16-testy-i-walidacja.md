@@ -23,9 +23,9 @@
 | Markery | obraz syntetyczny z 8 kołami na tle i stroju; zasłonięcie 1 markera → `source = model` / `missing` |
 | Fuzja | reguły z `docs/07`, rozdz. 6 – tabela przypadków |
 | Jakość | progi `docs/07`, rozdz. 9 – przypadki graniczne (0,849 vs 0,85) |
-| Model dopasowania | tabelaryczne: dla każdej regulacji wartości < zielony, w żółtym, w zielonym, > zielony; każdy modyfikator; blokady akcji; akceptacja; kolejność następnego kroku |
+| Model dopasowania | tabelaryczne: dla każdej regulacji wartości < zielony, w żółtym, w zielonym, > zielony; każdy modyfikator; blokady akcji (modyfikatory mobilności nigdy nie blokują); akceptacja; kolejność następnego kroku; `safety_level` `caution` (krok ≤ 5 mm) i `stop` (brak zaleceń); `fit_level = basic`; każda reguła pewności z `docs/09`, rozdz. 6.1 osobno i łącznie (minimum `low`, maksimum `high`); `effort` dla każdej akcji; porada o korbie i sygnał wahania miednicy na progach |
 | Kinematyka | kierunki: siodło +10 mm ⇒ `knee_flex_bottom` maleje; mostek −10 mm ⇒ `elbow_angle` maleje; podkładki +10 mm ⇒ `torso_angle` rośnie; zmiana kół ⇒ bez zmian kątów; wariant nieosiągalny ⇒ flaga |
-| Ocena zmiany | każdy werdykt z `docs/09`, rozdz. 9 i kombinacje kryteriów |
+| Ocena zmiany | każdy werdykt z `docs/09`, rozdz. 9 i kombinacje kryteriów; progi odczuć: spadek 5→3 (yes), 5→4 (partial), 3→2 (33% – yes), 4→6 (worse); bez dolegliwości – tylko oceny 5-stopniowe; RPE różne o 3 → `comparable = no` |
 | CLI | kody wyjścia 0/2/3; `progress.json` aktualizowany; brak dostępu do sieci (test z blokadą gniazd) |
 
 ### Syntetyczne nagrania (prawda znana)
@@ -42,6 +42,9 @@ kamery, brak znacznika, zasłonięcie stopy, zmiana kadencji. Oczekiwania: błą
 | Autoryzacja | brak sesji → 302/401; zasób innego użytkownika → 404 dla każdego endpointu z `docs/13`, rozdz. 5 |
 | CSRF | żądanie zmieniające stan bez tokenu → 403 |
 | Walidacja | zakresy pól `docs/04`/`docs/05`; 422 z listą błędów |
+| Klasyfikatory wywiadu | `MobilityClassifier` (średnia prób, kategorie z progów); `SafetyClassifier`: każde pytanie z `docs/04` rozdz. 5.1 → `stop`; operacja < 6 mies. z daty → `stop`; ≥ 6 mies. → `caution`; siła 8 → `stop`, 5–7 → `caution`; brak zgody `health_data` → `caution` + `basic` |
+| Analityka | `EventLogger` odrzuca zdarzenia i klucze spoza białej listy; brak zapisu przy `analytics_opt_out`; retencja 12 mies. |
+| Przypomnienia | maks. 2 na zmianę; e-mail tylko przy `notify_email = 1` |
 | Przesyłanie | fragmenty w złej kolejności, wznowienie, za duży plik, zła sygnatura, porzucone przesyłanie → retencja |
 | Kolejka | jednoczesne przejęcie przez 2 workery → jedno przejęcie; ponowienie z wykładniczym opóźnieniem; zawieszone zadanie; limit czasu (zastępczy skrypt Pythona z `sleep`) |
 | Importer | poprawny `result.json` → komplet tabel; niezgodny ze schematem → `failed` `E_INTERNAL`; ponowny import idempotentny |
@@ -60,6 +63,10 @@ Scenariusze na danych testowych (worker zastępczy zwraca pliki z `tests/fixture
 6. Druga analiza (krótki wywiad) → S14 z werdyktem.
 7. Nieudana analiza (`E_VIDEO_FPS_LOW`) → komunikat i „Nagraj ponownie”.
 8. Widok 1440 px i 390 px: brak poziomego przewijania; brak błędów JS; axe bez naruszeń krytycznych.
+9. Szybki start → wynik „Dopasowanie podstawowe” → uzupełnienie wywiadu → `refit` → `fit_level = full`.
+10. Pytanie bezpieczeństwa „tak” → S06 z komunikatem → S11 bez zaleceń, karta „Najpierw konsultacja”, S12 tylko podgląd.
+11. M01 w widoku 390 px (zalogowany): przesłanie pliku; S08 na komputerze pokazuje „Nagranie dotarło z telefonu”.
+12. Okno „Zaplanuj” → przypomnienie `planned_change` na pulpicie; ocena po jeździe jednym dotknięciem (5 stopni).
 
 ## 5. Środowisko testowe
 
@@ -76,6 +83,9 @@ Scenariusze na danych testowych (worker zastępczy zwraca pliki z `tests/fixture
 | Markery vs bez markerów | te same nagrania analizowane w trybie `none` | różnica raportowana; komunikat jakości w trybie `none` dostosowany |
 | Wrażliwość na ustawienie kamery | obrót kamery 5° i 10° od prostopadłej, wysokość ±30 cm | wpływ raportowany; progi ostrzeżeń kalibrowane |
 | Model wariantów | rzeczywiste zmiany siodła ±10 mm i mostka ±10 mm z nagraniem przed/po | |Δ przewidziana − Δ zmierzona| ≤ 2° dla kolana |
-| Zrozumiałość | 5 laików przechodzi S01→S11 bez pomocy | ≥ 4/5 poprawnie opisuje, co ma zmienić |
+| Zrozumiałość | 5 laików przechodzi S01→S11 bez pomocy | ≥ 4/5 poprawnie opisuje, co ma zmienić; ≥ 4/5 poprawnie wyjaśnia znaczenie poziomu pewności i paska zakresu (w tym osoba z zaburzeniem widzenia barw, jeśli możliwe) |
+| Korekta 2D kolana (C-21) | ≥ 10 osób: kąt kolana z nagrania 2D vs pomiar 3D lub goniometr fittera w DMP | średnia różnica i granice zgodności; decyzja o `metrics.knee_2d_offset_deg` (zmiana = nowa wersja algorytmu) |
+| Testy mobilności w domu (C-02) | ≥ 15 osób wykonuje T2–T4 samodzielnie według instrukcji z S04; fizjoterapeuta mierzy te same testy | ICC samodzielny vs fizjoterapeuta, zgodność kategorii; decyzja o progach (D-07) |
+| Czas wywiadu (C-20) | zdarzenia `interview.step_completed` z `duration_ms` (`fit_event`) | mediana pełnego ≤ 5 min, krótkiego i szybkiego startu ≤ 1 min |
 
 Nagrania walidacyjne – wyłącznie za pisemną zgodą uczestników, przechowywane poza repozytorium.

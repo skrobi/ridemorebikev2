@@ -11,10 +11,11 @@
 | Rozdzielczość / fps | min. 1280×720 przy 30 fps; zalecane 1920×1080 przy 60 fps | rozmycie ruchu stopy przy niskim fps |
 | Długość | 30–120 s jazdy w stałej kadencji (zalecane 60 s), po 10 min rozgrzewki | min. 20 ważnych cykli |
 | Kadencja | stała, 80–95 obr./min (deklarowana w S08) | porównywalność sesji |
+| Wysiłek | umiarkowany: RPE 3–4 w skali Borga CR10 („mogę rozmawiać pełnymi zdaniami”); nagranie przed zmęczeniem; wartość podawana w S08 (`recording_rpe`) | przy dużym obciążeniu i zmęczeniu zmienia się kinematyka, zwłaszcza stawu skokowego (Bini i in.); RPE ≥ 7 → `W_HIGH_EFFORT` (C-10) |
 | Światło | z przodu lub z boku; nie pod światło (okno za rowerzystą) | wykrywanie markerów i sylwetki |
 | Strój | obcisły, kontrastowy względem markerów i tła | widoczność punktów |
 | Chwyt | zadeklarowany (`grip`), ten sam w porównywanych sesjach | kąt łokcia i pochylenie zależą od chwytu |
-| Strona | strona zwrócona do kamery (`side`) – mierzona tylko ta strona | analiza 2D |
+| Strona | strona zwrócona do kamery (`side`) – mierzona tylko ta strona; w S08 wstępnie strona głównej dolegliwości, jeśli jest jednostronna | analiza 2D; druga strona – osobne nagranie (`M_ASYMMETRY`, C-22) |
 
 ## 2. Lista kontrolna (S08) – kody
 
@@ -26,6 +27,7 @@
 | `markers` | 8 markerów naklejonych na stronie zwróconej do kamery |
 | `scale` | Znacznik skali 20 cm przyklejony do rury podsiodłowej |
 | `warmup` | 10 minut rozgrzewki, potem stała kadencja |
+| `effort` | Jadę umiarkowanie – mogę rozmawiać pełnymi zdaniami |
 | `tripod` | Telefon na statywie, nie w ręce |
 
 Niezaznaczone pozycje nie blokują wysłania, ale trafiają do wyniku jako ostrzeżenia, jeżeli analiza potwierdzi problem.
@@ -103,6 +105,23 @@ nogi (`body.inseam_cm`) i oznaczone jako mniej pewne (`W_SCALE_ESTIMATED`).
 | `keep` | wideo i kadry zostają do czasu usunięcia przez użytkownika | jw. |
 
 Uwaga: przy `delete_after` weryfikacja punktów (S10) działa na zdjęciu, ale po jej zatwierdzeniu wirtualne
-dopasowanie (S12) i kolejne korekty pokazują sylwetkę na neutralnym tle. S08 opisuje opcję `keyframes_only` jako
-zalecaną, jeśli użytkownik chce korzystać z porównań na zdjęciu.
-Decyzja o domyślnej opcji: `docs/18`, D-05.
+dopasowanie (S12) i kolejne korekty pokazują sylwetkę na neutralnym tle. S08 opisuje wszystkie trzy opcje
+neutralnie – co daje każda i co jest przechowywane – bez wstępnego zaznaczenia innej niż domyślna.
+Domyślna opcja `delete_after` – decyzja ADR-15 (`docs/18`, C-16).
+
+## 7. Przesłanie nagrania z telefonu (C-18)
+
+Nagranie zwykle powstaje telefonem, a przepływ odbywa się na komputerze. W S08 karta „Nagrywasz telefonem?”:
+
+1. Kod QR i krótki adres prowadzący do strony **M01** `/fit/analiza/{draft}/telefon` (prosta strona przesyłania
+   na telefonie, część aplikacji webowej).
+2. Telefon wymaga normalnego zalogowania do ridemore.bike (ta sama sesja platformy, `docs/15`, rozdz. 2) – kod QR
+   nie zawiera tokenu dostępu.
+3. M01: statyczna instrukcja kadru (rysunek: rower w poziomie, kamera na wysokości siodła, 2,5–4 m), wybór strony,
+   pole pliku `accept="video/mp4,video/quicktime"` (na telefonie także nagranie aparatem), przesyłanie fragmentami
+   tym samym API (`docs/13`, rozdz. 6), pasek postępu.
+4. S08 na komputerze odpytuje stan przesyłania szkicu i po zakończeniu pokazuje „Nagranie dotarło z telefonu”;
+   zgody, RPE i „Wyślij do analizy” – na komputerze lub na M01.
+
+Po MVP (D-16): prowadzenie kadru na żywo w przeglądarce telefonu (podgląd kamery z obrysem sylwetki) – wymaga
+sprawdzenia zgodności przeglądarek iOS i Android.

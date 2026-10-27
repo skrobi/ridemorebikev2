@@ -9,10 +9,13 @@ Wersja kwestionariusza: `questionnaire_version = "q-1"`. Każda odpowiedź jest 
 
 | Sytuacja | Wywiad |
 |---|---|
-| pierwsza analiza danego roweru | pełny (S02–S06) |
+| pierwsza analiza danego roweru | pełny (S02–S06) **albo** szybki start (rozdz. 8) |
 | od ostatniego pełnego > 180 dni (`interview.full_max_age_days`) | pełny |
-| użytkownik zaznaczył nowy uraz | pełny |
+| użytkownik zaznaczył nowy uraz lub sygnał bezpieczeństwa | pełny |
 | pozostałe | krótki (rozdz. 7) – S02 skrócony do jednego ekranu „Czy coś się zmieniło?” |
+
+Budżet czasu (panel, `docs/20`, C-11, C-20): pełny wywiad ≤ 5 min (mediana), krótki i szybki start ≤ 1 min.
+Każdy krok pokazuje szacowany czas (`docs/03`, rozdz. 1). Teksty pytań: forma bezosobowa (`docs/21`, rozdz. 1).
 
 - Wartości trwałe (wymiary ciała) zapisują się w profilu (`fit_rider_profile`); wywiad przechowuje kopię wartości
   użytych w analizie (`fit_interview_answer`), aby wynik był odtwarzalny po zmianie profilu.
@@ -31,7 +34,9 @@ Wersja kwestionariusza: `questionnaire_version = "q-1"`. Każda odpowiedź jest 
 
 ## 3. Krok 2 – ciało (S03)
 
-Pytamy tylko o wartości, których brakuje w profilu. Sekcja „Siodło, kierownica i bloki” jest opcjonalna.
+Pytamy tylko o wartości, których brakuje w profilu. Sekcja „Siodło, kierownica i bloki” jest opcjonalna;
+rozstaw kości kulszowych jest dodatkowo proponowany w kroku 4 po zaznaczeniu obszaru `saddle` lub `saddle_numb`,
+jeśli brak go w profilu (pytanie wtedy, gdy jest potrzebne – C-11).
 
 | Kod | Nazwa | Jedn. | Zakres walidacji | Jak zmierzyć | Do czego służy |
 |---|---|---|---|---|---|
@@ -56,6 +61,22 @@ Każdy test ma odpowiedź opisową (wymagana, jeśli test nie pominięty) i opcj
 liczbę, kategoria jest wyliczana z niej (progi poniżej). **Progi kategorii są robocze – do zatwierdzenia przez
 fizjoterapeutę / bike fittera** (`docs/18`, D-07).
 
+**Zestaw (C-01):** testy **podstawowe** – T2 skłon w siadzie, T3 prosta noga w górę, T4 kolano do ściany (zawsze
+pokazywane, ok. 2 min); testy **dodatkowe** – T1, T5, T6 (sekcja zwinięta „Dodatkowe testy, ok. 2 min”). Testy
+domowe są orientacyjne: rzetelność potwierdzono dla pomiarów wykonywanych przez przeszkolone osoby (Bennell i in.
+1998), a test siad i skłon ma umiarkowaną trafność wobec tylnej taśmy uda i niską wobec odcinka lędźwiowego
+(Mayorga-Vega i in. 2014). Dlatego mobilność tylko przesuwa zakresy, nigdy nie blokuje zalecenia (`docs/09`, rozdz. 5).
+
+**Metadane każdego testu liczbowego (C-02):**
+
+| Kod (sufiks do kodu testu) | Pytanie | Wartości |
+|---|---|---|
+| `.trials` | Wynik 1. i 2. próby | dwie liczby; zapisywana średnia (`value_num`) i obie próby (`trials_json`) |
+| `.helper` | Kto mierzył? | `self` sam · `helper` z pomocą drugiej osoby |
+| `.pain` | Czy test wywołał ból? | `no` · `yes` → test przerwany, kategoria `unknown`, obszar proponowany w kroku 4 |
+
+Druga próba jest opcjonalna; przy jednej próbie zapisuje się jedną wartość.
+
 | Kod | Test | Co ocenia | Instrukcja | Odpowiedzi opisowe → kategoria | Wartość liczbowa | Progi z liczby |
 |---|---|---|---|---|---|---|
 | `mob.t1_standing_reach` | Skłon stojąc | plecy + tył ud | stojąc, proste nogi, powolny skłon; ile brakuje palcom do podłogi | `floor` dotykam podłogi → `good` · `ankles` kostki → `limited` · `shins` piszczele → `very_limited` | `t1_cm` – brak do podłogi w cm (0 = dotyka; ujemna = dłonie poniżej poziomu stóp na podwyższeniu) | ≤ 0 good · 1–10 limited · > 10 very_limited |
@@ -77,8 +98,37 @@ Wskaźniki pochodne (zapisywane w wywiadzie, używane przez model dopasowania):
 | `flex.less_flexible` | `true`, jeśli `posterior_chain` = `very_limited` lub co najmniej 2 z (posterior_chain, hip_flexor, thoracic) = `limited`/`very_limited` |
 
 Pominięty test → kategoria `unknown` (brak modyfikatora). Ból podczas testu → przerwij, zaznacz w kroku 4.
+Etykiety kategorii w interfejsie: `good` „swobodnie”, `limited` „z lekkim ograniczeniem”, `very_limited`
+„z wyraźnym ograniczeniem” (bez etykiet osobowych – `docs/21`).
 
-## 5. Krok 4 – dolegliwości (S05)
+## 5. Krok 4 – bezpieczeństwo i dolegliwości (S05)
+
+### 5.1 Pytania bezpieczeństwa (C-03)
+
+Wymagane (tak/nie), na początku kroku, przed wyborem obszarów. Odpowiedź „tak” nie przerywa wywiadu.
+
+| Kod | Pytanie | Poziom przy „tak” |
+|---|---|---|
+| `safety.surgery_recent` | Czy w ciągu ostatnich 6 miesięcy była operacja kolana, biodra, kręgosłupa, barku lub stopy? | `stop` |
+| `safety.doctor_restrictions` | Czy lekarz lub fizjoterapeuta zalecił obecnie ograniczenie jazdy lub ruchu? | `stop` |
+| `safety.joint_swelling_locking` | Czy staw puchnie i jednocześnie się blokuje lub „ucieka”? | `stop` |
+| `safety.numbness_persistent` | Czy drętwienie lub osłabienie ręki albo nogi utrzymuje się dłużej niż dobę po jeździe? | `stop` |
+| `safety.night_pain` | Czy ból budzi w nocy lub występuje w spoczynku, niezależnie od jazdy? | `stop` |
+| `safety.recent_fall` | Czy w ostatnich 6 tygodniach był upadek lub uraz, po którym ból się utrzymuje? | `stop` |
+| `safety.saddle_numb_bladder` | Czy drętwieniu krocza towarzyszą kłopoty z oddawaniem moczu lub stolca? | `stop` + komunikat pilny |
+
+Wyliczenie poziomu `safety_level` (`none` · `caution` · `stop`, `SafetyClassifier`, progi w
+`config/questionnaire-q-1.json`):
+- `stop` – dowolne „tak” powyżej, operacja z historii (rozdz. 5.3) z datą < 6 mies., albo dolegliwość
+  o `intensity ≥ 8`;
+- `caution` – dolegliwość o `intensity` 5–7, dolegliwość z `off_bike = true`, operacja ≥ 6 mies. temu,
+  `injury_recent = true`;
+- `none` – pozostałe.
+Skutki poziomu dla zaleceń: `docs/09`, rozdz. 5.1; teksty: `docs/21`, rozdz. 5. Progi robocze – D-15.
+Bez zgody `health_data` pytania nie są zadawane ani zapisywane; analiza otrzymuje `safety_level = caution`
+i `fit_level = basic` (`docs/15`, rozdz. 4).
+
+### 5.2 Obszary dolegliwości
 
 | Kod obszaru | Etykieta | Strona |
 |---|---|---|
@@ -87,7 +137,8 @@ Pominięty test → kategoria `unknown` (brak modyfikatora). Ból podczas testu 
 | `hands_numb` | Drętwienie dłoni | L/P/obie |
 | `wrists` | Nadgarstki | L/P/obie |
 | `lower_back` | Dół pleców | – |
-| `saddle` | Krocze / siodło | – |
+| `saddle` | Siedzenie – ucisk lub ból na siodle | – |
+| `saddle_numb` | Drętwienie krocza | – |
 | `hip` | Biodro | L/P/obie |
 | `knee_front` | Przód kolana | L/P/obie |
 | `knee_back` | Tył kolana | L/P/obie |
@@ -97,36 +148,72 @@ Pominięty test → kategoria `unknown` (brak modyfikatora). Ból podczas testu 
 | `feet_numb` | Drętwienie stóp | L/P/obie |
 | `none` | Nic mi nie dokucza | – |
 
-Dla każdego obszaru: `intensity` 0–10 (0 = nic, 10 = nie da się jechać), `onset`:
-`start` od początku · `m30` po 30 min · `m60` po 60 min · `h2` po 2 h · `after` dopiero po jeździe.
+Dla każdego obszaru (C-13):
 
-Pole `injuries_text` (do 500 znaków, opcjonalne) i flaga `injury_recent` (uraz w ostatnich 6 miesiącach).
+| Pole | Pytanie | Wartości |
+|---|---|---|
+| `intensity` | Jak silne? | 0–10 (0 = nic, 10 = nie da się jechać) |
+| `type` | Jak to odczuwasz? | `pain` ból · `numb` drętwienie · `tingling` mrowienie · `pressure` ucisk / dyskomfort (dla `hands_numb`, `feet_numb`, `saddle_numb` ustawiane automatycznie na `numb`) |
+| `onset` | Kiedy się pojawia? | `start` od początku · `m30` po 30 min · `m60` po 60 min · `h2` po 2 h · `after` dopiero po jeździe |
+| `duration_after` | Jak długo trwa po jeździe? | `none` mija od razu · `lt2h` do 2 h · `same_day` do końca dnia · `next_day` następnego dnia też |
+| `frequency` | Jak często? | `rare` rzadko · `half` co druga jazda · `always` prawie zawsze |
+| `off_bike` | Czy pojawia się także poza rowerem? | `no` · `yes` |
 
-Komunikat bezpieczeństwa (nie blokuje): jeśli `intensity ≥ 7` w dowolnym obszarze lub `injury_recent = true` –
-„Jeśli coś boli, a nie tylko męczy, skonsultuj się z lekarzem lub fizjoterapeutą przed zmianami pozycji.”
+Jeden obszar użytkownik oznacza jako **główną dolegliwość** (`is_primary`) – to ona jest „dolegliwością docelową”
+w ocenie zmiany (`docs/09`, rozdz. 9). Przy jednym obszarze ustawiane automatycznie.
+
+### 5.3 Urazy i operacje (C-04)
+
+| Pole | Wartości |
+|---|---|
+| `surgery[].type` | `acl` więzadło krzyżowe · `meniscus` łąkotka · `knee_replacement` endoproteza kolana · `hip_replacement` endoproteza biodra · `spine` kręgosłup · `shoulder` bark · `foot_ankle` stopa / staw skokowy · `other` inna |
+| `surgery[].side` | `left` · `right` · `both` · brak |
+| `surgery[].performed_ym` | rok i miesiąc (RRRR-MM) |
+| `surgery[].restrictions` | czy obowiązują zalecenia lekarza dotyczące ruchu: `no` · `yes` |
+
+Dodatkowo `injury_recent` (uraz bez operacji w ostatnich 6 miesiącach) i `injuries_text` (do 500 znaków,
+opcjonalne – tylko dla fittera, nie wpływa na reguły). Wpływ na model: `docs/09`, rozdz. 5 i 5.1.
 
 ## 6. Krok 5 – co z tego wynika (S06)
 
 Ekran wyświetla listę aktywnych modyfikatorów (`docs/09`, rozdz. 5) w postaci „odpowiedź → wpływ” oraz wynikowy
-profil analizy, np. `endurance` + `less_flexible`. Teksty pochodzą z konfiguracji modelu dopasowania.
+profil analizy, np. „Endurance · z uwzględnieniem ruchomości”. Teksty pochodzą z konfiguracji modelu dopasowania.
+Przy `safety_level` ≠ `none` na górze ekranu komunikat z `docs/21`, rozdz. 5 (bez blokowania dalszych kroków).
 
 ## 7. Krótki wywiad (kolejne analizy)
 
 | Kod | Pytanie | Typ |
 |---|---|---|
-| `short.setup_changed` | Czy zmieniałeś coś w rowerze od ostatniej analizy? | tak/nie; „tak” → przejście do zapisu zmiany (S13), jeśli nie zapisano |
-| `short.profile_same` | Czy nadal jeździsz w profilu „X”? | tak / zmień |
-| `short.complaints` | Czy zmieniły się dolegliwości? | bez zmian / lepiej / gorzej / nowe (→ krok 4) |
-| `short.injury` | Czy był uraz od ostatniej analizy? | nie / tak (→ pełny wywiad) |
-| `short.rides_since_change` | Ile razy jeździłeś po ostatniej zmianie? | liczba 0–50 (dla oceny zmiany „za wcześnie”) |
+| `short.setup_changed` | Czy coś się zmieniło w rowerze od ostatniej analizy? | tak/nie; „tak” → przejście do zapisu zmiany (S13), jeśli nie zapisano |
+| `short.profile_same` | Czy profil jazdy „X” jest nadal aktualny? | tak / zmień |
+| `short.complaints` | Czy zmieniły się dolegliwości? | bez zmian / lepiej / gorzej / nowe (→ krok 4); przy „lepiej”/„gorzej” – nowa siła głównej dolegliwości 0–10 |
+| `short.injury` | Czy był uraz, operacja albo coś z listy bezpieczeństwa (rozdz. 5.1)? | nie / tak (→ pełny wywiad) |
+| `short.rides_since_change` | Ile jazd było po ostatniej zmianie? | liczba 0–50 (dla oceny zmiany „za wcześnie”; wstępnie z ocen po jeździe) |
 
-## 8. Zapis
+## 8. Szybki start (C-11)
+
+Dla pierwszej analizy roweru użytkownik może wybrać „Szybki start (ok. 1 min)” zamiast pełnego wywiadu.
+
+| Zawartość | Kody |
+|---|---|
+| rower i profil jazdy | `ride.bike_id`, `ride.profile` |
+| główna dolegliwość (jedna) z siłą | obszar z rozdz. 5.2, `intensity` |
+| pytania bezpieczeństwa | wszystkie z rozdz. 5.1 (obowiązkowe) |
+| wzrost i długość nogi, jeśli brak w profilu | `body.height_cm`, `body.inseam_cm` (można pominąć) |
+
+Wynik ma `fit_level = basic` („dopasowanie podstawowe”): brak modyfikatorów mobilności, pewność zaleceń obniżona
+o jeden poziom (`docs/09`, rozdz. 6.1). W S11 karta „Uzupełnij wywiad (ok. 4 min) – dokładniejsze zalecenia”;
+dokończenie pełnego wywiadu (`kind = full`, `upgrade_of_analysis_id`) zleca `refit` bez nowego nagrania i daje
+`fit_level = full`. Kolejna analiza tego roweru wymaga pełnego wywiadu, jeśli nie został uzupełniony.
+
+## 9. Zapis
 
 | Tabela | Zawartość |
 |---|---|
-| `fit_interview` | nagłówek: użytkownik, rower, rodzaj (`full`/`short`), `questionnaire_version`, profil, wskaźniki pochodne (`flex_*`), data |
-| `fit_interview_answer` | kod pytania, wartość tekstowa/liczbowa, jednostka, strona (dla testów obustronnych) |
-| `fit_complaint` | obszar, strona, intensywność, moment pojawienia się (dla wywiadu i dla ocen komfortu) |
+| `fit_interview` | nagłówek: użytkownik, rower, rodzaj (`full`/`short`/`quick`), `questionnaire_version`, profil, wskaźniki pochodne (`flex_*`), `safety_level` i powody, data |
+| `fit_interview_answer` | kod pytania, wartość tekstowa/liczbowa, próby testu (`trials_json`), jednostka, strona (dla testów obustronnych); także odpowiedzi `safety.*` |
+| `fit_complaint` | obszar, strona, intensywność, rodzaj, moment pojawienia się, czas trwania po jeździe, częstość, poza rowerem, `is_primary` (dla wywiadu i dla ocen komfortu) |
+| `fit_surgery` | rodzaj, strona, rok i miesiąc, zalecenia lekarza |
 | `fit_rider_profile` | aktualne wymiary ciała (nadpisywane, z `updated_at`) |
 
 Szczegóły kolumn: `docs/12-baza-danych.md`.

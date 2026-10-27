@@ -14,9 +14,9 @@
 
 | Moduł | Odpowiedzialność | Główne klasy |
 |---|---|---|
-| `Rider` | profil ciała, zgody, rola | `RiderProfileService`, `ConsentService` |
+| `Rider` | profil ciała, zgody, rola, preferencje | `RiderProfileService`, `ConsentService`, `PreferenceService` |
 | `Bike` | rowery, wersje ustawień, historia zmian | `BikeService`, `SetupService`, `ChangeService` |
-| `Interview` | szkic wywiadu, walidacja odpowiedzi, wskaźniki `flex_*` | `InterviewService`, `MobilityClassifier` |
+| `Interview` | szkic wywiadu (pełny, krótki, szybki start), walidacja odpowiedzi, wskaźniki `flex_*`, poziom bezpieczeństwa | `InterviewService`, `MobilityClassifier`, `SafetyClassifier` |
 | `Session` | szkic sesji, przesyłanie, zlecenie analizy | `SessionService`, `UploadService` |
 | `Queue` | zadania, przejęcie, ponowienia, wygaszanie | `JobRepository`, `JobScheduler` |
 | `Analysis` | import `result.json`, odczyt wyników, kadry, korekty | `ResultImporter`, `AnalysisQuery`, `CorrectionService` |
@@ -24,9 +24,12 @@
 | `Change` | zapis zmiany, oceny po jeździe, ocena zmiany (import z Pythona), przypomnienia | `ChangeService`, `RideFeedbackService`, `ReminderService` |
 | `Comfort` | ocena komfortu | `ComfortService` |
 | `Retention` | usuwanie plików i danych | `RetentionService` |
+| `Analytics` | zdarzenia produktowe z białej listy, bez danych o zdrowiu (C-17) | `EventLogger` |
 
-`MobilityClassifier` i progi kategorii pochodzą z pliku konfiguracji kwestionariusza
-`config/questionnaire-q-1.json` (ten sam plik czyta Python dla wskaźników) – jedno źródło prawdy.
+`MobilityClassifier`, `SafetyClassifier` i ich progi pochodzą z pliku konfiguracji kwestionariusza
+`config/questionnaire-q-1.json` (ten sam plik czyta Python dla wskaźników) – jedno źródło prawdy. Wyliczone
+`flex_*`, `safety_level` i `fit_level` trafiają do `job.json`; Python ich nie przelicza (`docs/11`, rozdz. 1).
+`EventLogger` jest wywoływany wyłącznie po stronie serwera (kontrolery, worker) – brak śledzenia w przeglądarce.
 
 ## 3. Middleware
 
@@ -54,11 +57,13 @@ renderuje szablon `templates/pages/S01-moje-analizy.php` itd. Dane do Alpine.js 
 | GET/PATCH/DELETE | `/bikes/{id}` | szczegóły / edycja / miękkie usunięcie | | |
 | GET | `/bikes/{id}/setups` | wersje ustawień | | lista |
 | POST | `/bikes/{id}/changes` | zapis zmiany (S13) – tworzy nową wersję ustawienia | `{changes:[{param,before,after,unit}], changed_at, performed_by, reason, reason_note, recommendation_id?, plan_id?}` | `{change_ids, setup_id, reminder}` |
-| POST | `/interviews` | nowy szkic wywiadu | `{bike_id, kind}` | wywiad |
-| PATCH | `/interviews/{id}` | zapis odpowiedzi kroku (autozapis) | `{answers:[{code,side?,value}], complaints?:[...]}` | wywiad + `flex_*` + modyfikatory (podgląd S06) |
-| POST | `/interviews/{id}/complete` | zakończenie | – | wywiad |
+| POST | `/interviews` | nowy szkic wywiadu | `{bike_id, kind, upgrade_of_analysis_id?}` (`kind`: `full`/`short`/`quick`) | wywiad |
+| PATCH | `/interviews/{id}` | zapis odpowiedzi kroku (autozapis) | `{answers:[{code,side?,value,trials?}], complaints?:[...], surgeries?:[...]}` | wywiad + `flex_*` + `safety_level` + modyfikatory (podgląd S06) |
+| POST | `/interviews/{id}/complete` | zakończenie; przy `upgrade_of_analysis_id` – zlecenie `refit` | – | wywiad (+ `{job_id}`) |
+| GET/PUT | `/preferences` | preferencje przypomnień i analityki | `{notify_email, reminders_enabled, analytics_opt_out}` | preferencje |
 | POST | `/sessions` | szkic sesji | `{interview_id}` | sesja |
-| PATCH | `/sessions/{id}` | opcje nagrania | `{side, grip, markers_mode, scale_marker_mm, cadence_target_rpm, video_retention, checklist}` | sesja |
+| PATCH | `/sessions/{id}` | opcje nagrania | `{side, grip, markers_mode, scale_marker_mm, cadence_target_rpm, recording_rpe, recording_power_w, video_retention, checklist}` | sesja |
+| GET | `/sessions/{id}/upload-status` | stan przesyłania (S08 odpytuje przy przesyłaniu z telefonu) | – | `{status, received_pct, device}` |
 | POST | `/sessions/{id}/uploads` | otwarcie przesyłania | `{size_bytes, file_name, mime}` | `{upload_id, chunk_bytes, chunks_total}` |
 | PUT | `/uploads/{id}/chunks/{n}` | fragment (body binarne) | `Content-Range` | `{received}` |
 | POST | `/uploads/{id}/complete` | złożenie, walidacja, `fit_video` | – | `{video_id}` |
@@ -77,8 +82,8 @@ renderuje szablon `templates/pages/S01-moje-analizy.php` itd. Dane do Alpine.js 
 | GET | `/analyses/{id}/variants?phase=p90` | warianty z punktami do rysowania | – | lista wariantów |
 | POST | `/analyses/{id}/estimate` | szacunek kombinacji (suma różnic wariantów) | `{changes:{param:value}}` | `{metrics, statuses, estimate:true}` |
 | POST | `/analyses/{id}/simulate` | dokładne przeliczenie kombinacji | `{changes}` | `{job_id}` |
-| POST | `/plans` | zapis planu z S12 | `{analysis_id, items}` | plan |
-| POST | `/changes/{id}/rides` | ocena po jeździe | `{ride_date, feeling, note}` | `{ok}` |
+| POST | `/plans` | zapis planu z S12 lub okna „Zaplanuj” | `{analysis_id, items, planned_date?, test_rides?}` | plan + przypomnienie `planned_change` |
+| POST | `/changes/{id}/rides` | ocena po jeździe (5 stopni) | `{ride_date, feeling, target_intensity?, note}` | `{ok}` |
 | GET | `/changes/{id}/evaluation` | ocena zmiany (S14) | – | werdykt + kryteria |
 | POST | `/sessions/{id}/comfort` | ocena komfortu | `{ride_type, duration_min, items:[...]}` | `{ok}` |
 | DELETE | `/sessions/{id}/video` | usunięcie nagrania i kadrów na żądanie | – | `{ok}` |
@@ -137,7 +142,8 @@ wynikach poza Pythonem – nie tworzy nowych pomiarów ani zaleceń.
 ## 10. Logowanie
 
 - Plik `storage/fit/logs/app-YYYY-MM-DD.log`, format JSON-lines: czas, poziom, `event`, `request_id`, `user_id`
-  (liczba), `job_id`, czas trwania. Zakazane: punkty, serie, odpowiedzi wywiadu, dolegliwości, nazwy plików użytkownika.
+  (liczba), `job_id`, czas trwania. Zakazane: punkty, serie, odpowiedzi wywiadu (w tym bezpieczeństwa), dolegliwości,
+  operacje, nazwy plików użytkownika.
 - Rotacja: 30 dni.
 
 ## 11. i18n

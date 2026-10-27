@@ -54,7 +54,7 @@ Dla nowego ustawienia (zmieniony jeden lub kilka parametrów):
    - jeśli `|S'−W'| > L_upper + L_fore − sim.reach_margin_mm` (15 mm) → zmniejszaj `τ'` co 0,5° aż do osiągnięcia
      (rowerzysta pochyla się, żeby sięgnąć); jeśli `|S'−W'| < sim.min_reach_mm` (łokieć < 90°) → zwiększaj `τ'`,
    - łokieć `E'` = przecięcie okręgów (`S'`, ramię) i (`W'`, przedramię), rozwiązanie z łokciem poniżej odcinka `S'W'`.
-4. Pomiary wariantu liczone tymi samymi funkcjami co dla nagrania (`docs/08`): `knee_flex_bottom`, `hip_angle.min`,
+4. Pomiary wariantu liczone tymi samymi funkcjami co dla nagrania (`docs/08`): `knee_flex_bottom`, `knee_flex_top`, `hip_angle.min`,
    `knee_over_pedal`, `elbow_angle`, `shoulder_angle`, `torso_angle`, `hands_load_share`.
 5. **Korekta przesunięcia modelu:** wartość wariantu = `zmierzona + (model(nowe) − model(bieżące))` – model
    przewiduje różnicę, a nie wartość bezwzględną; błąd modelu dla stanu bieżącego nie przenosi się do wyniku.

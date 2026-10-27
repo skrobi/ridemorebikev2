@@ -18,6 +18,12 @@
 | ADR-12 | Wirtualne dopasowanie na wariantach liczonych po analizie; kombinacje – szacunek + dokładne przeliczenie zadaniem | brak obliczeń w przeglądarce, szybka interakcja |
 | ADR-13 | Tylko aplikacja webowa; aplikacja mobilna później | wymaganie właściciela |
 | ADR-14 | Bez symulacji pracy mięśni w MVP; wskaźniki obciążenia tylko poglądowe | brak walidowanego modelu mięśniowo-szkieletowego |
+| ADR-15 | Domyślna polityka nagrania `delete_after`; S08 opisuje opcje neutralnie (zamyka D-05) | prywatność domyślna (RODO art. 25); panel `docs/20`, C-16 |
+| ADR-16 | Bez siódmego testu „głęboki przysiad”; 3 testy podstawowe + 3 dodatkowe (zamyka D-14) | dubluje T4 i T5, wydłuża wywiad; testy domowe orientacyjne – `docs/20`, C-01 |
+| ADR-17 | Dwa poziomy bezpieczeństwa: `stop` (pomiar bez zaleceń) i `caution` (krok ≤ 5 mm); poziom liczy PHP z wywiadu, skutki stosuje Python | `docs/20`, C-03; ścieżki triażu MSK |
+| ADR-18 | Każde zalecenie ma poziom pewności i wysiłek zmiany; zasady języka w `docs/21` | `docs/20`, C-06, C-07, C-15 |
+| ADR-19 | Szybki start (~1 min) z wynikiem „dopasowanie podstawowe”; pytania bezpieczeństwa zawsze obowiązkowe | `docs/20`, C-11 |
+| ADR-20 | Przesyłanie z telefonu przez stronę M01 po normalnym zalogowaniu (kod QR bez tokenu); prowadzenie kadru na żywo po MVP | `docs/20`, C-18; bez osłabiania uwierzytelnienia |
 
 ## 2. Decyzje do podjęcia
 
@@ -27,16 +33,18 @@
 | D-02 | Miejsce analizy | hosting / osobne środowisko (VPS) z tym samym CLI | po F0.2 |
 | D-03 | Wersja MariaDB | wpływa na `SKIP LOCKED`, `JSON`; obecnie rozwiązanie zgodne wstecz | F0.2 |
 | D-04 | Klucz obcy do `users` i własny klucz `fit_*` w sesji platformy | zgoda administratora platformy; alternatywa: ciasteczko CSRF podpisane HMAC | przed B2.1 |
-| D-05 | Domyślna polityka nagrania | `delete_after` (domyślna wg pierwotnych wymagań) albo `keyframes_only` (lepsze UX w S10/S12) | przed B2.5 |
+| D-05 | ~~Domyślna polityka nagrania~~ | **zamknięta** – ADR-15 | – |
 | D-06 | Zatwierdzenie zakresów modelu dopasowania | kto: bike fitter współpracujący z ridemore; wynik: `fit-model-v1` → `v2` | przed produkcją, V5.2 |
-| D-07 | Progi kategorii testów mobilności | fizjoterapeuta / fitter | przed B2.4 (można startować z roboczymi) |
+| D-07 | Progi kategorii testów mobilności | fizjoterapeuta / fitter; dane z badania testów domowych (`docs/16`, rozdz. 6) | przed B2.4 (można startować z roboczymi) |
 | D-08 | Model pozy | wynik porównania E3 (P1.5) | P1.5 |
 | D-09 | Zestaw markerów ridemore (`kit`) | produkt fizyczny czy tylko DIY | przed Q4.3 |
 | D-10 | Symulacja pracy mięśni | osobny etap (np. OpenSim, licencja Apache-2.0) – wymaga walidacji | po MVP |
-| D-11 | Kanał przypomnień | tylko pulpit / e-mail z platformy | przed U3.4 |
-| D-12 | Analiza prawna (RODO, art. 9) | podstawa, rejestr, umowa z hostingiem, ewentualna ocena skutków | przed produkcją |
+| D-11 | Kanał przypomnień | ustalono: pulpit domyślnie, e-mail tylko po włączeniu (C-14); do potwierdzenia – czy platforma udostępnia wysyłkę e-mail (`notifications.email_available`) | przed U3.4 |
+| D-12 | Analiza prawna (RODO, art. 9) | podstawa, rejestr, umowa z hostingiem, ewentualna ocena skutków; także podstawa i retencja zdarzeń produktowych `fit_event` | przed produkcją |
 | D-13 | Rola fittera i udostępnianie sesji | zakres uprawnień, panel | po MVP |
-| D-14 | Siódmy test mobilności „głęboki przysiad” | dodać / nie (obecnie skłon w siadzie prostym = test 2) | przed B2.4 |
+| D-14 | ~~Siódmy test mobilności~~ | **zamknięta** – ADR-16 | – |
+| D-15 | Zatwierdzenie listy i progów bezpieczeństwa (`stop`/`caution`) oraz progów sygnałów (`knee_flex_top`, `hip_closed`, `pelvis_rock`) | lekarz medycyny sportowej / fizjoterapeuta; robocze wartości w `docs/04` rozdz. 5.1 i `docs/09` rozdz. 6.3 | przed produkcją (można startować z roboczymi) |
+| D-16 | Kod QR i prowadzenie kadru | biblioteka QR po stronie serwera (licencja MIT/Apache do potwierdzenia, uzasadnienie zależności) albo sam krótki adres; podgląd kamery na żywo – po MVP, po teście iOS/Android | przed B2.5 / po MVP |
 
 ## 3. Pytania do właściciela platformy
 

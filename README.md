@@ -41,18 +41,21 @@ publikacjach i praktyce bike fittingu, dopasowanym do profilu jazdy i wywiadu.
 | `docs/17-plan-zadan.md` | etapy i zadania (kontrakty implementacyjne) w kolejności realizacji |
 | `docs/18-decyzje-i-otwarte-kwestie.md` | rejestr decyzji (ADR) i kwestii do potwierdzenia |
 | `docs/19-zrodla.md` | źródła naukowe i przegląd podobnych aplikacji |
+| `docs/20-panel-ekspertow.md` | przegląd dokumentacji przez panel ekspertów: stanowiska, debata, uzgodnione zmiany C-01…C-23 |
+| `docs/21-komunikacja.md` | zasady języka i prezentacji: statusy, poziom pewności, wysiłek zmiany, komunikaty bezpieczeństwa, paski zakresu |
 | `docs/makiety/` | makiety 14 ekranów (HTML + PNG) – wzorzec wyglądu i przepływu |
 
 ## Główny przepływ użytkownika
 
 ```
 S01 Moje analizy
-  → S02–S06 Wywiad (cel i profil jazdy, ciało, mobilność, dolegliwości, wnioski)
-  → S07 Markery → S08 Nagranie → S09 Analiza w toku
+  → S02–S06 Wywiad (cel i profil jazdy, ciało, mobilność, bezpieczeństwo i dolegliwości, wnioski)
+     albo S02q Szybki start (ok. 1 min, wynik „dopasowanie podstawowe”)
+  → S07 Markery → S08 Nagranie (lub M01 – przesłanie z telefonu) → S09 Analiza w toku
   → S10 Sprawdź punkty (weryfikacja / ręczna korekta)
   → S11 Wynik (następny krok, 4 regulacje, „Mi tak wygodnie”)
-  → S12 Wirtualne dopasowanie → S13 Zapis zmiany
-  → (jazdy, nagranie kontrolne) → S14 Ocena zmiany
+  → S12 Wirtualne dopasowanie → „Zaplanuj” → S13 Zapis zmiany
+  → (jazdy z oceną jednym dotknięciem, nagranie kontrolne) → S14 Ocena zmiany
 ```
 
 ## Pojęcia
@@ -67,7 +70,10 @@ S01 Moje analizy
 | Marker | naklejka na punkcie anatomicznym, wykrywana na obrazie |
 | Wariant | pozycja przeliczona na serwerze dla zmiany jednego parametru roweru (wirtualne dopasowanie) |
 | Akceptacja („Mi tak wygodnie”) | świadoma decyzja użytkownika, że ustawienie poza zakresem jest dla niego właściwe |
-| Ocena zmiany | werdykt po kolejnej analizie: skuteczna / częściowo / bez efektu / pogorszenie / za wcześnie |
+| Ocena zmiany | werdykt po kolejnej analizie: pomogło / częściowo / bez zmian / gorzej / za wcześnie |
+| Poziom bezpieczeństwa | wynik pytań bezpieczeństwa: brak uwag / „ostrożnie” (małe kroki) / „wstrzymaj zmiany” (pomiar bez zaleceń) |
+| Poziom pewności | jak bardzo ufamy zaleceniu: pewne / raczej pewne / do sprawdzenia – z wyjaśnieniem |
+| Dopasowanie podstawowe / pełne | wynik po szybkim starcie / po pełnym wywiadzie |
 
 ## Dla Claude Code
 
