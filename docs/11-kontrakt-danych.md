@@ -161,7 +161,8 @@ Wynik zawiera wtedy sekcję `change_evaluation`: `{ "verdict": "effective", "com
                 "predicted": { "torso_angle": 41.2 }, "tentative": true } ],
     "tips": [ { "key": "tip.saddle_width", "params": { "from_mm": 145, "to_mm": 155 } },
               { "key": "tip.crank_length", "params": { "variant_id": "crank_length_mm:-2.5" } } ],
-    "signals": { "pelvis_rock": false }
+    "signals": { "pelvis_rock": false },
+    "missing_data": [ { "field": "stem_length_mm", "purpose_key": "missing.visualize_and_fit" } ]
   },
   "variants": [
     { "id": "stem_length_mm:-10", "param": "stem_length_mm", "value": 90, "delta": -10, "approximate": false,

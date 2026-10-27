@@ -214,7 +214,6 @@ Start: `high`. Każdy spełniony warunek obniża o jeden poziom (minimum `low`);
 | `conf.no_markers` | `markers_mode = none` | −1 |
 | `conf.near_boundary` | odległość wartości od najbliższej granicy zielonego < 2 × SD pomiaru | −1 |
 | `conf.evidence_assumption` | zakres regulacji ma poziom dowodu `assumption` | −1 |
-| `conf.approximate_geometry` | tylko akcje kierownicy (`spacers_mm`, `stem_angle_deg`), gdy brak kąta główki i dostępności części | −1 |
 | `conf.no_scale` | `scale_source = none` (bez znacznika i wymiarów ciała) | −1 |
 | `conf.scale_estimated` | `W_SCALE_ESTIMATED` i regulacja mierzona w mm (`saddle_fore_aft`) | −1 |
 | `conf.basic_fit` | `fit_level = basic` | −1 |
@@ -252,6 +251,22 @@ Wartości robocze (`practice`).
   (Ferrer-Roca i in.; Reynolds i in. 2025), `assumption` dla progów.
 - `pelvis_rock` – `pelvis_vertical.rom > signals.pelvis_rock_mm` (roboczo 20 mm): podnosi pewność „obniż siodło”;
   przy statusie `ok` wysokości siodła – tylko flaga w szczegółach („duży ruch miednicy w pionie”).
+
+### 6.4 Granice regulacji i rozmiar ramy
+
+Zalecenie zawsze podaje parametr i wielkość zmiany, także bez danych roweru. Gdy potrzebna zmiana wychodzi poza
+typowy zakres regulacji, dodatkowo pojawia się porada `tip.frame_size`:
+
+| Sytuacja | Z danymi roweru | Bez danych roweru | Porada |
+|---|---|---|---|
+| za daleko do kierownicy | `stem_length_mm − Δ` < `limits.stem_min_mm[type]` (roboczo szosa 70, gravel 60, MTB 35) | `Δ` > `limits.reach_change_max_mm` (roboczo 30 mm) | „Skróć mostek o {mm} mm. Tak duża zmiana sugeruje, że rama może być za duża – warto sprawdzić rozmiar ramy.” |
+| za blisko | `stem_length_mm + Δ` > `limits.stem_max_mm[type]` (roboczo 130) | jw. | „… rama może być za mała.” |
+| kierownica za nisko | `spacers_mm + Δ` > `limits.spacers_max_mm` (40) i mostek już w górę | `Δ` > `limits.bar_height_change_max_mm` (30) | „… rama może być za niska / za długa dla Twojej pozycji.” |
+| siodło | potrzebna zmiana > `limits.saddle_change_max_mm` (40) | jw. | „… rama może być za mała / za duża.” |
+
+Granice w pliku modelu (`limits`), poziom dowodu `practice`, robocze (D-06). Przy znanych danych porada odnosi się
+do bieżących części; przy braku – do wielkości potrzebnej zmiany. Wynik zawiera także `missing_data`: lista pól roweru,
+które poprawią wizualizację i dopasowanie (z tekstem celu, `docs/21`).
 
 ## 7. Akceptacja „Mi tak wygodnie”
 
@@ -321,7 +336,7 @@ Kamper i in. 2009) i opcjonalnie siłę dolegliwości docelowej 0–10 (`docs/03
   ],
   "safety": { "caution_step_mm": 5, "stop_blocks_recommendations": true },
   "confidence": { "near_boundary_sd": 2, "rules": ["conf.quality_warn", "conf.no_markers", "conf.near_boundary",
-                  "conf.evidence_assumption", "conf.approximate_geometry", "conf.scale_estimated", "conf.basic_fit",
+                  "conf.evidence_assumption", "conf.no_scale", "conf.scale_estimated", "conf.basic_fit",
                   "conf.high_effort", "conf.pelvis_rock_support"] },
   "signals": { "knee_flex_top_high_deg": 115, "knee_flex_top_replacement_deg": 110, "hip_closed_deg": 45,
                "pelvis_rock_mm": 20 },

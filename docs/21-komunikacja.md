@@ -58,6 +58,8 @@ Kolor czerwony (`--bad-*`) tylko dla błędów, „Wstrzymaj zmiany” i werdykt
 | „Dlaczego teraz to?” | „Najpierw {regulacja}, bo od niej zależy reszta pozycji.” |
 | „Wpływ na inne ustawienia” | „Kierownica będzie o ok. {mm} mm dalej – nadal w zakresie.” / „… – sprawdzimy to w kolejnym kroku.” |
 | przewidywanie (S12) | „Przewidywanie modelu – nie pomiar i nie dowód, że zmiana pomoże. Sprawdzimy to nagraniem po zmianie.” |
+| brak danych roweru | „Uzupełnij {pole} – dokładniej pokażemy rower po zmianie i dopasujemy część.” (nie osłabia zalecenia) |
+| zmiana ponad zakres regulacji | „Tak duża zmiana sugeruje, że rama może być za duża / za mała – warto sprawdzić rozmiar ramy.” |
 | kolejne kroki planu | „Wstępnie – po nagraniu kontrolnym przeliczymy plan.” |
 
 ## 4. Wysiłek zmiany (C-07)

@@ -6,8 +6,9 @@ tworzy nową wersję i wpis w historii (`fit_change`). Sesja analizy wskazuje we
 **Dane roweru są opcjonalne (ADR-26).** Analiza, statusy i zalecenia (kierunek i wielkość zmiany) liczy się
 z nagrania i wymiarów ciała (`docs/10`, rozdz. 3.1). Minimum to nazwa i typ roweru (typ wybiera zakresy).
 Każde pole poniżej ma odpowiedź „Nie wiem” (wartość `NULL`, nigdy 0). Dane roweru, jeśli są, dają: wartości
-bezwzględne w historii, sprawdzenie dostępności części (podkładki, mostek), dokładniejszy kierunek przesuwu
-kierownicy (kąt główki). Rozdz. 7 opisuje, co serwer odczytuje z nagrania zamiast danych roweru.
+bezwzględne w historii, rysunek roweru po zmianie, dokładniejszy kierunek przesuwu kierownicy (kąt główki)
+i ocenę rozmiaru ramy względem bieżących części (`docs/09`, rozdz. 6.4). Brakujące dane są wskazywane jako
+„uzupełnij, aby lepiej zwizualizować i dopasować” – nie blokują zaleceń. Rozdz. 7 opisuje, co serwer odczytuje z nagrania zamiast danych roweru.
 
 Układ odniesienia (wszystkie wymiary 2D): początek w osi suportu (BB), oś X do przodu roweru, oś Y w górę,
 milimetry. W obrazie oś Y jest skierowana w dół – konwersja w `docs/08`, rozdz. 1.
@@ -37,8 +38,8 @@ milimetry. W obrazie oś Y jest skierowana w dół – konwersja w `docs/08`, ro
 | `wheel_size` | Rozmiar kół | – | `700c` · `650b` · `29` · `27_5` · `26` | nie – nie zmienia kątów rowerzysty (patrz rozdz. 5) |
 | `tyre_width_mm` | Szerokość opony | mm | 20–70 | nie |
 
-Brak geometrii → model podstawowy z nagrania (`docs/10`, rozdz. 3.1); obniżona pewność dotyczy tylko akcji
-kierownicy zależnych od kąta główki i dostępności części (`docs/10`, rozdz. 7).
+Brak geometrii → model podstawowy z nagrania (`docs/10`, rozdz. 3.1); zalecenia pełne, brak danych wskazany
+osobno (`docs/10`, rozdz. 7).
 
 ## 2. Ustawienie roweru (`fit_bike_setup`)
 

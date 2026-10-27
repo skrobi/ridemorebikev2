@@ -146,10 +146,12 @@ Parametry niemodelowane (tylko informacja w UI): `saddle_tilt_deg`, `bar_width_m
 | `body` – długość nogi, wzrost, rozpiętość ramion (proporcje segmentów, np. udo ≈ 0,245 wzrostu; kontrola wzajemna wymiarów) | ok. 3–5% | wartości w mm, `W_SCALE_ESTIMATED`; błąd 5% przy zmianie 15 mm ≈ 0,7 mm |
 | `none` – brak obu | – | tylko kąty i kierunek; zalecenie = stały krok 5 mm; pomiary w mm ukryte (`W_NO_SCALE`) |
 
-Bez danych roweru (`sim.default_*` z rozdz. 3.1) warianty mają `approximate = true` tylko dla elementów zależnych
-od geometrii ramy (kierunek podkładek, dostępność części); wielkości zmian siodła i mostka **nie** są obniżane
-w pewności. UI przy kierownicy dopisuje „sprawdź w serwisie dostępność mostka / podkładek”, a w „Rowerach” –
-„Uzupełnij 3 wymiary (2 min): długość korby, mostka, podkładki – dokładniejszy wynik”; uzupełnienie → `refit`.
+Bez danych roweru (`sim.default_*` z rozdz. 3.1) zalecenie jest pełne: parametr, kierunek i wielkość (np. „skróć
+mostek o 20 mm”) – liczone z ciała, nie z roweru, więc pewność nie jest obniżana. Gdy potrzebna zmiana przekracza
+typowy zakres regulacji, model wnioskuje o rozmiarze ramy (`docs/09`, rozdz. 6.4). Brakujące dane roweru są
+wskazywane osobno jako `missing_data` – z celem: „Uzupełnij długość mostka, aby dokładniej pokazać rower po zmianie
+i dobrać część” – i dotyczą wizualizacji (rysunek roweru w S12, wartości bezwzględne) oraz dokładności dopasowania,
+nie tego, czy zalecenie wolno wydać. Uzupełnienie → `refit`.
 
 ## 8. Kombinacje zmian
 
