@@ -160,7 +160,7 @@ Tryb `markers_mode = none`: tylko `model`/`interpolated`/`missing`.
 | `bad` | < 0,6 | < 60% próbek → wartość ukryta w interfejsie | – |
 | `na` | – | pomiar niemożliwy z tego nagrania (np. tor kolana z boku) | – |
 
-Ostrzeżenia (kody): `W_SCALE_ESTIMATED`, `W_TILT_UNCERTAIN`, `W_MARKER_OCCLUDED:{point}`, `W_LOW_CONFIDENCE:{point}`,
+Ostrzeżenia (kody): `W_SCALE_ESTIMATED`, `W_NO_SCALE`, `W_TILT_UNCERTAIN`, `W_MARKER_OCCLUDED:{point}`, `W_LOW_CONFIDENCE:{point}`,
 `W_FEW_CYCLES`, `W_CADENCE_UNSTABLE`, `W_LOW_FPS`, `W_VIDEO_TRIMMED`, `W_SEGMENT_MISMATCH:{segment}`,
 `W_GRIP_MISMATCH` (chwyt wykryty ≠ zadeklarowany), `W_CHECKLIST:{code}`, `W_HIGH_EFFORT` (`session.recording_rpe`
 ≥ `quality.high_effort_rpe`, C-10). Komunikaty dla użytkownika: `docs/11`, rozdz. 7.

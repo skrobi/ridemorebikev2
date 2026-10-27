@@ -54,6 +54,8 @@ względem `--storage-root` (`docs/07`, rozdz. 1).
 }
 ```
 
+`calibration.scale_source`: `marker` · `body` · `none` (`docs/10`, rozdz. 7). Sekcje `bike.geometry` i pola `bike.setup` są opcjonalne (`null` = nieznane); wymagany jest tylko `bike.type`.
+
 Typy `correct`, `refit`, `simulate` – te same sekcje `rider`, `bike`, `fit` oraz:
 
 | Typ | Dodatkowe pola | Wejście |
@@ -122,7 +124,9 @@ Wynik zawiera wtedy sekcję `change_evaluation`: `{ "verdict": "effective", "com
                     "series": { "mean": [71.9, "… 101 wartości"], "sd": [0.8, "…"] } }
   },
   "body_model": { "segments_mm": { "thigh": 421, "shank": 478, "foot": 151, "torso": 579, "upper_arm": 304, "forearm": 276 },
-                  "offsets_mm": { "hip_from_saddle": [13, 46], "hand_from_bar": [130, -35] }, "approximate": false },
+                  "offsets_mm": { "hip_from_saddle": [13, 46], "hand_from_bar": [130, -35] }, "approximate": false,
+                  "bike_from_video": { "crank_length_mm": 172.0, "saddle_height_mm": 748, "saddle_bar_drop_mm": 64,
+                                       "seat_angle_deg": 73.1 } },
   "fit": {
     "model_version": "fit-model-v1", "profile": "endurance", "bike_type": "road",
     "fit_level": "full", "safety_level": "caution",

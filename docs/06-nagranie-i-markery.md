@@ -80,8 +80,10 @@ Tryb `none`: analiza tylko modelem pozy; wszystkie punkty mają źródło `model
 | Poziom | linia podłogi (wykrywanie linii) lub linia osi kół; fallback: założenie poziomej kamery + ostrzeżenie `W_TILT_UNCERTAIN` | `camera_tilt_deg` |
 | Ograniczenie | skala obowiązuje tylko w płaszczyźnie znacznika; ciało rowerzysty jest ~10–15 cm bliżej kamery niż rama → błąd skali kilka % | komunikat w szczegółach |
 
-Brak znacznika skali → wartości w mm (KOPS, ruch miednicy, warianty w mm) liczone ze skali szacowanej z długości
-nogi (`body.inseam_cm`) i oznaczone jako mniej pewne (`W_SCALE_ESTIMATED`).
+Brak znacznika skali → wartości w mm (KOPS, ruch miednicy, warianty w mm) liczone ze skali z wymiarów ciała:
+długość nogi (`body.inseam_cm`), wzrost i rozpiętość ramion przez proporcje segmentów (wzajemna kontrola –
+rozbieżność > 8% → ostrzeżenie), oznaczone jako mniej pewne (`W_SCALE_ESTIMATED`). Brak znacznika i wymiarów →
+tylko kąty i kierunek zmiany (`W_NO_SCALE`, `docs/10`, rozdz. 7). Dane roweru nie są potrzebne do skali.
 
 ## 5. Plik wideo – walidacja
 

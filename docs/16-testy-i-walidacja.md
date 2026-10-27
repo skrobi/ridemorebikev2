@@ -26,6 +26,7 @@
 | Model dopasowania | tabelaryczne: dla każdej regulacji wartości < zielony, w żółtym, w zielonym, > zielony; każdy modyfikator; blokady akcji (modyfikatory mobilności nigdy nie blokują); akceptacja; kolejność następnego kroku; `safety_level` `caution` (krok ≤ 5 mm) i `stop` (brak zaleceń); `fit_level = basic`; każda reguła pewności z `docs/09`, rozdz. 6.1 osobno i łącznie (minimum `low`, maksimum `high`); `effort` dla każdej akcji; porada o korbie i sygnał wahania miednicy na progach |
 | Reguły i plan | `measure_only` → brak zalecenia; `experimental` → krok 5 mm, pewność ≤ `medium`; pomiar `unvalidated` → brak zalecenia; wartość poza zielonym o mniej niż `min_margin` → brak akcji; strefa sporna → `near` bez akcji; koperta literatury przycina sumę modyfikatorów; łączenie przesunięć przez maksimum; pusty zakres → `unknown` + flaga; każdy warunek „nie oceniono” z kart reguł; ślad uzasadnienia kompletny; plan sekwencyjny: przykład z `docs/09` rozdz. 11 (pominięty mostek), odrzucenie kroku wypychającego inną regulację z `ok` do `out`, maks. 4 kroki |
 | Ścieżki i wersje | `--storage-root` + ścieżka spoza → `E_JOB_INVALID`; nieznana wersja główna → `E_SCHEMA_VERSION`; zapis atomowy `result.json` (przerwanie w trakcie nie zostawia pliku końcowego) |
+| Bez danych roweru | rower tylko z typem: analiza, statusy i wielkość zmiany siodła identyczne (± 1 mm) jak z pełną geometrią na nagraniu syntetycznym; przykład z `docs/10` rozdz. 3.1 (≈ 15 mm); skala `body` vs `marker` różnica ≤ 5%; `scale_source = none` → tylko kierunek i krok 5 mm; korba z promienia toru ± 5 mm |
 | Kinematyka | rozdzielenie `geometry` / `prediction`; kierunki: siodło +10 mm ⇒ `knee_flex_bottom` maleje; mostek −10 mm ⇒ `elbow_angle` maleje; podkładki +10 mm ⇒ `torso_angle` rośnie; zmiana kół ⇒ bez zmian kątów; wariant nieosiągalny ⇒ flaga |
 | Ocena zmiany | każdy werdykt z `docs/09`, rozdz. 9 i kombinacje kryteriów; progi odczuć: spadek 5→3 (yes), 5→4 (partial), 3→2 (33% – yes), 4→6 (worse); bez dolegliwości – tylko oceny 5-stopniowe; RPE różne o 3 → `comparable = no` |
 | CLI | kody wyjścia 0/2/3; `progress.json` aktualizowany; brak dostępu do sieci (test z blokadą gniazd) |
@@ -61,6 +62,7 @@ kamery, brak znacznika, zasłonięcie stopy, zmiana kadencji. Oczekiwania: błą
 | Prywatność – logi i uprawnienia | po scenariuszach E2E skan logów (`app-*.log`, `worker.log`) na kody obszarów dolegliwości, odpowiedzi `safety.*`, współrzędne i nazwy plików – brak trafień; pliki 0640, katalogi 0750; proces Pythona bez dostępu do sieci (test z blokadą gniazd) |
 | Retencja | każda reguła z `docs/12`, rozdz. 4; wpis w audycie |
 | Szacunek | suma różnic wariantów; brak wariantu → 422 |
+| Zmiana względna | zapis „+15 mm” bez znanej wartości wyjściowej tworzy wersję z `delta`; ze znaną – liczy `value_after` |
 | Wersje ustawień | zapis zmiany tworzy nową wersję; poprzednia niezmieniona; analiza wskazuje `setup_id` z chwili wysłania – późniejsza edycja ustawień nie zmienia tego powiązania |
 
 ## 4. Testy E2E web (Playwright)

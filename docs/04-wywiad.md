@@ -44,7 +44,7 @@ jeśli brak go w profilu (pytanie wtedy, gdy jest potrzebne – C-11).
 | `body.mass_kg` | Masa ciała | kg | 35–200 | waga łazienkowa | opisy obciążenia (poglądowe) |
 | `body.birth_year` | Rok urodzenia | – | 1920–(bieżący−10) | – | statystyki, nie zmienia zaleceń |
 | `body.sex` | Płeć (opcjonalnie) | – | `female` · `male` · `undisclosed` | – | nie zmienia zaleceń w v1 |
-| `body.inseam_cm` | Długość wewnętrzna nogi | cm | 60–110 | książka między nogami, mocno w górę; od podłogi do grzbietu książki | kontrola punktów z nagrania, przeliczenie mm, start wysokości siodła |
+| `body.inseam_cm` | Długość wewnętrzna nogi | cm | 60–110 | książka między nogami, mocno w górę; od podłogi do grzbietu książki | **skala zapasowa** bez znacznika (z wzrostem i rozpiętością ramion), kontrola punktów z nagrania, przeliczenie mm – zastępuje dane roweru (`docs/10`, rozdz. 7) |
 | `body.arm_span_cm` | Rozpiętość ramion | cm | 120–230 | ramiona w bok, od końca palców do końca palców | kontrola długości ramienia + przedramienia |
 | `body.shoe_eu` | Rozmiar buta rowerowego | EU | 34–50 | – | ustawienie bloków (gdy brak długości stopy) |
 | `body.sit_bone_cm` | Rozstaw kości kulszowych | cm | 8,0–20,0 | siad na tekturze falistej na schodku, stopy w górze; odległość między środkami 2 wgnieceń | dobór szerokości siodła (`docs/09`, rozdz. 6) |

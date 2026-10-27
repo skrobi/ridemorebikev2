@@ -3,6 +3,12 @@
 Rower (`fit_bike`) ma stałą geometrię ramy, a jego ustawienie (`fit_bike_setup`) jest wersjonowane: każda zmiana
 tworzy nową wersję i wpis w historii (`fit_change`). Sesja analizy wskazuje wersję ustawienia, na której nagrano jazdę.
 
+**Dane roweru są opcjonalne (ADR-26).** Analiza, statusy i zalecenia (kierunek i wielkość zmiany) liczy się
+z nagrania i wymiarów ciała (`docs/10`, rozdz. 3.1). Minimum to nazwa i typ roweru (typ wybiera zakresy).
+Każde pole poniżej ma odpowiedź „Nie wiem” (wartość `NULL`, nigdy 0). Dane roweru, jeśli są, dają: wartości
+bezwzględne w historii, sprawdzenie dostępności części (podkładki, mostek), dokładniejszy kierunek przesuwu
+kierownicy (kąt główki). Rozdz. 7 opisuje, co serwer odczytuje z nagrania zamiast danych roweru.
+
 Układ odniesienia (wszystkie wymiary 2D): początek w osi suportu (BB), oś X do przodu roweru, oś Y w górę,
 milimetry. W obrazie oś Y jest skierowana w dół – konwersja w `docs/08`, rozdz. 1.
 
@@ -11,7 +17,7 @@ milimetry. W obrazie oś Y jest skierowana w dół – konwersja w `docs/08`, ro
 | Kod | Nazwa | Jedn. | Zakres | Wymagane | Uwagi |
 |---|---|---|---|---|---|
 | `name` | Nazwa | – | 1–60 znaków | tak | np. „Szosa endurance” |
-| `type` | Typ | – | `road` · `gravel` · `mtb` · `tt` (po MVP) | tak | wybiera zakresy profilu |
+| `type` | Typ | – | `road` · `gravel` · `mtb` · `tt` (po MVP) | tak | wybiera zakresy profilu; „Nie wiem” → propozycja z kadru (kształt kierownicy) do potwierdzenia |
 | `size_label` | Rozmiar | – | tekst ≤ 10 | nie | np. „56”, „M” |
 | `model_year` | Rocznik | – | 1990–(bieżący+1) | nie | |
 | `is_active` | Aktywny | – | bool | – | jeden aktywny na użytkownika (domyślny w S01) |
@@ -31,8 +37,8 @@ milimetry. W obrazie oś Y jest skierowana w dół – konwersja w `docs/08`, ro
 | `wheel_size` | Rozmiar kół | – | `700c` · `650b` · `29` · `27_5` · `26` | nie – nie zmienia kątów rowerzysty (patrz rozdz. 5) |
 | `tyre_width_mm` | Szerokość opony | mm | 20–70 | nie |
 
-Brak geometrii → model wariantów używa wymiarów zmierzonych z kadru (BB, siodło, kierownica wykryte
-na obrazie, `docs/07`, rozdz. 8) i oznacza symulację jako mniej dokładną.
+Brak geometrii → model podstawowy z nagrania (`docs/10`, rozdz. 3.1); obniżona pewność dotyczy tylko akcji
+kierownicy zależnych od kąta główki i dostępności części (`docs/10`, rozdz. 7).
 
 ## 2. Ustawienie roweru (`fit_bike_setup`)
 
@@ -85,11 +91,17 @@ Wyliczane z ustawienia i geometrii (lub zmierzone przez użytkownika), pokazywan
 
 ## 4. Historia zmian (`fit_change`)
 
-Każdy wpis: `parameter` (kod z rozdz. 2), `value_before`, `value_after`, `unit`, `changed_at`, `performed_by`
+Każdy wpis: `parameter` (kod z rozdz. 2), `delta` (zmiana względna, np. +15 mm – **zawsze wymagana**),
+`value_before`, `value_after` (opcjonalne – tylko gdy znana wartość wyjściowa), `unit`, `changed_at`, `performed_by`
 (`self`/`shop`/`fitter`), `reason` (`recommendation`/`discomfort`/`new_part`/`fitter_advice`/`other`),
 `reason_note`, `recommendation_id` (jeśli z zalecenia), `setup_before_id`, `setup_after_id`.
 Kilka parametrów zmienionych tego samego dnia = kilka wpisów z tym samym `setup_after_id` (ocena zmiany oznaczy
 kryterium „jedna zmiana naraz” jako niespełnione).
+
+Zmiana wpisywana jest względnie („Podniosłem siodło o 15 mm”, z instrukcją: zaznacz sztycę taśmą przed zmianą,
+zmierz przesunięcie linijką). Gdy wartość wyjściowa jest znana, serwer liczy `value_after`; gdy nie – nowa wersja
+ustawienia przechowuje tylko przesunięcie. Ocena zmiany porównuje kąty zmierzone przed i po, więc nie wymaga
+wartości bezwzględnych.
 
 ## 5. Koła i rozmiar ramy
 
@@ -112,3 +124,15 @@ względem suportu się nie zmienia, więc **kąty rowerzysty pozostają takie sa
 | `recording_power_w` | Moc podczas nagrania (jeśli trenażer pokazuje) | 30–1500 W, opcjonalnie |
 | `upload_device` | Skąd przesłano nagranie | `desktop` · `phone` (`docs/06`, rozdz. 7) |
 | `checklist` | Lista kontrolna z S08 | mapa `kod → bool` (`docs/06`, rozdz. 2) |
+
+## 7. Dane roweru odczytywane z nagrania
+
+| Wielkość | Jak | Dokładność | Pokazywane jako |
+|---|---|---|---|
+| oś suportu, okrąg pedału | dopasowanie okręgu do toru `mtp5` (`docs/07`, rozdz. 8) | ± kilka mm | – |
+| długość korby (przybliżona) | promień toru stopy ze skalą | ± 5 mm | „ok. 172,5 mm – zmierzone z nagrania, popraw, jeśli znasz” |
+| wysokość siodła, cofnięcie, drop siodło–kierownica | odległości `bb` → punkt podparcia (biodro − typowe przesunięcie) i → nadgarstek, ze skalą | ± 10 mm (zależnie od skali) | „zmierzone z nagrania – możesz poprawić” |
+| kierunek przesuwu siodła (kąt sztycy) | linia `bb` → siodło na kadrze kluczowym; brak → 73,5° | ± 2° (wpływ < 0,1 mm na 10 mm zmiany) | w „Szczegółach” |
+
+Wartości z nagrania zapisywane są w wyniku (`body_model.bike_from_video`), a w ustawieniu roweru tylko po
+potwierdzeniu przez użytkownika (`fit_bike_setup.sources_json`: `user` / `video` / `default`).

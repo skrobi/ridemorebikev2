@@ -29,6 +29,7 @@
 | ADR-23 | Wynik symulacji rozdzielony na geometrię roweru (dokładną), przewidywanie pozycji (z jawnymi założeniami) i pomiar po zmianie; ocena zmiany tylko z pomiaru | recenzja techniczna P2; `docs/10` rozdz. 1.1 |
 | ADR-24 | Kolejność zaleceń z planu sekwencyjnego (macierz wpływu, „od podstawy w górę”, jedna zmiana na krok); zasada konsensusu ze strefą sporną; koperta literatury; ślad uzasadnienia; karta modelu i rada modelu | `docs/09` rozdz. 2, 5.3, 11–13 |
 | ADR-25 | Jedno aktywne zadanie typu na sesję (`active_key`), atomowy zapis wyniku, import w transakcji; Python ogranicza ścieżki do `--storage-root` | recenzja techniczna P6 i uwagi o kolejce; `docs/02` rozdz. 5.1, `docs/07` rozdz. 1 |
+| ADR-26 | Dane roweru opcjonalne (minimum: nazwa i typ); model podstawowy liczy zmiany z nagrania i wymiarów ciała; zalecenia i zapis zmian względne; skala: znacznik → wymiary ciała → brak (tylko kierunek) | decyzja właściciela; `docs/05`, `docs/10` rozdz. 3.1 i 7 |
 
 ## 2. Decyzje do podjęcia
 

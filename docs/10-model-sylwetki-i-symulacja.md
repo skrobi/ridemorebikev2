@@ -35,10 +35,33 @@ Parametry `sim.*` (np. `torso_follow_deg_per_mm`, `reach_margin_mm`, `min_reach_
 | Krzywa kąta stopy w cyklu | `foot_angle.mean[k]` |
 | Pochylenie pleców | `torso_angle.med` |
 | Położenie biodra i dłoni względem roweru | punkty zmierzone w układzie roweru (mediana w cyklu) |
-| Ustawienie roweru | `fit_bike_setup` sesji (`docs/05`) |
-| Geometria ramy | `fit_bike` (gdy brak – położenia z obrazu, rozdz. 7) |
+| Skala | znacznik skali → wymiary ciała → brak (rozdz. 7) |
+| Ustawienie roweru | `fit_bike_setup` sesji (`docs/05`) – **opcjonalne** |
+| Geometria ramy | `fit_bike` – **opcjonalna**; model podstawowy jej nie wymaga (rozdz. 3.1) |
 
 ## 3. Model roweru i punkty kontaktu
+
+### 3.1 Model podstawowy – z nagrania i ciała (bez danych roweru)
+
+Rower działa na ciało tylko przez punkty kontaktu, a te są widoczne na nagraniu: biodro tuż nad siodłem,
+nadgarstek na kierownicy, stopa na okręgu pedału ze środkiem w osi suportu. Dlatego model podstawowy:
+- `T` (punkt podparcia na siodle) = `H − sim.default_hip_offset_mm`; kierunek przesuwu sztycy `u_seat` z linii
+  `bb` → siodło na kadrze (brak → `sim.default_seat_angle_deg` = 73,5°);
+- `C` (oś kierownicy) = `W − sim.default_hand_offset_mm`; kierunek podkładek = `sim.default_head_angle_deg` (72°),
+  kierunek mostka – prostopadle do niego;
+- `P(θ)` – okrąg dopasowany do toru stopy (`crank_length_mm` z promienia lub zadeklarowany).
+Ponieważ warianty liczą **różnicę** (rozdz. 4, krok 5), przybliżone `T` i `C` nie przenoszą się na wynik.
+
+Odwrotne zadanie (wielkość zmiany) wynika z trójkąta segmentów, np. wysokość siodła:
+`d = √(L_udo² + L_podudzie² − 2·L_udo·L_podudzie·cos κ)` – odległość biodro–kostka przy kącie kolana κ;
+`Δ_siodło ≈ (d(κ_cel) − d(κ_teraz)) / cos φ`, gdzie φ – kąt między kierunkiem sztycy a linią biodro–kostka w DMP.
+Przykład: udo 421 mm, podudzie 478 mm, zgięcie 42° → cel 36,5°: d = 839,5 → 854,0 mm, Δ ≈ 14,5 / 0,95 ≈ 15 mm.
+Analogicznie odległość bark–dłoń z kąta łokcia daje zmianę długości mostka. Pełny model z rozdz. 4 uwzględnia
+dodatkowo ruch stopy i skutki dla pozostałych regulacji.
+
+Dane roweru (rozdz. 3.2) zastępują wartości domyślne, gdy są znane.
+
+### 3.2 Z danymi roweru
 
 1. Punkt siodła `T` (miejsce podparcia na górnej powierzchni) = `bb + saddle_height_mm · (−cos β, sin β)`
    przesunięty poziomo o różnicę cofnięcia, gdzie `β = geo_seat_angle_deg`.
@@ -115,12 +138,18 @@ Siatka wariantów daje też **macierz wpływu** (`docs/09`, rozdz. 11).
 Parametry niemodelowane (tylko informacja w UI): `saddle_tilt_deg`, `bar_width_mm`, `cleat_*`, `q_factor_mm`,
 `wheel_size`, `tyre_width_mm`, zmiana ramy (ta – przez zadanie `simulate` z nową geometrią, po MVP).
 
-## 7. Brak geometrii ramy
+## 7. Źródła skali i dokładność bez danych roweru
 
-Jeśli rower nie ma `geo_*`, model używa położeń z obrazu: `T` z punktu wskazanego przez użytkownika na kadrze
-(opcjonalnie) lub z `H − o_hip_typowe` (`sim.default_hip_offset_mm` = (13, 46)), `C` z `W − o_hand_typowe`
-(`sim.default_hand_offset_mm` = (130, 35)). Warianty są wtedy oznaczone `approximate = true` i UI pokazuje
-„dokładność ograniczona – uzupełnij geometrię roweru”.
+| Źródło skali (`scale_source`) | Dokładność | Skutek |
+|---|---|---|
+| `marker` – znacznik 20 cm | ok. 1–3% | pełne wartości w mm |
+| `body` – długość nogi, wzrost, rozpiętość ramion (proporcje segmentów, np. udo ≈ 0,245 wzrostu; kontrola wzajemna wymiarów) | ok. 3–5% | wartości w mm, `W_SCALE_ESTIMATED`; błąd 5% przy zmianie 15 mm ≈ 0,7 mm |
+| `none` – brak obu | – | tylko kąty i kierunek; zalecenie = stały krok 5 mm; pomiary w mm ukryte (`W_NO_SCALE`) |
+
+Bez danych roweru (`sim.default_*` z rozdz. 3.1) warianty mają `approximate = true` tylko dla elementów zależnych
+od geometrii ramy (kierunek podkładek, dostępność części); wielkości zmian siodła i mostka **nie** są obniżane
+w pewności. UI przy kierownicy dopisuje „sprawdź w serwisie dostępność mostka / podkładek”, a w „Rowerach” –
+„Uzupełnij 3 wymiary (2 min): długość korby, mostka, podkładki – dokładniejszy wynik”; uzupełnienie → `refit`.
 
 ## 8. Kombinacje zmian
 

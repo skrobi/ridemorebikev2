@@ -118,6 +118,8 @@ Wielkość zmiany (mm) dla reguł `validated` wyznacza się z **wariantów** (`d
 który przenosi pomiar do celu lub najbliżej celu; zaokrąglenie do 5 mm; ograniczenie do kroku maks. (10 mm;
 5 mm przy `safety_level = caution` – rozdz. 5.1).
 `amount_total_mm` = wartość potrzebna do celu (informacja „łącznie może być potrzebne ok. X mm”).
+Zalecenie jest zawsze **względne** („podnieś o 15 mm”) i nie wymaga znajomości bieżącej wartości ani geometrii
+roweru (`docs/10`, rozdz. 3.1). Przy `scale_source = none` – tylko kierunek i stały krok 5 mm.
 
 Parametr roweru dla każdej akcji: `saddle_height_mm`, `saddle_setback_mm`, `stem_length_mm`
 (alternatywnie `hoods_offset_mm`), `spacers_mm` (alternatywnie `stem_angle_deg`).
@@ -212,7 +214,8 @@ Start: `high`. Każdy spełniony warunek obniża o jeden poziom (minimum `low`);
 | `conf.no_markers` | `markers_mode = none` | −1 |
 | `conf.near_boundary` | odległość wartości od najbliższej granicy zielonego < 2 × SD pomiaru | −1 |
 | `conf.evidence_assumption` | zakres regulacji ma poziom dowodu `assumption` | −1 |
-| `conf.approximate_geometry` | warianty `approximate` (brak geometrii ramy) | −1 |
+| `conf.approximate_geometry` | tylko akcje kierownicy (`spacers_mm`, `stem_angle_deg`), gdy brak kąta główki i dostępności części | −1 |
+| `conf.no_scale` | `scale_source = none` (bez znacznika i wymiarów ciała) | −1 |
 | `conf.scale_estimated` | `W_SCALE_ESTIMATED` i regulacja mierzona w mm (`saddle_fore_aft`) | −1 |
 | `conf.basic_fit` | `fit_level = basic` | −1 |
 | `conf.high_effort` | `W_HIGH_EFFORT` (nagranie przy RPE ≥ 7) | −1 |

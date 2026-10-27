@@ -90,7 +90,8 @@ erDiagram
 
 **`fit_bike_setup`** – wersja ustawienia (`docs/05`, rozdz. 2): `id`, `bike_id` (idx), `valid_from` DATETIME(3),
 wszystkie parametry siodła, kierownicy, korb, pedałów, bloków (DECIMAL(6,1) NULL / ENUM / VARCHAR),
-`cleat_shims_json`, `setback_ref` ENUM('nose','center'), `created_by` ENUM('self','shop','fitter','import'), `created_at`.
+`cleat_shims_json`, `setback_ref` ENUM('nose','center'), `sources_json` (dla każdego pola: `user` / `video` /
+`default`; brak = nieznane), wszystkie parametry `NULL` = „Nie wiem”, `created_by` ENUM('self','shop','fitter','import'), `created_at`.
 Wersje są niezmienne (tylko INSERT).
 
 **`fit_change`**
@@ -100,7 +101,8 @@ Wersje są niezmienne (tylko INSERT).
 | `bike_id` | idx |
 | `setup_before_id`, `setup_after_id` | FK `fit_bike_setup` |
 | `parameter` | VARCHAR(40) – kod z `docs/05` |
-| `value_before`, `value_after` | VARCHAR(40) |
+| `delta` | DECIMAL(6,1) – zmiana względna, wymagana |
+| `value_before`, `value_after` | VARCHAR(40) NULL – gdy znana wartość wyjściowa |
 | `unit` | VARCHAR(10) |
 | `changed_at` | DATE |
 | `performed_by` | ENUM('self','shop','fitter') |
@@ -181,7 +183,7 @@ ENUM('analyze','correct','refit','simulate'), `is_current` TINYINT(1), `schema_v
 `pose_model`, `pose_model_version`, `fit_model_version`, `pipeline_config_hash`, `profile`,
 `fit_level` ENUM('basic','full'), `safety_level` ENUM('none','caution','stop'), `status`
 ENUM('ok','ok_with_warnings'), `quality_overall` ENUM('good','warn','bad'), `frames_ok_pct`, `cycles_total`,
-`cycles_valid`, `scale_px_per_mm`, `scale_source`, `camera_tilt_deg`, `tilt_source`, `direction`,
+`cycles_valid`, `scale_px_per_mm`, `scale_source` ENUM('marker','body','none'), `camera_tilt_deg`, `tilt_source`, `direction`,
 `video_duration_s`, `video_fps`, `video_width`, `video_height`, `fragment_start_s`, `fragment_end_s`,
 `processing_ms`, `warnings_json`, `body_model_json`, `plan_json` (plan sekwencyjny, `docs/09`, rozdz. 11),
 `result_path`, `created_at`.

@@ -239,7 +239,8 @@ uchwytu suwaka); wartości dla kombinacji oznaczone „szacunek” do czasu zako
 
 ## 15. S13 · Zapis zmiany
 
-Formularz: element (lista parametrów `docs/05`), było, jest (wstępnie z planu), „+ Dodaj kolejną zmianę”,
+Formularz: element (lista parametrów `docs/05`), **o ile zmieniono** (np. „+15 mm”, wymagane; wstępnie z planu)
+z instrukcją „zaznacz taśmą przed zmianą, zmierz linijką”, opcjonalnie było/jest, jeśli znane, „+ Dodaj kolejną zmianę”,
 ostrzeżenie „Zmieniaj jedną rzecz naraz” przy > 1 pozycji; data zmiany, wykonał (ja / serwis / bike fitter),
 powód (z analizy / ból / nowa część / porada fittera). Karta „Co dalej”: 3–5 jazd, ocena po każdej jeździe
 (jednym dotknięciem na S01), przypomnienie o nagraniu kontrolnym (data = data zmiany + `fit.followup_days`,
@@ -263,7 +264,7 @@ Wzorzec wizualny: prototyp z PR skrobi/ahd#26 (`ridemore-fit/prototyp`) oraz sty
 
 | Ekran | Zawartość |
 |---|---|
-| Rowery | lista rowerów (aktywny), szczegóły: geometria, komponenty, punkty kontaktu ze schematem (A wysokość siodła, B cofnięcie, C siodło–kierownica, D drop), historia ustawień; formularz zmiany |
+| Rowery | dodanie roweru: tylko nazwa i typ (reszta „Nie wiem”); karta „Uzupełnij 3 wymiary (2 min)”; wartości zmierzone z nagrania do potwierdzenia (`docs/05`, rozdz. 7); lista rowerów (aktywny), szczegóły: geometria, komponenty, punkty kontaktu ze schematem (A wysokość siodła, B cofnięcie, C siodło–kierownica, D drop), historia ustawień; formularz zmiany |
 | Profil | dane ciała z `docs/04`, rozdz. 3, wyniki testów mobilności w czasie, dolegliwości; informacja o danych wrażliwych |
 | Komfort | ocena 0–10 dla obszarów z `docs/04`, rozdz. 5.2, strona, rodzaj, moment, czas trwania po jeździe; kontekst jazdy (czas, rodzaj) |
 | Preferencje (w Profilu) | przypomnienia e-mail (wł./wył.), limit przypomnień, rezygnacja z analityki produktowej (C-14, C-17) |

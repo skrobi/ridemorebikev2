@@ -56,7 +56,7 @@ renderuje szablon `templates/pages/S01-moje-analizy.php` itd. Dane do Alpine.js 
 | GET/POST | `/bikes` | lista / dodanie roweru | `docs/05` §1 | rower |
 | GET/PATCH/DELETE | `/bikes/{id}` | szczegóły / edycja / miękkie usunięcie | | |
 | GET | `/bikes/{id}/setups` | wersje ustawień | | lista |
-| POST | `/bikes/{id}/changes` | zapis zmiany (S13) – tworzy nową wersję ustawienia | `{changes:[{param,before,after,unit}], changed_at, performed_by, reason, reason_note, recommendation_id?, plan_id?}` | `{change_ids, setup_id, reminder}` |
+| POST | `/bikes/{id}/changes` | zapis zmiany (S13) – tworzy nową wersję ustawienia | `{changes:[{param,delta,before?,after?,unit}], changed_at, performed_by, reason, reason_note, recommendation_id?, plan_id?}` | `{change_ids, setup_id, reminder}` |
 | POST | `/interviews` | nowy szkic wywiadu | `{bike_id, kind, upgrade_of_analysis_id?}` (`kind`: `full`/`short`/`quick`) | wywiad |
 | PATCH | `/interviews/{id}` | zapis odpowiedzi kroku (autozapis) | `{answers:[{code,side?,value,trials?}], complaints?:[...], surgeries?:[...]}` | wywiad + `flex_*` + `safety_level` + modyfikatory (podgląd S06) |
 | POST | `/interviews/{id}/complete` | zakończenie; przy `upgrade_of_analysis_id` – zlecenie `refit` | – | wywiad (+ `{job_id}`) |
