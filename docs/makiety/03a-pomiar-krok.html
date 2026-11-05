@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pomiar ciała krok po kroku – makieta</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}a{color:#1E4B38}a:hover{color:#15201A}
+.pg{width:1280px;height:1020px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
+.hd{height:64px;box-sizing:border-box;padding:0 48px;display:flex;align-items:center;gap:32px;background:#fff;border-bottom:1px solid #E2E5DD;flex:none}
+.wm{font:900 24px 'Big Shoulders Display',sans-serif}.wm i{font-style:normal;color:#2C6B4F}
+.tag{font:600 11px 'IBM Plex Mono',monospace;background:#2C6B4F;color:#fff;padding:3px 9px;border-radius:999px;text-transform:uppercase;margin-left:6px}
+.nv{display:flex;gap:6px;font-weight:600;font-size:15px}.nv a{text-decoration:none;padding:9px 14px;border-radius:999px;color:#5E6A62}.nv a.on{background:#E4EEE8;color:#1E4B38}
+.bd{flex:1;display:grid;grid-template-columns:250px minmax(0,1fr);gap:44px;padding:32px 48px;box-sizing:border-box;min-height:0}
+.st{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}.st li{padding:10px 12px;border-radius:10px;font-weight:600;font-size:15px;color:#8A948C;display:flex;gap:10px;align-items:center}
+.st li.on{background:#fff;color:#15201A;box-shadow:inset 3px 0 0 #2C6B4F}.st li.ok{color:#1E4B38}.st .g{font:600 11px 'IBM Plex Mono',monospace;color:#8A948C;padding:14px 12px 4px;letter-spacing:.06em}
+.n{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 12px 'IBM Plex Mono',monospace;background:#E2E5DD;color:#5E6A62;flex:none}.on .n{background:#15201A;color:#fff}.ok .n{background:#2C6B4F;color:#fff}
+h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif;margin:0}
+.lead{font-size:16px;color:#5E6A62;margin:6px 0 18px;line-height:1.5}
+.card{background:#fff;border:1px solid #E2E5DD;border-radius:16px;padding:16px 20px}
+.btn{display:inline-flex;align-items:center;height:48px;padding:0 26px;border-radius:999px;background:#2C6B4F;color:#fff;font-weight:600;font-size:16px;text-decoration:none}.btn.sec{background:#fff;color:#15201A;border:1px solid #D3D8CE}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid #D3D8CE;background:#fff;font:600 14px 'Instrument Sans',sans-serif;color:#15201A}.chip.on{border:2px solid #2C6B4F;background:#E4EEE8;color:#1E4B38}
+.mk{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:7px 0;border-bottom:1px solid #EDF1EC;font-size:13.5px;line-height:1.4}.mk:last-child{border-bottom:0}
+.mk b{display:block;font-size:14px}.mk span.c{color:#5E6A62}
+.nm{width:24px;height:24px;border-radius:50%;background:#FFC93F;border:2px solid #15201A;display:grid;place-items:center;font:600 12px 'IBM Plex Mono',monospace}
+.st .t{margin-left:auto;white-space:nowrap;padding-left:6px;font:600 11px "IBM Plex Mono",monospace;color:#8A948C;font-weight:600}
+.dots{display:flex;gap:6px;align-items:center}.dots i{width:10px;height:10px;border-radius:50%;background:#D3D8CE}.dots i.d{background:#2C6B4F}.dots i.c{background:#15201A;width:26px;border-radius:5px}
+.stp{counter-reset:s;list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}.stp li{counter-increment:s;display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.45}.stp li::before{content:counter(s);width:26px;height:26px;border-radius:50%;background:#E4EEE8;color:#1E4B38;display:grid;place-items:center;font:600 12px 'IBM Plex Mono',monospace}
+.bad{background:#FDF3D6;border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.5;color:#4A3700}
+.need{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.need span{font-size:13px;padding:5px 10px;border-radius:999px;background:#EDF1EC}
+.k2{font:600 12px 'IBM Plex Mono',monospace;color:#5E6A62;letter-spacing:.06em}
+.li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #E2E5DD;font-size:15px}.li:last-child{border:0}
+.why{background:#EDF1EC;border-radius:14px;padding:16px 18px;font-size:14px;line-height:1.55;color:#38443C} .fl label{display:block;font-weight:600;font-size:15px} .fl p{margin:3px 0 8px;font-size:13px;color:#5E6A62} .in{display:flex;border:1px solid #D3D8CE;border-radius:10px;overflow:hidden;height:44px;background:#fff} .in input{flex:1;min-width:0;border:0;padding:0 12px;font:16px 'Instrument Sans',sans-serif} .in span{display:grid;place-items:center;padding:0 12px;background:#EDF1EC;font:600 13px 'IBM Plex Mono',monospace;color:#5E6A62} .in{width:140px}
+.ft{display:flex;justify-content:space-between;align-items:center;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="pg" style="height: 900px">
+  <header class="hd">
+    <span class="wm">ridemore<i>.</i>bike<span class="tag">fit</span></span>
+    <nav class="nv"><a href="01-main.html" class="on">Moje sesje</a><a href="#">Rowery</a><a href="#">Profil</a></nav>
+  </header>
+  <div class="bd">
+    <ol class="st">
+      <li class="g">WYWIAD · OK. 5 MIN</li>
+      <li class="ok"><span class="n">1</span>Cel i profil jazdy<span class="t">1 min</span></li>
+      <li class="on"><span class="n">2</span>Ciało<span class="t">1–2 min</span></li>
+      <li><span class="n">3</span>Mobilność<span class="t">2 min</span></li>
+      <li><span class="n">4</span>Bezpieczeństwo i dolegliwości<span class="t">1 min</span></li>
+      <li><span class="n">5</span>Co z tego wynika<span class="t">½ min</span></li>
+      <li class="g">NAGRANIE I WYNIK</li>
+      <li><span class="n">6</span>Markery<span class="t">5 min</span></li>
+      <li><span class="n">7</span>Nagranie<span class="t">3 min</span></li>
+      <li><span class="n">8</span>Sprawdź punkty</li>
+      <li><span class="n">9</span>Wynik</li>
+    </ol>
+    <main>
+      <div style="display: flex; justify-content: space-between; align-items: center"><span class="k2">POMIAR CIAŁA · 2 Z 4</span><span class="dots"><i class="d"></i><i class="c"></i><i></i><i></i></span></div>
+      <h1 style="margin-top: 6px">Długość wewnętrzna nogi</h1>
+      <p class="lead">Najważniejszy wymiar: pozwala przeliczyć zalecenie na milimetry i sprawdzić punkty z nagrania. Ok. 1 minuty.</p>
+      <div style="display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 20px">
+        <div class="card" style="padding: 12px">
+          <svg viewBox="0 0 320 340" role="img" aria-label="Osoba boso przy ścianie z książką uniesioną między nogami; miarka od podłogi do grzbietu książki" style="width: 100%; height: auto; background: #FBFCFA; border-radius: 12px" font-family="IBM Plex Mono" font-size="12">
+            <line x1="40" y1="20" x2="40" y2="320" stroke="#B9C2BB" stroke-width="6"/><line x1="20" y1="320" x2="300" y2="320" stroke="#B9C2BB" stroke-width="4"/>
+            <circle cx="150" cy="48" r="20" fill="none" stroke="#15201A" stroke-width="3"/>
+            <path d="M150 68v90M150 90l-34 50M150 90l34 50M150 158l-22 160M150 158l22 160" stroke="#15201A" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <rect x="124" y="150" width="52" height="12" rx="2" fill="#FFC93F" stroke="#15201A" stroke-width="2"/>
+            <path d="M190 150h50" stroke="#2C6B4F" stroke-width="2" stroke-dasharray="4 3"/>
+            <line x1="250" y1="150" x2="250" y2="320" stroke="#2C6B4F" stroke-width="3"/><path d="M244 158l6-8 6 8M244 312l6 8 6-8" stroke="#2C6B4F" stroke-width="3" fill="none"/>
+            <text x="258" y="240" fill="#1E4B38">86 cm</text><text x="182" y="140" fill="#15201A">mocno w górę</text>
+          </svg>
+          <div class="need"><span>twarda książka</span><span>ściana</span><span>ołówek</span><span>miarka</span><span>pomocnik – łatwiej</span></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <div class="card"><h2>Jak zmierzyć</h2>
+            <ol class="stp"><li><span>Stań boso plecami do ściany, stopy ok. 15–20 cm od siebie – jak na pedałach.</span></li><li><span>Wsuń książkę grzbietem do góry między nogi i unieś ją <b>mocno</b>, jak siodło.</span></li><li><span>Zaznacz górę grzbietu książki na ścianie.</span></li><li><span>Zmierz od podłogi do znaku. Powtórz i wpisz średnią.</span></li></ol>
+          </div>
+          <div class="bad"><b>Typowy błąd:</b> książka trzymana za nisko – wynik wychodzi o 2–3 cm za mały. Użyj twardej książki, nie zeszytu.</div>
+          <div class="card" style="display: flex; gap: 16px; align-items: center"><div class="fl" style="margin: 0"><label for="w">Wynik</label><div class="in"><input id="w" type="text" value="86"><span>cm</span></div></div><div style="font-size: 14px; color: #1F5537">✓ To 47% wzrostu – wygląda wiarygodnie.</div></div>
+        </div>
+      </div>
+      <div class="ft"><a href="03-wywiad2.html" class="btn sec">Wstecz: wzrost</a><span style="display: flex; gap: 16px; align-items: center"><a href="03-wywiad2.html" style="font-weight: 600; font-size: 15px">Nie mam czym zmierzyć – pomiń</a><a href="03-wywiad2.html" class="btn">Dalej: rozpiętość ramion</a></span></div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raport pomiarowy – makieta</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}a{color:#1E4B38}a:hover{color:#15201A}
+.pg{width:1280px;height:860px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
+.hd{height:64px;box-sizing:border-box;padding:0 48px;display:flex;align-items:center;gap:32px;background:#fff;border-bottom:1px solid #E2E5DD;flex:none}
+.wm{font:900 24px 'Big Shoulders Display',sans-serif}.wm i{font-style:normal;color:#2C6B4F}
+.tag{font:600 11px 'IBM Plex Mono',monospace;background:#2C6B4F;color:#fff;padding:3px 9px;border-radius:999px;text-transform:uppercase;margin-left:6px}
+.nv{display:flex;gap:6px;font-weight:600;font-size:15px}.nv a{text-decoration:none;padding:9px 14px;border-radius:999px;color:#5E6A62}.nv a.on{background:#E4EEE8;color:#1E4B38}
+.bd{flex:1;display:grid;grid-template-columns:250px minmax(0,1fr);gap:44px;padding:36px 48px;box-sizing:border-box;min-height:0}
+.st{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}.st li{padding:10px 12px;border-radius:10px;font-weight:600;font-size:15px;color:#8A948C;display:flex;gap:10px;align-items:center}
+.st li.on{background:#fff;color:#15201A;box-shadow:inset 3px 0 0 #2C6B4F}.st li.ok{color:#1E4B38}.st .g{font:600 11px 'IBM Plex Mono',monospace;color:#8A948C;padding:14px 12px 4px;letter-spacing:.06em}
+.n{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 12px 'IBM Plex Mono',monospace;background:#E2E5DD;color:#5E6A62;flex:none}.on .n{background:#15201A;color:#fff}.ok .n{background:#2C6B4F;color:#fff}
+h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 18px Archivo,sans-serif;margin:0}
+.lead{font-size:16px;color:#5E6A62;margin:6px 0 22px;line-height:1.5}
+.card{background:#fff;border:1px solid #E2E5DD;border-radius:16px;padding:20px 22px}
+.opt{border:1px solid #D3D8CE;background:#fff;border-radius:14px;padding:16px;text-align:left;font-family:inherit;color:#15201A}.opt b{display:block;font-size:16px}.opt span{display:block;font-size:13px;color:#5E6A62;margin-top:3px}
+.opt.on{border:2px solid #2C6B4F;background:#E4EEE8;padding:15px}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid #D3D8CE;background:#fff;font:600 14px 'Instrument Sans',sans-serif;color:#15201A}.chip.on{border:2px solid #2C6B4F;background:#E4EEE8;color:#1E4B38}
+.btn{display:inline-flex;align-items:center;height:48px;padding:0 26px;border-radius:999px;background:#2C6B4F;color:#fff;font-weight:600;font-size:16px;text-decoration:none}.btn.sec{background:#fff;color:#15201A;border:1px solid #D3D8CE}
+.ft{display:flex;justify-content:space-between;align-items:center;margin-top:26px}
+.why{background:#EDF1EC;border-radius:14px;padding:16px 18px;font-size:14px;line-height:1.55;color:#38443C}
+.mono{font-family:'IBM Plex Mono',monospace}
+.st .t{margin-left:auto;white-space:nowrap;padding-left:6px;font:600 11px "IBM Plex Mono",monospace;color:#8A948C;font-weight:600}
+.rw{display:grid;grid-template-columns:200px 70px 70px minmax(0,1fr);gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid #E2E5DD;font-size:14px}.rw:last-child{border:0}
+.v{font:600 14px 'IBM Plex Mono',monospace}.b{white-space:nowrap;display:inline-block;margin:2px 0;font:600 11px 'IBM Plex Mono',monospace;padding:3px 8px;border-radius:999px;justify-self:start}
+</style>
+</head>
+<body>
+<div class="pg" style="height: 760px">
+  <header class="hd">
+    <span class="wm">ridemore<i>.</i>bike<span class="tag">fit</span></span>
+    <nav class="nv"><a href="01-main.html" class="on">Moje sesje</a><a href="#">Rowery</a><a href="#">Profil</a></nav>
+  </header>
+  <div style="padding: 32px 48px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 24px">
+    <main>
+      <a href="10-punkty.html" style="font-size: 14px; font-weight: 600">← Sprawdź punkty</a>
+      <h1 style="margin-top: 6px">Raport pomiarowy</h1>
+      <p class="lead">Wydanie testowe: pokazujemy tylko pomiar i jego wiarygodność – bez zaleceń zmian. 41 z 46 obrotów korby użytych do obliczeń.</p>
+      <div class="card" style="padding: 8px 22px"><div class="rw"><b>Zgięcie kolana na dole</b><span class="v">39°</span><span style="color:#5E6A62">SD 1,4</span><span><span class="b" style="background:#E3F0E7;color:#1F5537">✓ jakość dobra</span> <span class="b" style="background:#E4EEE8;color:#1E4B38">zwalidowany</span></span></div><div class="rw"><b>Zgięcie kolana w górze</b><span class="v">109°</span><span style="color:#5E6A62">SD 1,8</span><span><span class="b" style="background:#E3F0E7;color:#1F5537">✓ jakość dobra</span> <span class="b" style="background:#E4EEE8;color:#1E4B38">zwalidowany</span></span></div><div class="rw"><b>Pochylenie pleców</b><span class="v">40°</span><span style="color:#5E6A62">SD 1,1</span><span><span class="b" style="background:#E3F0E7;color:#1F5537">✓ jakość dobra</span> <span class="b" style="border:1px dashed #8A948C;color:#5E6A62">pomiar niezweryfikowany</span></span></div><div class="rw"><b>Kąt łokcia</b><span class="v">166°</span><span style="color:#5E6A62">SD 1,9</span><span><span class="b" style="background:#E3F0E7;color:#1F5537">✓ jakość dobra</span> <span class="b" style="border:1px dashed #8A948C;color:#5E6A62">pomiar niezweryfikowany</span></span></div><div class="rw"><b>Kąt biodra (min.)</b><span class="v">48°</span><span style="color:#5E6A62">SD 1,6</span><span><span class="b" style="background:#E3F0E7;color:#1F5537">✓ jakość dobra</span> <span class="b" style="border:1px dashed #8A948C;color:#5E6A62">pomiar niezweryfikowany</span></span></div><div class="rw"><b>Kolano względem pedału</b><span class="v">—</span><span style="color:#5E6A62"></span><span><span class="b" style="background:#EEF0EC;color:#5E6A62">? nie oceniono</span><div style='color:#5E6A62;margin-top:4px'>Nie oceniliśmy: brak znacznika skali. Przyklej znacznik 20 cm, aby zmierzyć.</div></span></div><div class="rw"><b>Kąt stawu skokowego</b><span class="v">—</span><span style="color:#5E6A62"></span><span><span class="b" style="background:#FDF3D6;color:#6B4E00">! niewiarygodny</span><div style='color:#5E6A62;margin-top:4px'>Marker stopy zasłonięty przez korbę w 38% klatek. Nagraj ponownie z innym światłem lub markerem wyżej na bucie.</div></span></div></div>
+    </main>
+    <aside style="display: flex; flex-direction: column; gap: 14px; padding-top: 60px">
+      <div class="card"><h2>Nagrać ponownie?</h2><p style="font-size: 14px; line-height: 1.5; color: #38443C; margin: 8px 0 12px">Dwa pomiary nie zostały ocenione. Popraw znacznik skali i światło przy stopie, a zmierzymy je przy kolejnym nagraniu.</p><a href="08-nagranie.html" class="btn" style="height: 44px">Nagraj ponownie</a></div>
+      <div class="why"><b>Co znaczą oznaczenia?</b><br><b>zwalidowany</b> – porównany z pomiarem referencyjnym i spełnia kryteria dokładności. <b>niezweryfikowany</b> – jeszcze nie porównany; wartość orientacyjna. <b>nie oceniono</b> – brak danych do pomiaru.</div>
+      <p style="margin: 0; font: 600 11px 'IBM Plex Mono', monospace; color: #5E6A62">DANE PRZYKŁADOWE · KONCEPCJA UX · ETAP M2</p>
+    </aside>
+  </div>
+</div>
+</body>
+</html>

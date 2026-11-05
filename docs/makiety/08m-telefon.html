@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>M01 Przesłanie z telefonu – makieta</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F5F1}
+.pg{width:390px;height:960px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
+.hd{height:56px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #E2E5DD}
+.wm{font:900 21px 'Big Shoulders Display',sans-serif}.wm i{font-style:normal;color:#2C6B4F}
+.tag{font:600 10px 'IBM Plex Mono',monospace;background:#2C6B4F;color:#fff;padding:2px 7px;border-radius:999px;text-transform:uppercase;margin-left:5px}
+main{padding:20px 16px;display:flex;flex-direction:column;gap:14px}
+h1{font:800 26px Archivo,sans-serif;margin:0}h2{font:700 16px Archivo,sans-serif;margin:0}
+.card{background:#fff;border:1px solid #E2E5DD;border-radius:16px;padding:16px}
+.muted{font-size:14px;color:#5E6A62;line-height:1.45}
+.btn{display:flex;align-items:center;justify-content:center;height:52px;border-radius:999px;background:#2C6B4F;color:#fff;font-weight:600;font-size:16px;text-decoration:none}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid #D3D8CE;background:#fff;font-weight:600;font-size:14px}.chip.on{border:2px solid #2C6B4F;background:#E4EEE8;color:#1E4B38}
+.ck{display:flex;gap:8px;font-size:14px;padding:4px 0}
+.bar{height:10px;border-radius:5px;background:#E2E5DD;overflow:hidden}.bar span{display:block;height:100%;width:64%;background:#2C6B4F}
+.k{font:600 11px 'IBM Plex Mono',monospace;color:#5E6A62;letter-spacing:.06em}
+</style>
+</head>
+<body>
+<div class="pg">
+  <header class="hd"><span class="wm">ridemore<i>.</i>bike<span class="tag">fit</span></span><span class="muted">Jan K.</span></header>
+  <main>
+    <div class="k">PRZESŁANIE Z TELEFONU · SZKIC Z 27.10, 18:02</div>
+    <h1>Szosa endurance – nagranie</h1>
+    <div class="card">
+      <svg viewBox="0 0 340 150" role="img" aria-label="Kadr: rower w poziomie, telefon na wysokości siodła, 2,5–4 m z boku" style="width:100%;height:auto;background:#EDF1EC;border-radius:12px" font-family="IBM Plex Mono" font-size="11">
+        <line x1="10" y1="128" x2="330" y2="128" stroke="#B9C2BB"/>
+        <circle cx="60" cy="100" r="26" fill="none" stroke="#15201A" stroke-width="3"/><circle cx="150" cy="100" r="26" fill="none" stroke="#15201A" stroke-width="3"/>
+        <path d="M60 100L98 100L89 52M98 100L143 60L89 52M143 60L150 100" stroke="#15201A" stroke-width="3" fill="none"/>
+        <line x1="175" y1="62" x2="290" y2="62" stroke="#2C6B4F" stroke-width="2" stroke-dasharray="5 4"/>
+        <rect x="290" y="50" width="20" height="24" rx="3" fill="#2C6B4F"/><line x1="300" y1="74" x2="300" y2="128" stroke="#2C6B4F" stroke-width="2"/>
+        <text x="232" y="54" text-anchor="middle" fill="#2C6B4F">2,5–4 m</text><text x="300" y="144" text-anchor="middle" fill="#15201A">wys. siodła</text>
+      </svg>
+      <label class="ck"><input type="checkbox" checked> Telefon poziomo, na statywie</label>
+      <label class="ck"><input type="checkbox" checked> Cały rower i Ty w kadrze</label>
+      <label class="ck"><input type="checkbox" checked> 60 fps, format „Najbardziej zgodny”</label>
+      <label class="ck"><input type="checkbox"> Jadę umiarkowanie, stała kadencja</label>
+    </div>
+    <div class="card"><h2>Strona do kamery</h2><div style="display:flex;gap:8px;margin-top:10px"><span class="chip on">prawa</span><span class="chip">lewa</span></div></div>
+    <a href="#" class="btn">Wybierz lub nagraj film</a>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;font-size:14px"><b>IMG_4821.MOV · 212 MB</b><span>64%</span></div>
+      <div class="bar" style="margin-top:10px"><span></span></div>
+      <div class="muted" style="margin-top:8px">Nie zamykaj tej strony. Po przerwie wznowimy od miejsca, w którym skończyliśmy.</div>
+    </div>
+    <div class="card" style="background:#E3F0E7;border:0">
+      <h2>Po przesłaniu</h2>
+      <div class="muted" style="margin-top:6px;color:#1F5537">Wróć do komputera – zobaczysz „Nagranie dotarło z telefonu”. Możesz też podać wysiłek, wyrazić zgody i wysłać do analizy tutaj.</div>
+    </div>
+    <p class="k" style="margin:0">DANE PRZYKŁADOWE · KONCEPCJA UX</p>
+  </main>
+</div>
+</body>
+</html>

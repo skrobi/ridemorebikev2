@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markery na ciele – makieta</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Big+Shoulders+Display:wght@900&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}a{color:#1E4B38}a:hover{color:#15201A}
+.pg{width:1280px;height:1110px;box-sizing:border-box;background:#F4F5F1;color:#15201A;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column}
+.hd{height:64px;box-sizing:border-box;padding:0 48px;display:flex;align-items:center;gap:32px;background:#fff;border-bottom:1px solid #E2E5DD;flex:none}
+.wm{font:900 24px 'Big Shoulders Display',sans-serif}.wm i{font-style:normal;color:#2C6B4F}
+.tag{font:600 11px 'IBM Plex Mono',monospace;background:#2C6B4F;color:#fff;padding:3px 9px;border-radius:999px;text-transform:uppercase;margin-left:6px}
+.nv{display:flex;gap:6px;font-weight:600;font-size:15px}.nv a{text-decoration:none;padding:9px 14px;border-radius:999px;color:#5E6A62}.nv a.on{background:#E4EEE8;color:#1E4B38}
+.bd{flex:1;display:grid;grid-template-columns:250px minmax(0,1fr);gap:44px;padding:32px 48px;box-sizing:border-box;min-height:0}
+.st{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}.st li{padding:10px 12px;border-radius:10px;font-weight:600;font-size:15px;color:#8A948C;display:flex;gap:10px;align-items:center}
+.st li.on{background:#fff;color:#15201A;box-shadow:inset 3px 0 0 #2C6B4F}.st li.ok{color:#1E4B38}.st .g{font:600 11px 'IBM Plex Mono',monospace;color:#8A948C;padding:14px 12px 4px;letter-spacing:.06em}
+.n{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 12px 'IBM Plex Mono',monospace;background:#E2E5DD;color:#5E6A62;flex:none}.on .n{background:#15201A;color:#fff}.ok .n{background:#2C6B4F;color:#fff}
+h1{font:800 32px Archivo,sans-serif;margin:0}h2{font:700 17px Archivo,sans-serif;margin:0}
+.lead{font-size:16px;color:#5E6A62;margin:6px 0 18px;line-height:1.5}
+.card{background:#fff;border:1px solid #E2E5DD;border-radius:16px;padding:16px 20px}
+.btn{display:inline-flex;align-items:center;height:48px;padding:0 26px;border-radius:999px;background:#2C6B4F;color:#fff;font-weight:600;font-size:16px;text-decoration:none}.btn.sec{background:#fff;color:#15201A;border:1px solid #D3D8CE}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid #D3D8CE;background:#fff;font:600 14px 'Instrument Sans',sans-serif;color:#15201A}.chip.on{border:2px solid #2C6B4F;background:#E4EEE8;color:#1E4B38}
+.mk{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:7px 0;border-bottom:1px solid #EDF1EC;font-size:13.5px;line-height:1.4}.mk:last-child{border-bottom:0}
+.mk b{display:block;font-size:14px}.mk span.c{color:#5E6A62}
+.nm{width:24px;height:24px;border-radius:50%;background:#FFC93F;border:2px solid #15201A;display:grid;place-items:center;font:600 12px 'IBM Plex Mono',monospace}
+.st .t{margin-left:auto;white-space:nowrap;padding-left:6px;font:600 11px "IBM Plex Mono",monospace;color:#8A948C;font-weight:600}
+</style>
+</head>
+<body>
+<div class="pg">
+  <header class="hd">
+    <span class="wm">ridemore<i>.</i>bike<span class="tag">fit</span></span>
+    <nav class="nv"><a href="01-main.html" class="on">Moje sesje</a><a href="#">Rowery</a><a href="#">Profil</a></nav>
+  </header>
+  <div class="bd">
+    <ol class="st">
+      <li class="g">WYWIAD · OK. 5 MIN</li>
+      <li class="ok"><span class="n">1</span>Cel i profil jazdy<span class="t">1 min</span></li>
+      <li class="ok"><span class="n">2</span>Ciało<span class="t">1–2 min</span></li>
+      <li class="ok"><span class="n">3</span>Mobilność<span class="t">2 min</span></li>
+      <li class="ok"><span class="n">4</span>Bezpieczeństwo i dolegliwości<span class="t">1 min</span></li>
+      <li class="ok"><span class="n">5</span>Co z tego wynika<span class="t">½ min</span></li>
+      <li class="g">NAGRANIE I WYNIK</li>
+      <li class="on"><span class="n">6</span>Markery<span class="t">5 min</span></li>
+      <li><span class="n">7</span>Nagranie<span class="t">3 min</span></li>
+      <li><span class="n">8</span>Sprawdź punkty</li>
+      <li><span class="n">9</span>Wynik</li>
+    </ol>
+    <main>
+      <h1>Markery – przygotowanie</h1>
+      <p class="lead">Markery wskazują te same punkty na kościach przy każdej sesji – wynik jest dokładniejszy i da się go porównać. Bez markerów też zmierzymy, ale z mniejszą pewnością.</p>
+      <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px">
+        <div class="card" style="padding: 0; overflow: hidden; align-self: start">
+          <svg viewBox="-700 -1430 1640 1760" role="img" aria-label="Rowerzysta z boku z 8 ponumerowanymi markerami i znacznikiem skali na ramie" style="display: block; width: 100%; height: auto; background: #FBFCFA">
+            <line x1="-700" y1="265" x2="940" y2="265" stroke="#D3D8CE" stroke-width="6"></line>
+            <circle cx="-409" cy="-70" r="335" fill="none" stroke="#E2E5DD" stroke-width="16"></circle>
+            <circle cx="596" cy="-70" r="335" fill="none" stroke="#E2E5DD" stroke-width="16"></circle>
+            <path d="M0 0 L-409 -70 L-150 -505 M0 0 L-159 -537 L383 -590 L434 -428 L0 0 M434 -428 L596 -70 M-159 -537 L-213 -719 M383 -590 L369 -633 L467 -653 q95 -10 105 -50" stroke="#B9C2BB" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+            <path d="M-333 -713 Q-213 -731 -88 -719 L-95 -703 Q-213 -713 -328 -697 Z" fill="#8A948C"></path>
+            <rect x="-150" y="-330" width="44" height="120" rx="6" fill="#fff" stroke="#15201A" stroke-width="5" transform="rotate(16 -128 -270)"></rect>
+            <circle cx="-136" cy="-312" r="9" fill="#15201A"></circle><circle cx="-118" cy="-232" r="9" fill="#15201A"></circle>
+            <text x="-95" y="-180" font-family="IBM Plex Mono" font-size="34" fill="#15201A">skala (opcja)</text>
+            <circle cx="319" cy="-1248" r="88" fill="none" stroke="#5E6A62" stroke-width="10"></circle>
+            <path d="M-200 -765 L121 -494 L22 -25 L170 0 M22 -25 L-40 20 L170 0 M-200 -765 L248 -1134 L384 -861 L597 -688" stroke="#5E6A62" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+            <g font-family="IBM Plex Mono" font-size="40" font-weight="600" text-anchor="middle">
+              <circle cx="-200" cy="-765" r="34" fill="#FFC93F" stroke="#15201A" stroke-width="6"></circle><text x="-200" y="-751">1</text>
+              <circle cx="121" cy="-494" r="34" fill="#FFC93F" stroke="#15201A" stroke-width="6"></circle><text x="121" y="-480">2</text>
+              <circle cx="22" cy="-25" r="34" fill="#FFC93F" stroke="#15201A" stroke-width="6"></circle><text x="22" y="-11">3</text>
+              <circle cx="-40" cy="20" r="34" fill="#FFC93F" stroke="#15201A" stroke-width="6"></circle><text x="-40" y="34">4</text>
+              <circle cx="170" cy="0" r="34" fill="#FFC93F" stroke="#15201A" stroke-width="6"></circle><text x="170" y="14">5</text>
+              <circle cx="248" cy="-1134" r="34" fill="#FFC93F" stroke="#15201A" stroke-width="6"></circle><text x="248" y="-1120">6</text>
+              <circle cx="384" cy="-861" r="34" fill="#FFC93F" stroke="#15201A" stroke-width="6"></circle><text x="384" y="-847">7</text>
+              <circle cx="597" cy="-688" r="34" fill="#FFC93F" stroke="#15201A" stroke-width="6"></circle><text x="597" y="-674">8</text>
+            </g>
+          </svg>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <div class="card"><h2>Jak nagrasz?</h2><div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px"><button type="button" class="chip">Mam zestaw ridemore</button><button type="button" class="chip on">Zrobię je sam (szablon do druku)</button><button type="button" class="chip">Nagrywam bez markerów</button></div></div>
+          <div class="card"><h2>Strona ciała do kamery</h2><div style="display: flex; gap: 8px; margin-top: 10px; align-items: center"><span class="chip on">prawa</span><span class="chip">lewa</span><span style="font-size: 13px; color: #5E6A62">prawa – tam dokucza kolano. Markery naklejasz po tej stronie.</span></div></div>
+          <div class="card"><h2>Twój rower <span style="font: 400 13px 'Instrument Sans'; color: #5E6A62">– opcjonalnie, dla dokładnych milimetrów</span></h2><div style="display: flex; gap: 10px; margin-top: 10px; align-items: center; font-size: 14px; flex-wrap: wrap"><span>Długość korby (nadruk na korbie):</span><span class="chip on">172,5 mm</span><span>Opona:</span><span class="chip on">700 × 28</span><span style="color: #5E6A62">Znacznik skali niepotrzebny – zmierzymy z korby i koła.</span></div></div>
+          <div class="card"><h2>Przygotuj</h2><div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; font-size: 13px"><span style="padding: 5px 10px; border-radius: 999px; background: #EDF1EC">8 naklejek Ø 2–3 cm</span><span style="padding: 5px 10px; border-radius: 999px; background: #EDF1EC">obcisły strój</span><span style="padding: 5px 10px; border-radius: 999px; background: #EDF1EC">rower na trenażerze</span><span style="padding: 5px 10px; border-radius: 999px; background: #EDF1EC">pomocnik – przy biodrze i barku</span></div></div>
+          <div class="card" style="background: #EDF1EC; border: 0; font-size: 14px; line-height: 1.55">
+            <b>Jak to przebiega (ok. 5 min):</b> poprowadzimy Cię po kolei przez 8 punktów – przy każdym pokażemy, w jakiej pozycji usiąść, jak znaleźć miejsce dotykiem i czego unikać. Na końcu podsumowanie; znacznik skali jest opcjonalny. Punkt, którego nie znajdziesz, możesz pominąć.
+          </div>
+          <div style="font-size: 13.5px; color: #5E6A62">Przy rowerze masz telefon? <a href="08m-telefon.html" style="font-weight: 600">Otwórz kreator na telefonie</a> (kod QR w kroku „Nagranie”).</div>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px"><a href="06-wywiad5.html" class="btn sec">Wstecz</a><span style="display: flex; gap: 16px; align-items: center"><a href="08-nagranie.html" style="font-weight: 600; font-size: 15px">Nagrywam bez markerów</a><a href="07a-marker-krok.html" class="btn">Zacznij: punkt 1 z 8</a></span></div>
+    </main>
+  </div>
+</div>
+</body>
+</html>
